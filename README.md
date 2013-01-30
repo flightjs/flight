@@ -706,8 +706,8 @@ can filter logged events by type or by name or turn them off completely:
 
     DEBUG.events.logByAction('trigger'); //only log event triggers
     DEBUG.events.logByName('click'); //only log events named 'click' - accepts * as wildcard
-    DEBUG.events.logNone('click'); //log nothing
-    DEBUG.events.logAll('click'); //log everything
+    DEBUG.events.logNone(); //log nothing
+    DEBUG.events.logAll(); //log everything
 
 ## Authors
 
