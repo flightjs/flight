@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Swift Unit Tests</title>
+    <link rel="stylesheet" href="../jasmine/lib/bootstrap.css" type="text/css" charset="utf-8">
+    <link rel="stylesheet" href="../jasmine/jasmine-bootstrap.css" type="text/css" charset="utf-8">
+
+    <script src="../assets/jquery.js"></script>
+    <script src="../assets/es5-shim.js"></script>
+    <script src="../assets/loadrunner.js"></script>
+    <script src="../assets/loadrunner_plugins/amd.js"></script>
+
+    <script src="../jasmine/jasmine.js" type="text/javascript"></script>
+    <script src="../jasmine/jasmine-bootstrap.js" type="text/javascript"></script>
+
+    <script src="../run_tests.js" type="text/javascript" charset="utf-8"></script>
+
+    <style type="text/css">
+      body { background: #333; }
+    </style>
+  </head>
+
+  <body>
+  <script>
+    using.path = "../../"
+
+    if(window.location.search) {
+      var keyValuePairs = window.location.search.substring(1).split('&');
+      keyValuePairs.forEach(function(pair) {
+        var chunks = pair.split('=');
+        var key = chunks[0];
+        var value = chunks[1];
+        if(key == 'using_path') {
+          using.path = value;
+        }
+      });
+    }
+  </script>
+
+  <script src="unit_test_files.js"></script>
+  </body>
+</html>

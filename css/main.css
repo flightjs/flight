@@ -1,0 +1,184 @@
+/**
+ * Flight Project Page
+ */
+
+/* ==========================================================================
+   Base styles
+   ========================================================================== */
+
+html {
+  color: #222;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+a {
+  color: #069;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: underline;
+}
+
+img {
+  vertical-align: middle;
+}
+
+h2,
+h3,
+h4 {
+  margin-top: 3em;
+  line-height: 1.2;
+}
+
+/**
+ * Custom thematic break style
+ */
+
+hr {
+  width: 122px;
+  margin: 2em auto;
+  border: 0;
+  border-bottom: 2px dotted #333;
+}
+
+p {
+  margin: 1.5em 0;
+}
+
+/**
+ * Code blocks
+ */
+
+code,
+pre {
+  overflow: auto;
+  padding: 0.15em 0.5em;
+  border: 1px solid #ddd;
+  margin: 1.5em 0;
+  background: #f2f2f2;
+  font-family: consolas, monospace, x;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+pre code {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Site
+   ========================================================================== */
+
+.container {
+  max-width: 700px;
+  padding: 0 1.25em;
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 0 2.5em 2.5em;
+  border: 1px solid #ccc;
+  margin: 2.5em -1.25em;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 5em;
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.site-tagline {
+  margin: 0 0 1em;
+  font-size: 1.75em;
+  font-weight: normal;
+}
+
+.site-main img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+}
+
+.site-footer {
+  border-top: 1px solid #ccc;
+  margin-top: 3em;
+}
+
+.site-footer p {
+  color: #777;
+  font-size: 0.875em;
+}
+
+/* ==========================================================================
+   Buttons (based on github.com/necolas/suit-button)
+   ========================================================================== */
+
+.btn {
+  position: relative;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0.75em 1.5em;
+  border: 1px solid #0288b9;
+  margin: 0;
+  background: #0097cf;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+  background: #04a2dd;
+  text-decoration: none;
+}
+
+.btn:active {
+  background: #03739c;
+  box-shadow: inset 0 2px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   Media Queries for smaller viewports
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  .site-header {
+    padding: 0;
+    border: 0;
+    margin: 0.5em 0 4em;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+}

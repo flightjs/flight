@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Flight by Twitter</title>
+    <meta name="description" content="A lightweight, component-based JavaScript framework for assigning behavior to DOM nodes.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="http://twitter.com/favicons/favicon.ico">
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+      <div class="container">
+
+      <div class="site-header" role="banner">
+        <img src="img/twitter-logo.png" width="150" height="150" alt="Twitter logo">
+        <h1 class="site-title">Flight</h1>
+        <hr>
+        <h2 class="site-tagline">A lightweight, component-based JavaScript framework from Twitter</h2>
+
+        <a class="btn" href="https://github.com/twitter/flight">View on GitHub</a>
+      </div><!-- /.site-header -->
+
+      <div class="site-main" role="main">
+        <h2>Overview</h2>
+        <p>Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM nodes. Twitter uses it for their web applications. By way of example, we've including a <a href="http://twitter.github.com/flight/demo">simple email client demo</a> (browse the <a href="https://github.com/twitter/flight/blob/gh-pages/demo">source code</a>) built over the Flight framework.</p>
+        <p>Flight uses <a href="https://github.com/kriskowal/es5-shim">ES5-shim</a> and <a href="http://jquery.com">jQuery</a>. Additionally you will need to include an AMD implementation such as <a href="http://requirejs.org/">require.js</a> or <a href="https://github.com/danwrong/loadrunner">loadrunner</a>. Please read the <a href="https://github.com/twitter/flight/blob/master/README.md">Flight documentation</a> for installation instructions.</p>
+
+
+        <a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-count="none" data-text="Flight: a lightweight, component-based JavaScript framework from Twitter">Tweet</a>
+
+        <h2>Why Flight?</h2>
+        <p>Flight is distinct from existing frameworks in that it doesn't prescribe or provide any particular approach to rendering or providing data to a web application. It's agnostic to how requests are routed, which templating language you use or even if you render your HTML on the client or the server. While some web frameworks encourage developers to arrange their code around a prescribed model layer, Flight is organized around the existing DOM model with functionality mapped directly to DOM nodes.</p>
+        <p>Not only does this obviate the need for additional data structures that will inevitably influence the broader architecture, but by mapping our functionality directly onto the native web we get to take advantage of native features. For example, we get custom event propagation for free by piggy-backing off DOM event bubbling, and our event handling infrastructure works equally well with both native and custom events.</p>
+
+        <h2>How does it work?</h2>
+        <p>Flight enforces strict separation of concerns. When you create a component you don't get a handle to it. Consequently, components cannot be referenced by other components and cannot become properties of the global object tree. This is by design. Components do not engage each other directly; instead, they broadcast their actions as events which are subscribed to by other components.</p>
+
+        <h2>Why events?</h2>
+        <p>Events are open ended. When a component triggers an event it has no knowledge of how its request will be satisfied or by whom. This enforced decoupling of functionality allows the engineer to consider each component in isolation rather than having to reason about the growing complexity of the application as a whole.</p>
+        <p>By making DOM node events proxies for component events, we let the web work for us:</p>
+        <ul>
+          <li>we get event propagation for free</li>
+          <li>a component can subscribe to a given event type at the document level or it can choose to listen only those events originating from within a specified DOM Node</li>
+          <li>subscribing components do not distinguish between custom events from other components (e.g. <code>dataMailItemsServed</code>) and native DOM node events (e.g. <code>click</code>), and process both types of event in an identical fashion</li>
+        </ul>
+
+        <p><img src="img/eventPropagation.png" alt=""></p>
+
+        <h2>Mobility and Testing</h2>
+        <p>Each component is a module, which aside from a minimal set of standard dependencies (relevant Flight utilities and mixins), has no reference to the outside world. Thus a given component will respond to a given event in the same way, regardless of environment. This makes testing both simple and reliable — events are essentially the only variable and a production event is easy to replicate in testing. You can even debug a component by triggering events in the console.</p>
+
+        <h2>Mixins</h2>
+        <p>A mixin defines a set of functionality that is useful to more than one object. Flight comes with built-in support for <a href="http://javascriptweblog.wordpress.com/2011/05/31/a-fresh-look-at-javascript-mixins/">functional mixins</a>, including protection against unintentional overrides and duplicate mixins. While classical JavaScript patterns support only single inheritance, a component (or other object) can have multiple mixins applied to it. Moreover mixins requires a fraction of the boilerplate required to form traditional classical hierarchies out of constructor-prototypes hybrids, and don't suffer the leaky abstractions of the latter ('super', 'static', 'const' etc.)</p>
+
+        <h2>Documentation and Demo</h2>
+        <p>Our GitHub page includes <a href="https://github.com/twitter/flight/blob/master/README.md">full documentation</a> as well as a <a href="https://github.com/twitter/flight/tree/gh-pages/demo">sample app</a> in the form of an <a href="http://twitter.github.com/flight/demo">email client</a>:</p>
+
+        <p><img src="img/demo.png" alt=""></p>
+
+        <h2>Future Work</h2>
+        <p>Flight is an ongoing project. We’re planning to add a full testing framework as well as making available more of the utilities that we use for the Twitter website frontend. We also look forward to your contributions and comments. We know we haven’t thought of everything and with your help we can continue to improve Flight for the benefit of everyone.</p>
+
+        <h2>Acknowledgements</h2>
+        <p>Flight was a group effort.</p>
+
+        The following folks contributed to the project: Angus Croll (<a href="https://twitter.com/angustweets">@angustweets</a>), Dan Webb (<a href="https://twitter.com/danwrong">@danwrong</a>), Kenneth Kufluk (<a href="https://twitter.com/kpk">@kpk</a>) and the members of the Twitter web team.
+
+        <p>Thanks also to Tom Hamshere (<a href="https://twitter.com/tbrd">@tbrd</a>) for his work on the README.md and Nicolas Gallagher (<a href="https://twitter.com/necolas">@necolas</a>) for general contributions to this site.
+
+        <p>On behalf of the Web Core team,<br>—Angus Croll, Engineer (<a href="https://twitter.com/angustweets">@angustweets</a>)</p>
+
+      </div><!-- /.site-main -->
+
+      <div class="site-footer" role="contentinfo">
+        <p class="license">Code licensed under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a>.</p>
+      </div><!-- /.site-footer -->
+
+    </div><!-- /.container -->
+
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="http://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </body>
+</html>
