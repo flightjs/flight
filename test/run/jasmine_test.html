@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Flight Unit Tests</title>
+    <link rel="stylesheet" href="../jasmine/lib/bootstrap.css">
+    <link rel="stylesheet" href="../jasmine/jasmine-bootstrap.css">
+
+    <script src="../assets/jquery.js"></script>
+    <script src="../assets/es5-shim.js"></script>
+    <script src="../assets/es5-sham.js"></script>
+    <script src="../assets/loadrunner.js"></script>
+    <script src="../assets/loadrunner_plugins/amd.js"></script>
+
+    <script src="../jasmine/jasmine.js"></script>
+    <script src="../jasmine/jasmine-bootstrap.js"></script>
+
+    <script src="../phantom-jasmine/console-runner.js"></script>
+
+    <script src="../run_tests.js"></script>
+
+    <style>
+      body { background: #333; }
+    </style>
+  </head>
+
+  <body>
+  <script>
+    using.path = "../../"
+
+    window.consoleReporter = new jasmine.ConsoleReporter();
+    jasmine.getEnv().addReporter(consoleReporter);
+
+    if(window.location.search) {
+      var keyValuePairs = window.location.search.substring(1).split('&');
+      keyValuePairs.forEach(function(pair) {
+        var chunks = pair.split('=');
+        var key = chunks[0];
+        var value = chunks[1];
+        if(key == 'using_path') {
+          using.path = value;
+        }
+      });
+    }
+  </script>
+
+  <script src="unit_test_files.js"></script>
+  </body>
+</html>
