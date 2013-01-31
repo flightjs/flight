@@ -83,7 +83,7 @@ define(
   function(defineComponent) {
     //..
   }
-};
+);
 ```
 
 `defineComponent` accepts any number of [mixin](#mixins) functions and returns a new Component constructor
