@@ -718,6 +718,9 @@ can filter logged events by type or by name or turn them off completely:
 Thanks for assistance and contributions:
 
 + [@sayrer](https://github.com/sayrer)
++ [@shinypb](https://github.com/shinypb)
++ [@kloots](https://github.com/kloots)
++ [@marcelduran](https://github.com/marcelduran)
 + [@tbrd](https://github.com/tbrd)
 + [@necolas](https://github.com/necolas)
 + [@jrburke](https://github.com/jrburke)
