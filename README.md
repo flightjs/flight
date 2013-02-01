@@ -359,7 +359,7 @@ Here's an example of a navigation menu component.
 ```js
 define(
   [
-    'flight/lib/component',
+    'flight/lib/component'
   ],
 
   function(defineComponent) {
@@ -379,7 +379,7 @@ define(
 
         // let some other component worry about loading the content & displaying it
         this.trigger('uiLoadUrl', {
-          url: $(e.target).attr('href');
+          url: $(e.target).attr('href')
         });
       };
 
