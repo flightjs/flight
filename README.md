@@ -263,7 +263,7 @@ this.defaultAttrs({
 
 this.selectMenuItem = function(e) {
   // toggle 'selected' class on all list items
-  this.select('menuItemSelector').toggleClass(this.attr.selectedClass);
+  this.select(this.attr.menuItemSelector).toggleClass(this.attr.selectedClass);
 
   //...
 };
