@@ -13,7 +13,7 @@ extended with minimal boilerplate.
 
 ## Sample App
 
-By way of example, we've including a simple email client built over the Flight framework. The source code for this
+By way of example, we've included a simple email client built over the Flight framework. The source code for this
 app is in the [demo](https://github.com/twitter/flight/tree/gh-pages/demo) directory and you can run the demo [here](http://twitter.github.com/flight/demo/).
 
 ## Browser Support
