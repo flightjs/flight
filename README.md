@@ -87,7 +87,7 @@ define(
 ```
 
 `defineComponent` accepts any number of [mixin](#mixins) functions and returns a new Component constructor
-with those mixins applied to its prototoype.
+with those mixins applied to its prototype.
 
 <a name="core_mixin"></a>Each Component definition should include a function declaration describing its
 basic behavior (we can think of this function as the Component's core mixin). By passing this function to
@@ -291,8 +291,8 @@ this.saveButtonClicked = function() {
   this.trigger('saveRequested', currentDocument);
 }
 
-this.updateSuccesful = function() {
-  this.trigger(document, 'transactionComplete', succcessData);
+this.updateSuccessful = function() {
+  this.trigger(document, 'transactionComplete', successData);
 }
 ```
 
@@ -497,7 +497,7 @@ keyword).
 
 ### How do I define a mixin?
 
-Mixin defintions are like Component definitions but without the call to `defineComponent`.
+Mixin definitions are like Component definitions but without the call to `defineComponent`.
 
 ```js
 
@@ -606,7 +606,7 @@ Component definitions will typically use `after` to define custom `initialize` b
 
 ### before and after
 
-You can add custom code before or after an exisiting method by calling the respective advice function with two
+You can add custom code before or after an existing method by calling the respective advice function with two
 arguments. The first is the name of the function you want to augment, the second is a custom function to be
 invoked before or after the original:
 
