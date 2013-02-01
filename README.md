@@ -367,7 +367,7 @@ define(
     return defineComponent(navigationMenu);
 
     function navigationMenu() {
-      defaultAttr({
+      this.defaultAttrs({
         menuItemSelector: '.menu-item',
         selectedClass: 'selected'
       });
