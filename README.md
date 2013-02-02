@@ -323,7 +323,8 @@ this.after('initialize', function() {
 });
 ```
 
-In the latter case, selector values are resolved, at event time, by keying into the `attr` property of the component (see [`defaults and options`](#defaults-and-options)).
+The latter case is effectively event delegation; selector values are resolved, at event time, by keying into the `attr` property
+of the component (see [`defaults and options`](#defaults-and-options)).
 For the above example we would expect the `defaultAttrs` call to look something like this:
 
 ```js
@@ -723,6 +724,8 @@ Thanks for assistance and contributions:
 + [@marcelduran](https://github.com/marcelduran)
 + [@tbrd](https://github.com/tbrd)
 + [@necolas](https://github.com/necolas)
++ [@fat](https://github.com/fat)
++ [@mkuklis](https://github.com/mkuklis)
 + [@jrburke](https://github.com/jrburke)
 + [@garann](https://github.com/garann)
 + [@WebReflection](https://github.com/WebReflection)
