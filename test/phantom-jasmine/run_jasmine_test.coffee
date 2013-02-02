@@ -9,7 +9,7 @@ class PhantomJasmineRunner
     @tries = 0
     @max_tries = 10
 
-  get_status: -> @page.evaluate(-> console_reporter.status)
+  get_status: -> @page.evaluate(-> consoleReporter.status)
 
   terminate: ->
     switch @get_status()
