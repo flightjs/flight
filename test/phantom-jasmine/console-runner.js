@@ -1,4 +1,6 @@
 /**
+ See https://github.com/jcarver989/phantom-jasmine
+
  Jasmine Reporter that outputs test results to the browser console.
  Useful for running in a headless environment such as PhantomJs, ZombieJs etc.
 

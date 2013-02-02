@@ -1,4 +1,4 @@
-#!/usr/local/bin/phantomjs
+# See https://github.com/jcarver989/phantom-jasmine
 
 # Runs a Jasmine Suite from an html page
 # @page is a PhantomJs page object
