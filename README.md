@@ -223,8 +223,8 @@ accordingly:
 ```js
 this.after('initialize', function() {
   this.$node
-      .addClass(this.attr('buttonClass'))
-      .text(this.attr('text'));
+      .addClass(this.attr.buttonClass)
+      .text(this.attr.text);
 });
 ```
 
