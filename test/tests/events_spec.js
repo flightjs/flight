@@ -77,6 +77,16 @@ provide(function(exports) {
         expect(spy).not.toHaveBeenCalled();
       });
 
+      it('does not unbind those registered events that share a callback, but were not sent "off" requests', function() {
+        var instance1 = new Component(window.outerDiv);
+        var spy = jasmine.createSpy();
+        instance1.on(document, 'event1', spy);
+        instance1.on(document, 'event2', spy);
+        instance1.off(document, 'event1', spy);
+        instance1.trigger('event2');
+        expect(spy).toHaveBeenCalled();
+      });
+
       it('bubbles custom events between components', function() {
         var instance1 = new Component(window.innerDiv);
         var instance2 = new Component(window.outerDiv);
