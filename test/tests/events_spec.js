@@ -65,17 +65,17 @@ provide(function(exports) {
         expect(spy).not.toHaveBeenCalled();
       });
 
-	  it('correctly unbinds multiple registered events for the same callback function using "off"', function() {
-		var instance1 = new Component(window.outerDiv);
-		var spy = jasmine.createSpy();
-		instance1.on(document, 'event1', spy);
-		instance1.on(document, 'event2', spy);
-		instance1.off(document, 'event1', spy);
-		instance1.off(document, 'event2', spy);
-		instance1.trigger('event1');
-		instance1.trigger('event2');
-		expect(spy).not.toHaveBeenCalled();
-	  });
+      it('correctly unbinds multiple registered events for the same callback function using "off"', function() {
+        var instance1 = new Component(window.outerDiv);
+        var spy = jasmine.createSpy();
+        instance1.on(document, 'event1', spy);
+        instance1.on(document, 'event2', spy);
+        instance1.off(document, 'event1', spy);
+        instance1.off(document, 'event2', spy);
+        instance1.trigger('event1');
+        instance1.trigger('event2');
+        expect(spy).not.toHaveBeenCalled();
+      });
 
       it('bubbles custom events between components', function() {
         var instance1 = new Component(window.innerDiv);
