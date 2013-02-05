@@ -1,4 +1,5 @@
-#Flight: an event driven component framework
+#Flight: an event-driven web application framework
+
 [![Build Status](https://travis-ci.org/twitter/flight.png?branch=master)](http://travis-ci.org/twitter/flight)
 
 Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM
@@ -10,6 +11,8 @@ that components are highly portable and easily testable.
 
 As an added bonus, Flight includes a simple and safe mixin infrastructure allowing components to be easily
 extended with minimal boilerplate.
+
+### [Follow us on Twitter](https://twitter.com/flight)
 
 ## Sample App
 
