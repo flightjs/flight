@@ -37,7 +37,7 @@ Then running `bower install` will add flight to the `components` directory of `m
 
 ## Dependencies
 
-Flight uses [ES5-shim](https://github.com/kriskowal/es5-shim) to pollyfill ES5 support for older browsers and [JQuery](http://jquery.com)
+Flight uses [ES5-shim](https://github.com/kriskowal/es5-shim) to polyfill ES5 support for older browsers and [JQuery](http://jquery.com)
 for DOM manipulation API. If you install flight with bower, these apps will be deployed in the `components`
 folder. Additionally you will need to include an AMD implementation such as [require.js](http://requirejs.org/)
 or [loadrunner](https://github.com/danwrong/loadrunner).
