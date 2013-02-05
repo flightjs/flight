@@ -3,7 +3,7 @@ var builder = require('loadbuilder'),
 	fs      = require('fs');
 
 var rootPath    = path.join(__dirname, '..'),
-	shimPath    = path.join(__dirname, 'amd-shim.js'),
+	shimPath    = path.join(__dirname, 'amd-shim.min.js'),
 	builtPath   = path.join(__dirname, '..', 'flight.js'),
 	placeholder = '{{ module }}';
 
