@@ -559,10 +559,10 @@ define(
 
   function(withPositioning) {
 
-    //mix withPositioning into withDialog
-    compose.mixin(this, [withPositioning]);
-
     function withDialog() {
+      //mix withPositioning into withDialog
+      compose.mixin(this, [withPositioning]);
+
       //...
     }
 
