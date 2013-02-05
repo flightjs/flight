@@ -12,9 +12,9 @@ provide(function(exports) {
 
         expect(Object.keys(flight).length).toBe(indexKeys.length);
 
-        for (var i=0, key; key = indexKeys[i]; i++) {
+        indexKeys.forEach(function(key) {
           expect(typeof flight[key]).toBe(typeof index[key]);
-        }
+        });
       });
     });
 
