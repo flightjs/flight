@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "version": "1.0.0",
   "dependencies": {
-    "es5-shim": "git://github.com/kriskowal/es5-shim.git#2.0.5",
+    "es5-shim": "git://github.com/kriskowal/es5-shim.git#2.0.0",
     "jquery": "1.8.3"
   }
 }
