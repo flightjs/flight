@@ -668,7 +668,7 @@ Advice can be mixed in to non-components using the compose module:
 
 ```js
 //a simple module: 'test/myObj'
-define{
+define(
   [],
 
   function() {
@@ -680,7 +680,7 @@ define{
 
     return myObj;
   }
-}
+);
 
 //import myObj and augment it
 define(
