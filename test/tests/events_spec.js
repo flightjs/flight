@@ -146,6 +146,18 @@ provide(function(exports) {
         expect(returnedData.sheep).toBe('thrilling');
       });
 
+      it("allows to pass data parameter as string", function() {
+        var instance = new Component(document.body);
+        var data = "cool";
+
+        var spy = jasmine.createSpy();
+        instance.on(document, 'foo', spy);
+        instance.trigger('foo', data);
+        var args = spy.mostRecentCall.args;
+        expect(args[0]).toEqual(jasmine.any($.Event));
+        expect(args[1]).toBe(data);
+      });
+
       exports(1);
     });
   });
