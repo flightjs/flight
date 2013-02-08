@@ -16,7 +16,7 @@ define(
       var selectedMailItems;
 
       this.defaultAttrs({
-        newMailType: 'new',
+        newMailType: 'newMail',
         forwardMailType: 'forward',
         replyMailType: 'reply',
         hintClass: 'hint',

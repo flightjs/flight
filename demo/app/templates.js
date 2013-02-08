@@ -33,7 +33,7 @@ define(
         </select>\
       </div>\
       <div class="modal-body compose-body">\
-        <div id="compose_subject" class="{{#new}}hint{{/new}}{{^new}}compose-header{{/new}}" contentEditable="true">\
+        <div id="compose_subject" class="{{#newMail}}hint{{/newMail}}{{^newMail}}compose-header{{/newMail}}" contentEditable="true">\
           {{subject}}\
         </div>\
         <div id="compose_message" class="hint" contentEditable="true">\

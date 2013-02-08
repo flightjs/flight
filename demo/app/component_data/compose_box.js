@@ -37,7 +37,7 @@ define(
         var subject = relatedMail && relatedMail.subject;
 
         var subjectLookup = {
-          new: this.attr.subjectHint,
+          newMail: this.attr.subjectHint,
           forward: this.attr.forwardPrefix + ": " + subject,
           reply: this.attr.replyPrefix + ": " + subject
         }
@@ -53,7 +53,7 @@ define(
         });
 
         return Mustache.render(templates.composeBox, {
-          new: type == 'new',
+          newMail: type == 'newMail',
           reply: type == 'reply',
           subject: this.getSubject(type, relatedMailId),
           message: this.attr.messageHint,
