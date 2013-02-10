@@ -131,6 +131,12 @@ provide(function(exports) {
         expect(args[1]).not.toBeDefined();
       });
 
+      it('throws the expected error when attempting to bind to a non-function', function() {
+        var instance = new Component(document.body);
+        var badBind = function() {instance.on(document, 'foo', "turkey")};
+        expect(badBind).toThrow("Unable to bind to 'foo' because the given callback is not a function");
+      });
+
       it('merges eventData into triggered event data', function() {
         var instance = new Component(document.body, { eventData: { penguins: 'cool', sheep: 'dull' } });
         var data = { sheep: 'thrilling' };
