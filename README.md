@@ -52,7 +52,7 @@ These files are loaded in the sample app at `demo/index.html`.
 <script src='components/jquery/jquery.js'></script>
 <script src='components/es5-shim/es5-shim.js'></script>
 <script src='components/es5-shim/es5-sham.js'></script>
-<script data-main="requireMain.js" src='components/requirejs/requirejs.js'></script>
+<script data-main="requireMain.js" src='components/requirejs/require.js'></script>
 ```
 
 ## How do I use it?
