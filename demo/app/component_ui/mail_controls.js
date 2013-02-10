@@ -2,7 +2,7 @@
 
 define(
   [
-    'components/flight/lib/component',
+    'components/flight/lib/component'
   ],
 
   function(defineComponent) {
