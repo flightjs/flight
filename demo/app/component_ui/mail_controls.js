@@ -2,7 +2,7 @@
 
 define(
   [
-    'components/flight/lib/component',
+    'components/flight/lib/component'
   ],
 
   function(defineComponent) {
@@ -17,7 +17,7 @@ define(
         moveControlSelector: '#move_mail',
         forwardControlSelector: '#forward',
         replyControlSelector: '#reply',
-        singleItemActionSelector: 'button.single-item',
+        singleItemActionSelector: 'button.single-item'
       });
 
       this.disableAll = function() {
