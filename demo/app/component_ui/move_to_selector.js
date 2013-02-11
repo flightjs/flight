@@ -20,7 +20,7 @@ define(
         selectionChangedEvent: 'uiMoveToSelectionChanged',
         //selectors
         itemSelector: 'li.move-to-item',
-        selectedItemSelector: 'li.move-to-item.selected',
+        selectedItemSelector: 'li.move-to-item.selected'
       });
 
       this.requestSelectorWidget = function(ev, data) {
