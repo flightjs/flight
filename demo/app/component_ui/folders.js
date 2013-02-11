@@ -19,7 +19,7 @@ define(
 
         //selectors
         itemSelector: 'li.folder-item',
-        selectedItemSelector: 'li.folder-item.selected',
+        selectedItemSelector: 'li.folder-item.selected'
       });
 
       this.fetchMailItems = function(ev, data) {
