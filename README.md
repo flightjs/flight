@@ -12,7 +12,7 @@ that components are highly portable and easily testable.
 As an added bonus, Flight includes a simple and safe mixin infrastructure allowing components to be easily
 extended with minimal boilerplate.
 
-**[Follow us on Twitter](https://twitter.com/flight)**  
+**[Follow us on Twitter](https://twitter.com/flight)**
 **[Visit our Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)**
 
 ## Sample App
@@ -298,6 +298,17 @@ this.saveButtonClicked = function() {
 this.updateSuccessful = function() {
   this.trigger(document, 'transactionComplete', successData);
 }
+```
+
+You can also specify a default function that will be called by the component, providing nothing in the event's
+bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default behaviors
+of native events.
+
+To define a default function, make the event argument an object that defines the event type and the `defaultFunction`.
+A common use case is defining default behavior for keyboard events:
+
+```js
+this.trigger('#textInput', {type: 'escapePressed', defaultFunction: this.blur});
 ```
 
 #### Subscribing to events
