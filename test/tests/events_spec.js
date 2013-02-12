@@ -152,6 +152,44 @@ provide(function(exports) {
         expect(returnedData.sheep).toBe('thrilling');
       });
 
+      it('executes the specified method when specified', function () {
+        var instance = new Component(document.body);
+        instance.someMethod = jasmine.createSpy();
+        instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
+        expect(instance.someMethod).toHaveBeenCalled();
+      });
+
+      it('executes the specified function when specified', function () {
+        var instance = new Component(document.body);
+        var spy = jasmine.createSpy();
+        instance.trigger({ type: 'foo', defaultBehavior: spy });
+        expect(spy).toHaveBeenCalled();
+      });
+
+      it('does not execute the specified method when a listener calls preventDefault', function () {
+        var instance = new Component(document.body);
+        instance.someMethod = jasmine.createSpy();
+
+        instance.on('foo', function (e) {
+          e.preventDefault();
+        });
+
+        instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
+        expect(instance.someMethod).not.toHaveBeenCalled();
+      });
+
+      it('does not execute the specified function when a listener calls preventDefault', function () {
+        var instance = new Component(document.body);
+        var spy = jasmine.createSpy();
+
+        instance.on('foo', function (e) {
+          e.preventDefault();
+        });
+
+        instance.trigger({ type: 'foo', defaultBehavior: spy });
+        expect(spy).not.toHaveBeenCalled();
+      });
+
       exports(1);
     });
   });
