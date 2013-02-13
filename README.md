@@ -1,4 +1,5 @@
-#Flight: an event driven component framework
+#Flight: an event-driven web application framework
+
 [![Build Status](https://travis-ci.org/twitter/flight.png?branch=master)](http://travis-ci.org/twitter/flight)
 
 Flight is a lightweight, component-based JavaScript framework that maps behavior to DOM
@@ -10,6 +11,9 @@ that components are highly portable and easily testable.
 
 As an added bonus, Flight includes a simple and safe mixin infrastructure allowing components to be easily
 extended with minimal boilerplate.
+
+**[Follow us on Twitter](https://twitter.com/flight)**
+**[Visit our Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)**
 
 ## Sample App
 
@@ -37,7 +41,7 @@ Then running `bower install` will add flight to the `components` directory of `m
 
 ## Dependencies
 
-Flight uses [ES5-shim](https://github.com/kriskowal/es5-shim) to pollyfill ES5 support for older browsers and [JQuery](http://jquery.com)
+Flight uses [ES5-shim](https://github.com/kriskowal/es5-shim) to polyfill ES5 support for older browsers and [JQuery](http://jquery.com)
 for DOM manipulation API. If you install flight with bower, these apps will be deployed in the `components`
 folder. Additionally you will need to include an AMD implementation such as [require.js](http://requirejs.org/)
 or [loadrunner](https://github.com/danwrong/loadrunner).
@@ -48,7 +52,7 @@ These files are loaded in the sample app at `demo/index.html`.
 <script src='components/jquery/jquery.js'></script>
 <script src='components/es5-shim/es5-shim.js'></script>
 <script src='components/es5-shim/es5-sham.js'></script>
-<script data-main="requireMain.js" src='components/requirejs/requirejs.js'></script>
+<script data-main="requireMain.js" src='components/requirejs/require.js'></script>
 ```
 
 ## How do I use it?
@@ -223,8 +227,8 @@ accordingly:
 ```js
 this.after('initialize', function() {
   this.$node
-      .addClass(this.attr('buttonClass'))
-      .text(this.attr('text'));
+      .addClass(this.attr.buttonClass)
+      .text(this.attr.text);
 });
 ```
 
@@ -294,6 +298,17 @@ this.saveButtonClicked = function() {
 this.updateSuccessful = function() {
   this.trigger(document, 'transactionComplete', successData);
 }
+```
+
+You can also specify a default function that will be called by the component, providing nothing in the event's
+bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default behaviors
+of native events.
+
+To define a default function, make the event argument an object that defines the event type and the `defaultFunction`.
+A common use case is defining default behavior for keyboard events:
+
+```js
+this.trigger('#textInput', {type: 'escapePressed', defaultFunction: this.blur});
 ```
 
 #### Subscribing to events
@@ -559,10 +574,10 @@ define(
 
   function(withPositioning) {
 
-    //mix withPositioning into withDialog
-    compose.mixin(this, [withPositioning]);
-
     function withDialog() {
+      //mix withPositioning into withDialog
+      compose.mixin(this, [withPositioning]);
+
       //...
     }
 
@@ -664,7 +679,7 @@ Advice can be mixed in to non-components using the compose module:
 
 ```js
 //a simple module: 'test/myObj'
-define{
+define(
   [],
 
   function() {
@@ -676,7 +691,7 @@ define{
 
     return myObj;
   }
-}
+);
 
 //import myObj and augment it
 define(
