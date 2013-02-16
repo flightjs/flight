@@ -79,7 +79,7 @@ define(
           subject: data.subject,
           message: data.message
         });
-        this.trigger('dataMailItemsRefreshRequested', data.currentFolder);
+        this.trigger('dataMailItemsRefreshRequested', {folder: data.currentFolder});
       };
 
       this.after("initialize", function() {
