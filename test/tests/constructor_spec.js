@@ -45,6 +45,11 @@ provide(function(exports) {
         expect(typeof TestComponent.prototype.trigger).toBe('function');
       });
 
+      it('can describe itself', function() {
+        var TestComponent = defineComponent(testComponent, withGoodDefaults);
+        expect(TestComponent.describe).toBe('testComponent, withGoodDefaults');
+      });
+
       it('adds core defaults', function() {
         var TestComponent = defineComponent(testComponentDefaultAttrs);
         var instance = new TestComponent(document.body);
