@@ -12,7 +12,7 @@ that components are highly portable and easily testable.
 As an added bonus, Flight includes a simple and safe mixin infrastructure allowing components to be easily
 extended with minimal boilerplate.
 
-**[Follow us on Twitter](https://twitter.com/flight)**
+**[Follow us on Twitter](https://twitter.com/flight)**  
 **[Visit our Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)**
 
 ## Sample App
