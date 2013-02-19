@@ -430,8 +430,8 @@ Now we have a simple menu component that can be attached to any element that has
 
 ## Teardown
 
-Flight provides a set of methods which remove components and their event bindings. It's a good idea to use teardown
-components after each unit test - and teardown also good for unbinding event listeners when, for example, the user
+Flight provides a set of methods which remove components and their event bindings. It's a good idea to teardown
+components after each unit test - and teardown is also good for unbinding event listeners when, for example, the user
 navigates away from a page.
 
 There are three levels of teardown:
