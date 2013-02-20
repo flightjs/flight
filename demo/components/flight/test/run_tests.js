@@ -1,4 +1,4 @@
-// Swift Test runner
+// Flight Test runner
 // Loads the tests (as modules) with Loadrunner.
 // Loadrunner won't start executing until all modules validly export, so no additional
 // sanity check is needed.
@@ -22,7 +22,7 @@ function startJasmine() {
 
 function runTests(tests) {
 
-  if (window.location.search.length>1) {
+  if (window.location.search.length > 1) {
     // this allows you to pass the module name in the querystring.  Used by the documentation HTML.
     // example: test.html?module=app/ui/design
     if (location.search.match('module=')) {
@@ -37,7 +37,7 @@ function runTests(tests) {
 
 
 window.onerror = function(errorMsg, url, lineNumber) {
-  if (errorMsg=='setting a property that has only a getter') {
+  if (errorMsg == 'setting a property that has only a getter') {
     //Selenium's plugin for Firefox 3.6 throws this error
     return;
   }

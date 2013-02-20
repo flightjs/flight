@@ -1,3 +1,9 @@
+// ==========================================
+// Copyright 2013 Twitter, Inc
+// Licensed under The MIT License
+// http://opensource.org/licenses/MIT
+// ==========================================
+
 "use strict";
 
 define(
@@ -115,11 +121,11 @@ define(
         };
       },
 
-      // Can only unique arrays of homogenous primitives, e.g. an array of only strings, an array of only booleans, or an array of only numerics
+      // Can only unique arrays of homogeneous primitives, e.g. an array of only strings, an array of only booleans, or an array of only numerics
       uniqueArray: function(array) {
         var u = {}, a = [];
 
-        for(var i = 0, l = array.length; i < l; ++i) {
+        for (var i = 0, l = array.length; i < l; ++i) {
           if (u.hasOwnProperty(array[i])) {
             continue;
           }
@@ -205,14 +211,14 @@ define(
         return function(e, data) {
           var target = $(e.target), parent;
 
-          Object.keys(rules).forEach( function(selector) {
+          Object.keys(rules).forEach(function(selector) {
             if ((parent = target.closest(selector)).length) {
               data = data || {};
               data.el = parent[0];
               return rules[selector].apply(this, [e, data]);
             }
           }, this);
-        }
+        };
       }
 
     };

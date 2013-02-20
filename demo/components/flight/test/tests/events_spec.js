@@ -65,6 +65,28 @@ provide(function(exports) {
         expect(spy).not.toHaveBeenCalled();
       });
 
+      it('correctly unbinds multiple registered events for the same callback function using "off"', function() {
+        var instance1 = new Component(window.outerDiv);
+        var spy = jasmine.createSpy();
+        instance1.on(document, 'event1', spy);
+        instance1.on(document, 'event2', spy);
+        instance1.off(document, 'event1', spy);
+        instance1.off(document, 'event2', spy);
+        instance1.trigger('event1');
+        instance1.trigger('event2');
+        expect(spy).not.toHaveBeenCalled();
+      });
+
+      it('does not unbind those registered events that share a callback, but were not sent "off" requests', function() {
+        var instance1 = new Component(window.outerDiv);
+        var spy = jasmine.createSpy();
+        instance1.on(document, 'event1', spy);
+        instance1.on(document, 'event2', spy);
+        instance1.off(document, 'event1', spy);
+        instance1.trigger('event2');
+        expect(spy).toHaveBeenCalled();
+      });
+
       it('bubbles custom events between components', function() {
         var instance1 = new Component(window.innerDiv);
         var instance2 = new Component(window.outerDiv);
@@ -109,6 +131,12 @@ provide(function(exports) {
         expect(args[1]).not.toBeDefined();
       });
 
+      it('throws the expected error when attempting to bind to wrong type', function() {
+        var instance = new Component(document.body);
+        var badBind = function() {instance.on(document, 'foo', "turkey")};
+        expect(badBind).toThrow("Unable to bind to 'foo' because the given callback is not a function or an object");
+      });
+
       it('merges eventData into triggered event data', function() {
         var instance = new Component(document.body, { eventData: { penguins: 'cool', sheep: 'dull' } });
         var data = { sheep: 'thrilling' };
@@ -122,6 +150,44 @@ provide(function(exports) {
         expect(returnedData.penguins).toBe('cool');
         expect(returnedData.sheep).toBeDefined();
         expect(returnedData.sheep).toBe('thrilling');
+      });
+
+      it('executes the specified method when specified', function () {
+        var instance = new Component(document.body);
+        instance.someMethod = jasmine.createSpy();
+        instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
+        expect(instance.someMethod).toHaveBeenCalled();
+      });
+
+      it('executes the specified function when specified', function () {
+        var instance = new Component(document.body);
+        var spy = jasmine.createSpy();
+        instance.trigger({ type: 'foo', defaultBehavior: spy });
+        expect(spy).toHaveBeenCalled();
+      });
+
+      it('does not execute the specified method when a listener calls preventDefault', function () {
+        var instance = new Component(document.body);
+        instance.someMethod = jasmine.createSpy();
+
+        instance.on('foo', function (e) {
+          e.preventDefault();
+        });
+
+        instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
+        expect(instance.someMethod).not.toHaveBeenCalled();
+      });
+
+      it('does not execute the specified function when a listener calls preventDefault', function () {
+        var instance = new Component(document.body);
+        var spy = jasmine.createSpy();
+
+        instance.on('foo', function (e) {
+          e.preventDefault();
+        });
+
+        instance.trigger({ type: 'foo', defaultBehavior: spy });
+        expect(spy).not.toHaveBeenCalled();
       });
 
       exports(1);

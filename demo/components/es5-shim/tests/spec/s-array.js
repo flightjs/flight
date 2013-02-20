@@ -74,33 +74,6 @@ describe('Array', function() {
             }, o);
             expect(actual).toExactlyMatch(expected);
         });
-
-        describe('strings', function() {
-            var str = 'Hello, World!',
-                toString = Object.prototype.toString;
-            it('should iterate all in a string', function() {
-                actual = [];
-                Array.prototype.forEach.call(str, function(item, index) {
-                    actual[index] = item;
-                });
-                expect(actual).toExactlyMatch(str.split(''));
-            });
-            it('should iterate all in a string using a context', function() {
-                actual = [];
-                var o = { a: actual };
-                Array.prototype.forEach.call(str, function(item, index) {
-                    this.a[index] = item;
-                }, o);
-                expect(actual).toExactlyMatch(str.split(''));
-            });
-            it('should have String object for third argument of callback', function() {
-                Array.prototype.forEach.call(str, function(item, index, obj) {
-                    actual = obj;
-                });
-                expect(typeof actual).toBe("object");
-                expect(toString.call(actual)).toBe("[object String]");
-            });
-        });
     });
     describe('some', function() {
         var actual, expected, numberOfRuns;
@@ -343,7 +316,7 @@ describe('Array', function() {
             expect(testSubject.indexOf(2, -9)).toEqual(0);
         });
         it('should work with fromIndex being greater than the length', function() {
-            expect(testSubject.indexOf(0, 20)).toEqual(-1);
+            expect(testSubject.indexOf('hej', 20)).toEqual(-1);
         });
         it('should work with fromIndex being negative and greater than the length', function() {
             expect(testSubject.indexOf('hej', -20)).toEqual(4);
@@ -397,7 +370,7 @@ describe('Array', function() {
                 expect(indexOf.call(testAL, 2, -9)).toEqual(0);
             });
             it('should work with fromIndex being greater than the length (array-like)', function() {
-                expect(indexOf.call(testAL, 0, 20)).toEqual(-1);
+                expect(indexOf.call(testAL, 'hej', 20)).toEqual(-1);
             });
             it('should work with fromIndex being negative and greater than the length (array-like)', function() {
                 expect(indexOf.call(testAL, 'hej', -20)).toEqual(4);
@@ -1091,53 +1064,6 @@ describe('Array', function() {
                 expect(Array.isArray(v)).toBe(false);
             });
         });
-    });
-
-    describe('unshift', function () {
-        it('should return length', function () {
-            expect([].unshift(0)).toEqual(1);
-        });
-    });
-
-    describe('splice', function () {
-        var b = ["b"],
-            a = [1, "a", b],
-            test;
-        beforeEach(function() {
-            test = a.slice(0);
-        });
-        
-        it('basic implementation test 1', function () {
-            expect(test.splice(0)).toEqual(a);
-        });
-        it('basic implementation test 2', function () {
-            test.splice(0, 2);
-            expect(test).toEqual([b]);
-        });            
-                 
-        
-        it('should do nothing if method called with no arguments', function () {
-            expect(test.splice()).toEqual([]);
-            expect(test).toEqual(a);
-        });
-        //TODO:: Is this realy TRUE behavior?
-        it('should set first argument to 0 if first argument is set but undefined', function () {
-            var test2 = test.slice(0);
-            expect(test.splice(void 0, 2)).toEqual(test2.splice(0, 2));
-            expect(test).toEqual(test2);
-        });
-
-        it('should deleted and return all items after "start" when second argument is undefined', function () {
-            expect(test.splice(0)).toEqual(a);
-            expect(test).toEqual([]);
-        });
-        it('should deleted and return all items after "start" when second argument is undefined', function () {
-            expect(test.splice(2)).toEqual([b]);
-            expect(test).toEqual([1, "a"]);
-        });
-        it('runshould have the right length', function () {
-            expect(test.splice.length).toBe(2);
-        }); 
     });
 
     

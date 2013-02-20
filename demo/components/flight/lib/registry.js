@@ -1,3 +1,9 @@
+// ==========================================
+// Copyright 2013 Twitter, Inc
+// Licensed under The MIT License
+// http://opensource.org/licenses/MIT
+// ==========================================
+
 "use strict";
 
 define(
@@ -103,7 +109,7 @@ define(
         };
 
         this.removeBind = function(event) {
-          for (var i=0, e; e = this.events[i]; i++) {
+          for (var i = 0, e; e = this.events[i]; i++) {
             if (matchEvent(e, event)) {
               this.events.splice(i, 1);
             }
@@ -146,7 +152,7 @@ define(
       this.findComponentInfo = function(which) {
         var component = which.attachTo ? which : which.constructor;
 
-        for (var i=0, c; c = this.components[i]; i++) {
+        for (var i = 0, c; c = this.components[i]; i++) {
           if (c.component === component) {
             return c;
           }
