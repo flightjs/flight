@@ -5,13 +5,11 @@
 var jasmineStarted;
 var jasmineErrored;
 
-function startJasmine() {
+function startJasmine(component) {
   if (!jasmineStarted) {
 
     afterEach(function(){
-      using('lib/component', function(component){
-        component.teardownAll()
-      });
+      component.teardownAll()
     });
 
     jasmine.getEnv().addReporter(new jasmine.BootstrapReporter());
@@ -30,9 +28,13 @@ function runTests(tests) {
       var testFile = 'test/' + moduleId + '_spec';
       tests = [testFile];
     }
-  };
+  }
 
-  using.apply(this, tests).then(startJasmine);
+  tests.unshift('lib/component');
+
+  console.log(tests);
+
+  require(tests, startJasmine)
 }
 
 
