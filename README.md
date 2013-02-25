@@ -569,10 +569,11 @@ component (e.g. to another mixin), you can invoke `compose.mixin` directly:
 ```js
 define(
   [
-    'mixins/with_positioning'
+    'mixins/with_positioning',
+    'lib/compose'
   ],
 
-  function(withPositioning) {
+  function(withPositioning, compose) {
 
     function withDialog() {
       //mix withPositioning into withDialog
