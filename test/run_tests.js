@@ -1,7 +1,4 @@
 // Flight Test runner
-// Loads the tests (as modules) with Loadrunner.
-// Loadrunner won't start executing until all modules validly export, so no additional
-// sanity check is needed.
 var jasmineStarted;
 var jasmineErrored;
 
@@ -31,8 +28,6 @@ function runTests(tests) {
   }
 
   tests.unshift('lib/component');
-
-  console.log(tests);
 
   require(tests, startJasmine)
 }
