@@ -9,8 +9,8 @@
     <script src="../assets/jquery.js"></script>
     <script src="../assets/es5-shim.js"></script>
     <script src="../assets/es5-sham.js"></script>
-    <script src="../assets/loadrunner.js"></script>
-    <script src="../assets/loadrunner_plugins/amd.js"></script>
+
+    <script src="../assets/require.js"></script>
 
     <script src="../jasmine/jasmine.js"></script>
     <script src="../jasmine/jasmine-bootstrap.js"></script>
@@ -26,7 +26,10 @@
 
   <body>
   <script>
-    using.path = "../../"
+
+    require.config({
+      baseUrl: '../../'
+    });
 
     window.consoleReporter = new jasmine.ConsoleReporter();
     jasmine.getEnv().addReporter(consoleReporter);
