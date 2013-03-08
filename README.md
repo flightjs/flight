@@ -304,11 +304,11 @@ You can also specify a default function that will be called by the component, pr
 bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default behaviors
 of native events.
 
-To define a default function, make the event argument an object that defines the event type and the `defaultFunction`.
+To define a default function, make the event argument an object that defines the event type and a `defaultBehavior` function.
 A common use case is defining default behavior for keyboard events:
 
 ```js
-this.trigger('#textInput', {type: 'escapePressed', defaultFunction: this.blur});
+this.trigger('#textInput', {type: 'escapePressed', defaultBehavior: this.blur});
 ```
 
 #### Subscribing to events
