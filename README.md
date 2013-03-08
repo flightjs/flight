@@ -301,11 +301,11 @@ this.updateSuccessful = function() {
 ```
 
 You can also specify a default function that will be called by the component, providing nothing in the event's
-bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default behaviors
+bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default actions
 of native events.
 
-To define a default function, make the event argument an object that defines the event type and a `defaultBehavior` function.
-A common use case is defining default behavior for keyboard events:
+To define a default function, make the event argument an object that specifies the event type and a `defaultBehavior`
+property. A common use case is defining default behavior for keyboard events:
 
 ```js
 this.trigger('#textInput', {type: 'escapePressed', defaultBehavior: this.blur});
