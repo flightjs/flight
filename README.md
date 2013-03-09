@@ -725,6 +725,14 @@ commands:
     DEBUG.events.logByAction('trigger'); //only log event triggers
     DEBUG.events.logByName('click'); //only log events named 'click' - accepts * as wildcard
     DEBUG.events.logNone(); //log nothing
+    
+If you want to log everything by default, update the following line in [tools/debug.js](https://github.com/twitter/flight/blob/master/tools/debug/debug.js)
+
+    var logLevel = [];
+    
+to 
+
+    var logLevel = 'all';
 
 ## Authors
 
