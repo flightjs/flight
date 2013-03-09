@@ -718,7 +718,7 @@ define(
 ## Debugging
 
 Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
-console logging is turned off, but you can you can log trigger, bind and unbind events by means of the following console
+console logging is turned off, but you can you can log `trigger`, `bind` and `unbind` events by means of the following console
 commands:
 
     DEBUG.events.logAll(); //log everything
