@@ -9,6 +9,9 @@ define(
     function withSelect() {
 
       this.defaultAttrs({
+        selectedClass: 'selected',
+        selectionChangedEvent: undefined,
+        allowMultiSelect: false,
         selectedIds: []
       });
 

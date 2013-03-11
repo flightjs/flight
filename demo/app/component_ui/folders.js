@@ -14,7 +14,6 @@ define(
     function folders() {
 
       this.defaultAttrs({
-        selectedClass: 'selected',
         selectionChangedEvent: 'uiFolderSelectionChanged',
 
         //selectors
