@@ -28,7 +28,7 @@ define(
       // returns new object representing multiple objects merged together
       // optional final argument is boolean which specifies if merge is recursive
       // original objects are unmodified
-      //
+      //f
       // usage:
       //   var base = {a:2, b:6};
       //   var extra = {b:3, c:4};
@@ -62,7 +62,7 @@ define(
       },
 
       // updates base in place by copying properties of extra to it
-      // optionally clobber protected
+      // optionally clobber protected (preserving base)
       // usage:
       //   var base = {a:2, b:6};
       //   var extra = {c:4};
@@ -71,8 +71,7 @@ define(
       //
       //   var base = {a:2, b:6};
       //   var extra = {b: 4 c:4};
-      //   push(base, extra, true); //Error ("utils.push attempted to overwrite 'b' while running in protected mode")
-      //   base; //{a:2, b:6}
+      //   base; //{a:2, b:6, c:4}
       //
       // objects with the same key will merge recursively when protect is false
       // eg:
@@ -83,15 +82,14 @@ define(
       push: function(base, extra, protect) {
         if (base) {
           Object.keys(extra || {}).forEach(function(key) {
-            if (base[key] && protect) {
-              throw Error("utils.push attempted to overwrite '" + key + "' while running in protected mode");
-            }
+            //skip is protect and attr already set (even if null)
+            if (protect && (typeof base[key] !== 'undefined')) return;
 
             if (typeof base[key] == "object" && typeof extra[key] == "object") {
               //recurse
               this.push(base[key], extra[key]);
             } else {
-              //no protect, so extra wins
+              //extra wins
               base[key] = extra[key];
             }
           }, this);

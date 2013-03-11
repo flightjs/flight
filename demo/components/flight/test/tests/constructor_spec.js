@@ -96,10 +96,10 @@ provide(function(exports) {
         TestComponent.teardownAll();
       });
 
-      it('throws error when core and mixin defaults overlap', function() {
-        expect(function () {
-          defineComponent(testComponentDefaultAttrs, withBadDefaults);
-        }).toThrow("utils.push attempted to overwrite 'core' while running in protected mode");
+      it('does not overrwrite core when core and mixin defaults overlap', function() {
+        var TestComponent = defineComponent(testComponentDefaultAttrs, withBadDefaults);
+        var instance = new TestComponent(document.body);
+        expect(instance.attr.core).toBe(35);
       });
 
     });
