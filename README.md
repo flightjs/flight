@@ -301,14 +301,14 @@ this.updateSuccessful = function() {
 ```
 
 You can also specify a default function that will be called by the component, providing nothing in the event's
-bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default behaviors
+bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default actions
 of native events.
 
-To define a default function, make the event argument an object that defines the event type and the `defaultFunction`.
-A common use case is defining default behavior for keyboard events:
+To define a default function, make the event argument an object that specifies the event type and a `defaultBehavior`
+property. A common use case is defining default behavior for keyboard events:
 
 ```js
-this.trigger('#textInput', {type: 'escapePressed', defaultFunction: this.blur});
+this.trigger('#textInput', {type: 'escapePressed', defaultBehavior: this.blur});
 ```
 
 #### Subscribing to events
@@ -718,13 +718,21 @@ define(
 ## Debugging
 
 Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
-the console will log every trigger, bind and unbind event. By sending instructions to your browser console, you
-can filter logged events by type or by name or turn them off completely:
+console logging is turned off, but you can you can log `trigger`, `bind` and `unbind` events by means of the following console
+commands:
 
+    DEBUG.events.logAll(); //log everything
     DEBUG.events.logByAction('trigger'); //only log event triggers
     DEBUG.events.logByName('click'); //only log events named 'click' - accepts * as wildcard
     DEBUG.events.logNone(); //log nothing
-    DEBUG.events.logAll(); //log everything
+    
+If you want to log everything by default, update the following line in [tools/debug.js](https://github.com/twitter/flight/blob/master/tools/debug/debug.js)
+
+    var logLevel = [];
+    
+to 
+
+    var logLevel = 'all';
 
 ## Authors
 
