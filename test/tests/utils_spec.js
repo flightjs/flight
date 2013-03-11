@@ -111,6 +111,12 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
         merged = util.merge(moo, undefined);
         expect(merged).toEqual(moo);
       });
+
+      it('returns empty hash when base and extra are undefined', function () {
+        merged = util.merge(undefined, undefined);
+        expect(typeof merged).toEqual("object");
+        expect(Object.keys(merged).length).toEqual(0);
+      });
     });
 
     describe('isDomObj()', function () {
