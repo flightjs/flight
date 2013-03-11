@@ -160,10 +160,12 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
         expect(pushed.c).toBe(44);
       });
 
-      it('does not overwrite properties when protect is true', function () {
-        expect(function () {
-          util.push(foo, moo, true);
-        }).toThrow("utils.push attempted to overwrite 'b' while running in protected mode");
+      it('does not overwrite properties when protect is true', function() {
+        var pushed = util.push(foo, moo, true);
+        expect(pushed.a).toBe(32);
+        expect(pushed.b.aa).toBe(33);
+        expect(pushed.b.bb).toBe(94);
+        expect(pushed.d).toBe(78);
       });
 
       it('recursively merges like properties when protect is false', function () {
