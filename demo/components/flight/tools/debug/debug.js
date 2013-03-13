@@ -56,7 +56,7 @@ define(
     //******************************************************************************************
     // Event logging
     //******************************************************************************************
-    var logLevel = 'all';
+    var logLevel = [];
     logFilter = {actions: logLevel, eventNames: logLevel}; //no filter by default
 
     function filterEventLogsByAction(/*actions*/) {
@@ -90,7 +90,7 @@ define(
 
         if (enable && window.console) {
           console.info('Booting in DEBUG mode');
-          console.info('You can filter event logging with DEBUG.events.logAll/logNone/logByName/logByAction');
+          console.info('You can configure event logging with DEBUG.events.logAll()/logNone()/logByName()/logByAction()');
         }
 
         window.DEBUG = this;

@@ -47,6 +47,10 @@ define(
       //   base; //{a:2, b:6}
 
       merge: function(/*obj1, obj2,....deepCopy*/) {
+        if (!arguments.length) {
+          return {};
+        }
+              
         var args = this.toArray(arguments);
 
         //start with empty object so a copy is created
