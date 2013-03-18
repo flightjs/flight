@@ -116,6 +116,13 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
           Component2.attachTo('body');
         }).not.toThrow();
       });
+
+      it('should merge mutliple options arguments correctly', function () {
+        Component.attachTo('.test-node', {foo: 42}, {bar: 42});
+        var c = registry.findComponentInfo(Component).instances[0].instance;
+        expect(c.attr.foo).toBe(42);
+        expect(c.attr.bar).toBe(42);
+      });
     });
   });
 
