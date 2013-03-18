@@ -117,7 +117,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
         }).not.toThrow();
       });
 
-      it('should merge mutliple options arguments correctly', function () {
+      it('should merge multiple options arguments correctly', function () {
         Component.attachTo('.test-node', {foo: 42}, {bar: 42});
         var c = registry.findComponentInfo(Component).instances[0].instance;
         expect(c.attr.foo).toBe(42);
