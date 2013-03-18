@@ -46,7 +46,7 @@ define(['lib/component'], function (defineComponent) {
 
     it('can describe itself', function () {
       var TestComponent = defineComponent(testComponent, withGoodDefaults);
-      expect(TestComponent.describe).toBe('testComponent, withGoodDefaults');
+      expect(TestComponent.toString()).toBe('testComponent, withGoodDefaults');
     });
 
     it('adds core defaults', function () {
