@@ -85,8 +85,8 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
     it('references expected nodes when we attach to div', function () {
       Component.attachTo('.test-node');
-      expect(registry.findInstanceInfo(window.outerDiv)).toBeTruthy();
-      expect(registry.findInstanceInfo(window.innerDiv)).toBeTruthy();
+      expect(registry.findInstanceInfoByNode(window.outerDiv)).toBeTruthy();
+      expect(registry.findInstanceInfoByNode(window.innerDiv)).toBeTruthy();
     });
 
     it('calls initializers in the correct order', function () {

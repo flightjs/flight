@@ -28,9 +28,9 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       var instance = new Component(window.outerDiv);
 
       expect(registry.components.length).toBe(1);
-      expect(registry.allInstances.length).toBe(1);
+      expect(Object.keys(registry.allInstances).length).toBe(1);
 
-      expect(registry.allInstances[0].instance).toBe(instance);
+      expect(registry.allInstances[instance.identity].instance).toBe(instance);
     });
 
     it('has correct ComponentInfo', function () {
@@ -44,13 +44,13 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
     it('has correct InstanceInfo', function () {
       var instance = new Component(window.outerDiv);
-      var instanceInfo = registry.allInstances[0];
+      var instanceInfo = registry.allInstances[instance.identity];
       expect(instanceInfo.instance).toBe(instance);
     });
 
     it('registers/unregisters InstanceInfo events', function () {
       var instance = new Component(window.outerDiv);
-      var instanceInfo = registry.allInstances[0];
+      var instanceInfo = registry.allInstances[instance.identity];
 
       var myFunction = $.noop;
       instance.on("myEvent", myFunction);
@@ -67,15 +67,15 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
     it('removes instances when we call removeInstanceInfo', function () {
       var instance = new Component(window.outerDiv);
-      var instanceInfo = registry.allInstances[0];
+      var instanceInfo = registry.allInstances[instance.identity];
 
       var previousNumberOfComponents = registry.components.length;
-      var previousNumberOfInstances = registry.allInstances.length;
+      var previousNumberOfInstances = Object.keys(registry.allInstances).length;
 
       registry.removeInstance(instance);
 
       expect(registry.components.length).toBe(previousNumberOfComponents - 1);
-      expect(registry.allInstances.length).toBe(previousNumberOfInstances - 1);
+      expect(Object.keys(registry.allInstances).length).toBe(previousNumberOfInstances - 1);
     });
 
     it('can find components with findComponentInfo', function () {
@@ -93,11 +93,11 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       //pass instance
       expect(registry.findInstanceInfo(instance).instance).toBe(instance);
       //pass node
-      expect(registry.findInstanceInfo(window.outerDiv)[0].instance).toBe(instance);
+      expect(registry.findInstanceInfoByNode(window.outerDiv)[0].instance).toBe(instance);
       //pass phoney instance, find nothing
       expect(registry.findInstanceInfo({node: window.outerDiv})).toBeNull();
       //pass phoney node, find nothing
-      expect(registry.findInstanceInfo(window.innerDiv).length).toBeFalsy();
+      expect(registry.findInstanceInfoByNode(window.innerDiv).length).toBeFalsy();
     });
   });
 
