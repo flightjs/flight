@@ -1,3 +1,13 @@
+## v1.0.4 (03/12/2013)
+
+###features
+* more efficient options->attr merging
+* faster component initialization
+
+###bug fixes and tweaks
+* tighter debug-mode checking
+* remove obsolete component::bind
+
 ## v1.0.3 (03/05/2013)
 
 ###features
@@ -12,7 +22,7 @@
 
 ###features
 * events can define default behaviour
- 
+
 ###bug fixes and tweaks
 * fix null pointer issues with callback exception
 
