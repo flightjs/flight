@@ -2,7 +2,7 @@
   "name": "flight",
   "description": "Clientside component infrastructure",
   "main": "lib/index.js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "dependencies": {
     "es5-shim": "git://github.com/kriskowal/es5-shim.git#2.0.0",
     "jquery": "1.8.3"

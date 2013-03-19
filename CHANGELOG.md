@@ -1,3 +1,15 @@
+## v1.0.5 (03/19/2013)
+
+###features
+* even faster component initialization
+
+###bug fixes and tweaks
+* add id to component and for fast registry lookup
+* remove array creation for argument munging, for speed and less gc
+* remove unused trigger advice
+* various refactors for performance
+* remove component lifecycle events
+
 ## v1.0.4 (03/12/2013)
 
 ###features
