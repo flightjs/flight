@@ -79,7 +79,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       var registryTestComponentInfo = registry.findComponentInfo(Component);
       var sizeThen = registryTestComponentInfo ? registryTestComponentInfo.instances.length : 0;
       Component.attachTo('.test-node');
-      var sizeNow = registry.findComponentInfo(Component).instances.length;
+      var sizeNow = Object.keys(registry.findComponentInfo(Component).instances).length;
       expect(sizeNow).toBe(sizeThen + 2);
     });
 
@@ -96,32 +96,31 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
     });
 
     describe('multiple instances', function () {
-      it('should throw an error if multiple instances of the same Component are attached to the same DOM node', function () {
-        expect(function () {
-          Component.attachTo('body');
-          Component.attachTo('body');
-        }).toThrow();
+      it('should only attach once when multiple instances of the same Component are attached to the same DOM node', function () {
+        Component.attachTo('body');
+        Component.attachTo('body');
+        expect(Object.keys(registry.findComponentInfo(Component).instances).length).toBe(1);
       });
 
-      it('should not throw an error if multiple instances of the same Component are attached to different nodes', function () {
-        expect(function () {
-          Component.attachTo('body');
-          Component.attachTo(document);
-        }).not.toThrow();
+      it('should attach all instances when the same Component is attached to different nodes', function () {
+        Component.attachTo('body');
+        Component.attachTo(document);
+        expect(Object.keys(registry.findComponentInfo(Component).instances).length).toBe(2);
       });
 
-      it('should not throw an error if instances of different Components are attached to the same node', function () {
-        expect(function () {
-          Component.attachTo('body');
-          Component2.attachTo('body');
-        }).not.toThrow();
+      it('should attach all instances when different Components are attached to the same node', function () {
+        Component.attachTo('body');
+        Component2.attachTo('body');
+        expect(Object.keys(registry.findComponentInfo(Component).instances).length).toBe(1);
+        expect(Object.keys(registry.findComponentInfo(Component2).instances).length).toBe(1);
       });
 
       it('should merge multiple options arguments correctly', function () {
-        Component.attachTo('.test-node', {foo: 42}, {bar: 42});
-        var c = registry.findComponentInfo(Component).instances[0].instance;
-        expect(c.attr.foo).toBe(42);
-        expect(c.attr.bar).toBe(42);
+        Component.attachTo('.test-node', {foo: 46}, {bar: 48});
+        var firstKey = Object.keys(registry.findComponentInfo(Component).instances)[0];
+        var c = registry.findComponentInfo(Component).instances[firstKey].instance;
+        expect(c.attr.foo).toBe(46);
+        expect(c.attr.bar).toBe(48);
       });
     });
   });
