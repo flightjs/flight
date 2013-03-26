@@ -12,7 +12,7 @@ that components are highly portable and easily testable.
 As an added bonus, Flight includes a simple and safe mixin infrastructure allowing components to be easily
 extended with minimal boilerplate.
 
-**[Follow us on Twitter](https://twitter.com/flight)**  
+**[Follow us on Twitter](https://twitter.com/flight)**
 **[Visit our Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)**
 
 ## Sample App
@@ -38,6 +38,10 @@ Your client app will need a `component.json` file that looks something like this
     }
 
 Then running `bower install` will add flight to the `components` directory of `myApp`.
+
+Alternatively, if you don't want to load Flight via a script loader, simply download and
+include the [standalone version](https://twitter.github.com/flight/flight.js) using a regular
+script tag then refer to 'Using the standalone version' below.
 
 ## Dependencies
 
@@ -725,12 +729,12 @@ commands:
     DEBUG.events.logByAction('trigger'); //only log event triggers
     DEBUG.events.logByName('click'); //only log events named 'click' - accepts * as wildcard
     DEBUG.events.logNone(); //log nothing
-    
+
 If you want to log everything by default, update the following line in [tools/debug.js](https://github.com/twitter/flight/blob/master/tools/debug/debug.js)
 
     var logLevel = [];
-    
-to 
+
+to
 
     var logLevel = 'all';
 
