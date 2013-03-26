@@ -40,7 +40,7 @@ Your client app will need a `component.json` file that looks something like this
 Then running `bower install` will add flight to the `components` directory of `myApp`.
 
 Alternatively, if you don't want to load Flight via a script loader, simply download and
-include the [standalone version](https://twitter.github.com/flight/flight.js) using a regular
+include the [standalone version](http://twitter.github.com/flight/flight.js) using a regular
 script tag then refer to 'Using the standalone version' below.
 
 ## Dependencies
