@@ -721,7 +721,7 @@ define(
 
 ## Using the standalone version
 
-The standalone version of flight.js does not require a module loader such as require.js and instead exposes all of its modules as properties of a global variable, flight:
+The [standalone version](http://twitter.github.com/flight/flight.js) of flight.js does not require a module loader such as require.js and instead exposes all of its modules as properties of a global variable, flight:
 
 ```html
 <script src='jquery.js'></script>
