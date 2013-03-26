@@ -737,6 +737,7 @@ var MyComponent = flight.component(function() {
 
 MyComponent.attachTo('.thing');
 </script>
+```
 
 
 ## Debugging
