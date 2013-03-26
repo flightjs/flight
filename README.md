@@ -12,7 +12,7 @@ that components are highly portable and easily testable.
 As an added bonus, Flight includes a simple and safe mixin infrastructure allowing components to be easily
 extended with minimal boilerplate.
 
-**[Follow us on Twitter](https://twitter.com/flight)**
+**[Follow us on Twitter](https://twitter.com/flight)**  
 **[Visit our Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)**
 
 ## Sample App
@@ -41,7 +41,7 @@ Then running `bower install` will add flight to the `components` directory of `m
 
 ## Dependencies
 
-Flight uses [ES5-shim](https://github.com/kriskowal/es5-shim) to polyfill ES5 support for older browsers and [JQuery](http://jquery.com)
+Flight uses [ES5-shim](https://github.com/kriskowal/es5-shim) to polyfill ES5 support for older browsers and [jQuery](http://jquery.com)
 for DOM manipulation API. If you install flight with bower, these apps will be deployed in the `components`
 folder. Additionally you will need to include an AMD implementation such as [require.js](http://requirejs.org/)
 or [loadrunner](https://github.com/danwrong/loadrunner).
@@ -301,14 +301,14 @@ this.updateSuccessful = function() {
 ```
 
 You can also specify a default function that will be called by the component, providing nothing in the event's
-bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default behaviors
+bubble chain invokes `preventDefault`. Default functions in custom events are analagous to the default actions
 of native events.
 
-To define a default function, make the event argument an object that defines the event type and the `defaultFunction`.
-A common use case is defining default behavior for keyboard events:
+To define a default function, make the event argument an object that specifies the event type and a `defaultBehavior`
+property. A common use case is defining default behavior for keyboard events:
 
 ```js
-this.trigger('#textInput', {type: 'escapePressed', defaultFunction: this.blur});
+this.trigger('#textInput', {type: 'escapePressed', defaultBehavior: this.blur});
 ```
 
 #### Subscribing to events
@@ -430,8 +430,8 @@ Now we have a simple menu component that can be attached to any element that has
 
 ## Teardown
 
-Flight provides a set of methods which remove components and their event bindings. It's a good idea to use teardown
-components after each unit test - and teardown also good for unbinding event listeners when, for example, the user
+Flight provides a set of methods which remove components and their event bindings. It's a good idea to teardown
+components after each unit test - and teardown is also good for unbinding event listeners when, for example, the user
 navigates away from a page.
 
 There are three levels of teardown:
@@ -569,10 +569,11 @@ component (e.g. to another mixin), you can invoke `compose.mixin` directly:
 ```js
 define(
   [
-    'mixins/with_positioning'
+    'mixins/with_positioning',
+    'lib/compose'
   ],
 
-  function(withPositioning) {
+  function(withPositioning, compose) {
 
     function withDialog() {
       //mix withPositioning into withDialog
@@ -717,13 +718,21 @@ define(
 ## Debugging
 
 Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
-the console will log every trigger, bind and unbind event. By sending instructions to your browser console, you
-can filter logged events by type or by name or turn them off completely:
+console logging is turned off, but you can you can log `trigger`, `bind` and `unbind` events by means of the following console
+commands:
 
+    DEBUG.events.logAll(); //log everything
     DEBUG.events.logByAction('trigger'); //only log event triggers
     DEBUG.events.logByName('click'); //only log events named 'click' - accepts * as wildcard
     DEBUG.events.logNone(); //log nothing
-    DEBUG.events.logAll(); //log everything
+    
+If you want to log everything by default, update the following line in [tools/debug.js](https://github.com/twitter/flight/blob/master/tools/debug/debug.js)
+
+    var logLevel = [];
+    
+to 
+
+    var logLevel = 'all';
 
 ## Authors
 
