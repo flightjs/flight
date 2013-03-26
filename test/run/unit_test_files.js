@@ -5,5 +5,6 @@ runTests([
   'test/tests/instance_spec',
   'test/tests/mixin_spec',
   'test/tests/registry_spec',
-  'test/tests/utils_spec'
+  'test/tests/utils_spec',
+  'test/tests/standalone_spec'
 ]);
