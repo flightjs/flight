@@ -719,6 +719,26 @@ define(
 );
 ```
 
+## Using the standalone version
+
+The standalone version of flight.js does not require a script loader such as require.js and instead exposes all of its modules as properties of a global variable, flight:
+
+```html
+<script src='jquery.js'></script>
+<script src='es5-shim.js'></script>
+<script src='es5-sham.js'></script>
+<script src='flight.js'></script>
+<script>
+var MyComponent = flight.component(function() {
+  this.after('initialize', function() {
+    // ...
+  });
+});
+
+MyComponent.attachTo('.thing');
+</script>
+
+
 ## Debugging
 
 Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
