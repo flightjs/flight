@@ -47,14 +47,18 @@ define(
       //   base; //{a:2, b:6}
 
       merge: function(/*obj1, obj2,....deepCopy*/) {
-        if (!arguments.length) {
+        // unpacking arguments by hand benchmarked faster
+        var l = arguments.length,
+            i = 0,
+            args = new Array(l + 1);
+        for (; i < l; i++) args[i + 1] = arguments[i];
+
+        if (l === 0) {
           return {};
         }
-              
-        var args = this.toArray(arguments);
 
         //start with empty object so a copy is created
-        args.unshift({});
+        args[0] = {};
 
         if (args[args.length - 1] === true) {
           //jquery extend requires deep copy as first arg

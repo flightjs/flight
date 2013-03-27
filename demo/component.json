@@ -1,0 +1,7 @@
+{
+  "name": "twitter",
+  "version": "1.0.0",
+  "dependencies": {
+    "flight": "git@github.com:twitter/flight.git"
+  }
+}

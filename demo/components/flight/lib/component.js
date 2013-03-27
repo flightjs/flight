@@ -18,6 +18,7 @@ define(
   function(advice, utils, compose, registry) {
 
     var functionNameRegEx = /function (.*?)\s?\(/;
+    var componentId = 0;
 
     function teardownInstance(instanceInfo){
       instanceInfo.events.slice().forEach(function(event) {
@@ -32,7 +33,6 @@ define(
 
 
     function teardown() {
-      this.trigger("componentTearDown");
       teardownInstance(registry.findInstanceInfo(this));
     }
 
@@ -40,7 +40,8 @@ define(
     function teardownAll() {
       var componentInfo = registry.findComponentInfo(this);
 
-      componentInfo && componentInfo.instances.slice().forEach(function(info) {
+      componentInfo && Object.keys(componentInfo.instances).forEach(function(k) {
+        var info = componentInfo.instances[k];
         info.instance.teardown();
       });
     }
@@ -51,7 +52,7 @@ define(
       } catch(e) {
         console.log('unserializable data for event',type,':',data);
         throw new Error(
-          ["The event", type, "on component", this.describe, "was triggered with non-serializable data"].join(" ")
+          ["The event", type, "on component", this.toString(), "was triggered with non-serializable data"].join(" ")
         );
       }
     }
@@ -68,15 +69,20 @@ define(
       // and a default function to be called.
       this.trigger = function() {
         var $element, type, data, event, defaultFn;
-        var args = utils.toArray(arguments);
-        var lastArg = args[args.length - 1];
+        var lastIndex = arguments.length - 1, lastArg = arguments[lastIndex];
 
         if (typeof lastArg != "string" && !(lastArg && lastArg.defaultBehavior)) {
-          data = args.pop();
+          lastIndex--;
+          data = lastArg;
         }
 
-        $element = (args.length == 2) ? $(args.shift()) : this.$node;
-        event = args[0];
+        if (lastIndex == 1) {
+          $element = $(arguments[0]);
+          event = arguments[1];
+        } else {
+          $element = this.$node;
+          event = arguments[0];
+        }
 
         if (event.defaultBehavior) {
           defaultFn = event.defaultBehavior;
@@ -104,19 +110,24 @@ define(
 
       this.on = function() {
         var $element, type, callback, originalCb;
-        var args = utils.toArray(arguments);
+        var lastIndex = arguments.length - 1, origin = arguments[lastIndex];
 
-        if (typeof args[args.length - 1] == "object") {
+        if (typeof origin == "object") {
           //delegate callback
           originalCb = utils.delegate(
-            this.resolveDelegateRules(args.pop())
+            this.resolveDelegateRules(origin)
           );
         } else {
-          originalCb = args.pop();
+          originalCb = origin;
         }
 
-        $element = (args.length == 2) ? $(args.shift()) : this.$node;
-        type = args[0];
+        if (lastIndex == 2) {
+          $element = $(arguments[0]);
+          type = arguments[1];
+        } else {
+          $element = this.$node;
+          type = arguments[0];
+        }
 
         if (typeof originalCb != 'function' && typeof originalCb != 'object') {
           throw new Error("Unable to bind to '" + type + "' because the given callback is not a function or an object");
@@ -140,14 +151,20 @@ define(
 
       this.off = function() {
         var $element, type, callback;
-        var args = utils.toArray(arguments);
+        var lastIndex = arguments.length - 1;
 
-        if (typeof args[args.length - 1] == "function") {
-          callback = args.pop();
+        if (typeof arguments[lastIndex] == "function") {
+          callback = arguments[lastIndex];
+          lastIndex -= 1;
         }
 
-        $element = (args.length == 2) ? $(args.shift()) : this.$node;
-        type = args[0];
+        if (lastIndex == 1) {
+          $element = $(arguments[0]);
+          type = arguments[1];
+        } else {
+          $element = this.$node;
+          type = arguments[0];
+        }
 
         return $element.off(type, callback);
       };
@@ -157,7 +174,7 @@ define(
 
         Object.keys(ruleInfo).forEach(function(r) {
           if (!r in this.attr) {
-            throw new Error('Component "' + this.describe + '" wants to listen on "' + r + '" but no such attribute was defined.');
+            throw new Error('Component "' + this.toString() + '" wants to listen on "' + r + '" but no such attribute was defined.');
           }
           rules[this.attr[r]] = ruleInfo[r];
         }, this);
@@ -178,13 +195,25 @@ define(
     }
 
     function attachTo(selector/*, options args */) {
+      // unpacking arguments by hand benchmarked faster
+      var l = arguments.length;
+      var args = new Array(l - 1);
+      for (var i = 1; i < l; i++) args[i - 1] = arguments[i];
+
       if (!selector) {
         throw new Error("Component needs to be attachTo'd a jQuery object, native node or selector string");
       }
 
-      var options = utils.merge.apply(utils, utils.toArray(arguments, 1));
+      var options = utils.merge.apply(utils, args);
 
       $(selector).each(function(i, node) {
+        var rawNode = node.jQuery ? node[0] : node;
+        var componentInfo = registry.findComponentInfo(this)
+        if (componentInfo && componentInfo.isAttachedTo(rawNode)) {
+          //already attached
+          return;
+        }
+
         new this(node, options);
       }.bind(this));
     }
@@ -193,7 +222,10 @@ define(
     // takes an unlimited number of mixin functions as arguments
     // typical api call with 3 mixins: define(timeline, withTweetCapability, withScrollCapability);
     function define(/*mixins*/) {
-      var mixins = utils.toArray(arguments);
+      // unpacking arguments by hand benchmarked faster
+      var l = arguments.length;
+      var mixins = new Array(l);
+      for (var i = 0; i < l; i++) mixins[i] = arguments[i];
 
       Component.toString = function() {
         var prettyPrintMixins = mixins.map(function(mixin) {
@@ -202,17 +234,20 @@ define(
             var m = mixin.toString().match(functionNameRegEx);
             return (m && m[1]) ? m[1] : "";
           } else {
-            return mixin.name;
+            return (mixin.name != "withBaseComponent") ? mixin.name : "";
           }
         }).filter(Boolean).join(', ');
         return prettyPrintMixins;
       };
 
-      Component.describe = Component.toString();
+      if (window.DEBUG && window.DEBUG.enabled) {
+        Component.describe = Component.toString();
+      }
 
       //'options' is optional hash to be merged with 'defaults' in the component definition
       function Component(node, options) {
         options = options || {};
+        this.identity = componentId++;
 
         if (!node) {
           throw new Error("Component needs a node");
@@ -226,7 +261,10 @@ define(
           this.$node = $(node);
         }
 
-        this.describe = this.constructor.describe;
+        this.toString = Component.toString;
+        if (window.DEBUG && window.DEBUG.enabled) {
+          this.describe = this.toString();
+        }
 
         //merge defaults with supplied options
         //put options in attr.__proto__ to avoid merge overhead
@@ -240,13 +278,11 @@ define(
 
         Object.keys(this.defaults || {}).forEach(function(key) {
           if (this.defaults[key] === null && this.attr[key] === null) {
-            throw new Error('Required attribute "' + key + '" not specified in attachTo for component "' + this.describe + '".');
+            throw new Error('Required attribute "' + key + '" not specified in attachTo for component "' + this.toString() + '".');
           }
         }, this);
 
         this.initialize.call(this, options);
-
-        this.trigger('componentInitialized');
       }
 
       Component.attachTo = attachTo;

@@ -1,0 +1,7 @@
+{
+  "name": "flight",
+  "version": "1.0.0",
+  "dependencies": {
+    "loadbuilder": ">=0.4.2"
+  }
+}
