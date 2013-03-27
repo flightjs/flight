@@ -35,11 +35,12 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
     it('has correct ComponentInfo', function () {
       var instance = new Component(window.outerDiv);
+      var firstKey = Object.keys(registry.findComponentInfo(Component).instances)[0];
 
       expect(registry.components.length).toBe(1);
       expect(registry.components[0].component).toBe(Component);
-      expect(registry.components[0].instances.length).toBe(1);
-      expect(registry.components[0].instances[0].instance).toBe(instance);
+      expect(Object.keys(registry.components[0].instances).length).toBe(1);
+      expect(registry.components[0].instances[firstKey].instance).toBe(instance);
     });
 
     it('has correct InstanceInfo', function () {
