@@ -1,3 +1,12 @@
+## v1.0.6 (03/26/2013)
+
+###features
+* access registry component info more efficiently
+* detect existing instance on attachTo and return without error
+
+###bug fixes and tweaks
+* fix Component.describe
+
 ## v1.0.5 (03/19/2013)
 
 ###features
