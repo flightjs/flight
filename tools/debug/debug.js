@@ -56,8 +56,12 @@ define(
     //******************************************************************************************
     // Event logging
     //******************************************************************************************
-    var defaultLogFilter = {eventNames: [], actions: []}; //no logging by default
-    logFilter = retrieveLogFilter();
+
+    //no logging by default
+    var defaultEventNamesFilter = [];
+    var defaultActionsFilter = [];
+
+    var logFilter = retrieveLogFilter();
 
     function filterEventLogsByAction(/*actions*/) {
       var actions = [].slice.call(arguments, 0);
@@ -88,11 +92,17 @@ define(
     }
 
     function saveLogFilter() {
-      window.localStorage && localStorage.setItem('logFilter', logFilter);
+      if (window.localStorage) {
+        localStorage.setItem('logFilter_eventNames', logFilter.eventNames);
+        localStorage.setItem('logFilter_actions', logFilter.actions);
+      }
     }
 
     function retrieveLogFilter() {
-      return window.localStorage ? localStorage.getItem('logFilter') : defaultLogLevel;
+      return {
+        eventNames: (window.localStorage && localStorage.getItem('logFilter_eventNames')) || defaultEventNamesFilter,
+        actions: (window.localStorage && localStorage.getItem('logFilter_actions')) || defaultActionsFilter
+      }
     }
 
     return {
