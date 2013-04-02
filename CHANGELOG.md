@@ -1,3 +1,11 @@
+## v1.0.7 (04/02/2013)
+
+###features
+* logging options are now persisted
+
+###bug fixes and tweaks
+* event logging fixed
+
 ## v1.0.6 (03/26/2013)
 
 ###features
