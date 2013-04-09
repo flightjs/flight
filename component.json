@@ -3,6 +3,16 @@
   "description": "Clientside component infrastructure",
   "main": "lib/index.js",
   "version": "1.0.7",
+  "ignore": [
+    "lib/standalone",
+    "test",
+    ".gitignore",
+    ".travis.yml",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "Makefile",
+    "package.json"
+  ],
   "dependencies": {
     "es5-shim": "git://github.com/kriskowal/es5-shim.git#2.0.0",
     "jquery": "1.8.3"
