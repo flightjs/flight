@@ -17,7 +17,7 @@ jasmine.Env.prototype.describeComponent = function (componentPath, specDefinitio
         this.Component = Component;
       }.bind(this);
 
-      require(['flight/lib/registry', componentPath], requireCallback);
+      require(['components/flight/lib/registry', componentPath], requireCallback);
 
       waitsFor(function() {
         return this.Component !== null;
@@ -25,11 +25,15 @@ jasmine.Env.prototype.describeComponent = function (componentPath, specDefinitio
     });
 
     afterEach(function () {
-      try {
-        this.component && this.component.teardown();
-      } catch (e) {
-        // component has already been torn down. do nothing
-      }
+      this.$node.remove();
+      var requireCallback = function(defineComponent) {
+        this.Component = null;
+        defineComponent.teardownAll();
+      }.bind(this);
+      require(['components/flight/lib/component'], requireCallback);
+      waitsFor(function () {
+        return this.Component === null;
+      }.bind(this));
     });
     specDefinitions.apply(this);
   });
@@ -55,7 +59,7 @@ jasmine.Env.prototype.describeMixin = function (mixinPath, specDefinitions) {
         this.Component = defineComponent(function() {}, Mixin);
       }.bind(this);
 
-      require(['flight/lib/registry', 'flight/lib/component', mixinPath], requireCallback);
+      require(['components/flight/lib/registry', 'components/flight/lib/component', mixinPath], requireCallback);
 
       waitsFor(function() {
         return this.Component !== null;
@@ -63,12 +67,35 @@ jasmine.Env.prototype.describeMixin = function (mixinPath, specDefinitions) {
     });
 
     afterEach(function () {
-      try {
-        this.component && this.component.teardown();
-        this.$node.remove();
-      } catch (e) {
-        // component has already been torn down. do nothing
-      }
+      this.$node.remove();
+      var requireCallback = function(defineComponent) {
+        this.Component = null;
+        defineComponent.teardownAll();
+      }.bind(this);
+      require(['flight/component'], requireCallback);
+      waitsFor(function () {
+        return this.Component === null;
+      }.bind(this));
+    });
+    specDefinitions.apply(this);
+  });
+};
+
+var describeModule = function(modulePath, specDefinitions) {
+  return jasmine.getEnv().describeModule(modulePath, specDefinitions);
+};
+
+jasmine.Env.prototype.describeModule = function(modulePath, specDefinitions) {
+  describe(modulePath, function() {
+    beforeEach(function () {
+      this.module = null;
+      var requireCallback = function(module) {
+        this.module = module;
+      }.bind(this);
+      require([modulePath], requireCallback);
+      waitsFor(function () {
+        return this.module !== null;
+      });
     });
     specDefinitions.apply(this);
   });
@@ -84,9 +111,6 @@ var setupComponent = function (fixture, options) {
 };
 
 jasmine.Spec.prototype.setupComponent = function (fixture, options) {
-
-  var options;
-  var fixture;
 
   if (this.component) {
     this.component && this.component.teardown();
@@ -114,6 +138,39 @@ jasmine.flight = {};
   var eventsData = {
     spiedEvents: {},
     handlers:    []
+  };
+
+  namespace.formatElement = function ($element) {
+    var limit = 200;
+    var output = '';
+    if ($element instanceof jQuery) {
+      output = jasmine.JQuery.elementToString($element);
+      if (output.length > limit) {
+        output = output.slice(0, 200) + '...';
+      }
+    } else {
+      //$element should always be a jQuery object
+      output = 'element is not a jQuery object';
+    }
+    return output;
+  };
+
+  namespace.compareColors = function (color1, color2) {
+    if (color1.charAt(0) == color2.charAt(0)) {
+      return color1 === color2;
+    } else {
+      return namespace.hex2rgb(color1) === namespace.hex2rgb(color2);
+    }
+  };
+
+  namespace.hex2rgb = function (colorString) {
+    if (colorString.charAt(0) !== '#') return colorString;
+    // note: hexStr should be #rrggbb
+    var hex = parseInt(colorString.substring(1), 16);
+    var r = (hex & 0xff0000) >> 16;
+    var g = (hex & 0x00ff00) >> 8;
+    var b = hex & 0x0000ff;
+    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
   };
 
   namespace.events = {
@@ -159,8 +216,8 @@ jasmine.flight = {};
     },
 
     wasTriggered: function(selector, event) {
-      var spiedEvent = eventsData.spiedEvents[[selector, event.name]];
-      return spiedEvent && spiedEvent.callCount;
+      var spiedEvent = eventsData.spiedEvents[[selector, event]];
+      return spiedEvent && spiedEvent.callCount > 0;
     },
 
     wasTriggeredWith: function(selector, eventName, expectedArg, env) {
@@ -212,14 +269,15 @@ beforeEach(function() {
   this.addMatchers({
     toHaveBeenTriggeredOn: function() {
       var selector = arguments[0];
-      var wasTriggered = jasmine.flight.events.wasTriggered(selector, this.actual);
+      var eventName = typeof this.actual === 'string' ? this.actual : this.actual.name;
+      var wasTriggered = jasmine.flight.events.wasTriggered(selector, eventName);
 
       this.message = function () {
         var $pp = function(obj) {
           var description;
           var attr;
 
-          if (! obj instanceof jQuery) {
+          if (!(obj instanceof jQuery)) {
             obj = $(obj);
           }
 
@@ -227,7 +285,7 @@ beforeEach(function() {
             obj.get(0).nodeName
           ];
 
-          attr = obj.get(0).attributes;
+          attr = obj.get(0).attributes || [];
 
           for (var x = 0; x < attr.length; x++) {
             description.push(attr[x].name + '="' + attr[x].value + '"');
@@ -237,6 +295,50 @@ beforeEach(function() {
         };
 
         if (wasTriggered) {
+          return [
+            "<div class='value-mismatch'>Expected event " + eventName + " to have been triggered on" + selector,
+            "<div class='value-mismatch'>Expected event " + eventName + " not to have been triggered on" + selector
+          ];
+        } else {
+          return [
+            "Expected event " + eventName + " to have been triggered on " + $pp(selector),
+            "Expected event " + eventName + " not to have been triggered on " + $pp(selector)
+          ];
+        }
+      };
+
+      return wasTriggered;
+    },
+    toHaveBeenTriggeredOnAndWith: function() {
+      var selector = arguments[0];
+      var expectedArg = arguments[1];
+      var exactMatch = !arguments[2];
+      var wasTriggered = jasmine.flight.events.wasTriggered(selector, this.actual);
+
+      this.message = function () {
+        var $pp = function(obj) {
+          var description;
+          var attr;
+
+          if (!(obj instanceof jQuery)) {
+            obj = $(obj);
+          }
+
+          description = [
+            obj.get(0).nodeName
+          ];
+
+          attr = obj.get(0).attributes || [];
+
+          for (var x = 0; x < attr.length; x++) {
+            description.push(attr[x].name + '="' + attr[x].value + '"');
+          }
+
+          return '<' + description.join(' ') + '>';
+        };
+
+        if (wasTriggered) {
+          var actualArg = jasmine.flight.events.eventArgs(selector, this.actual, expectedArg)[1];
           return [
             "<div class='value-mismatch'>Expected event " + this.actual.name + " to have been triggered on" + selector,
             "<div class='value-mismatch'>Expected event " + this.actual.name + " not to have been triggered on" + selector
@@ -249,7 +351,32 @@ beforeEach(function() {
         }
       };
 
-      return wasTriggered;
+      if(!wasTriggered) {
+        return false;
+      }
+      if(exactMatch) {
+        return jasmine.flight.events.wasTriggeredWith(selector, this.actual, expectedArg, this.env);
+      } else {
+        return jasmine.flight.events.wasTriggeredWithData(selector, this.actual, expectedArg, this.env);
+      }
+    },
+    toHaveCss: function(prop, val) {
+      var result;
+      if (val instanceof RegExp) {
+        result = val.test(this.actual.css(prop));
+      } else if (prop.match(/color/)) {
+        //IE returns colors as hex strings; other browsers return rgb(r, g, b) strings
+        result = jasmine.flight.compareColors(this.actual.css(prop), val);
+      } else {
+        result = this.actual.css(prop) === val;
+        //sometimes .css() returns strings when it should return numbers
+        if(!result && typeof val === "number") {
+          result = parseFloat(this.actual.css(prop), 10) === val
+        }
+      }
+
+      this.actual = jasmine.flight.formatElement(this.actual);
+      return result;
     }
   });
 });
@@ -259,4 +386,3 @@ var spyOnEvent = function(selector, eventName) {
   return jasmine.flight.events.spyOn(selector, eventName);
 };
 
-This looks like a JavaScript file. Click this bar to format it.
