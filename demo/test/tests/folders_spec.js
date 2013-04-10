@@ -6,9 +6,9 @@ describeComponent('app/component_ui/folders', function () {
   });
 
   it('should listen to uiFolderSelectionChanged and trigger fetchMailItems', function () {
-    var fetchMailItems = spyOnEvent(document, 'fetchMailItems');
+    var uiMailItemsRequested = spyOnEvent(document, 'uiMailItemsRequested');
     this.component.trigger('uiFolderSelectionChanged', {selectedIds: [0, 1, 2]});
-    expect(fetchMailItems).toHaveBeenTriggeredOn(document);
+    expect('uiMailItemsRequested').toHaveBeenTriggeredOn(document);
     // expect(dataExample.mostRecentCall.data).toEqual({
     //   example: 'foobar'
     // });
