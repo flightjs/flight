@@ -134,7 +134,7 @@ define(['lib/component'], function (defineComponent) {
       var badBind = function () {
         instance.on(document, 'foo', "turkey")
       };
-      expect(badBind).toThrow("Unable to bind to 'foo' because the given callback is not a function or an object");
+      expect(badBind).toThrow("Unable to bind to 'foo."+instance.identity+"' because the given callback is not a function or an object");
     });
 
     it('merges eventData into triggered event data', function () {
