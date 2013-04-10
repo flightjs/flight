@@ -7,20 +7,10 @@ describeComponent('app/component_ui/folders', function () {
 
   it('should listen to uiFolderSelectionChanged and trigger fetchMailItems', function () {
     var uiMailItemsRequested = spyOnEvent(document, 'uiMailItemsRequested');
-    this.component.trigger('uiFolderSelectionChanged', {selectedIds: [0, 1, 2]});
+    this.component.trigger('uiFolderSelectionChanged', {selectedIds: [2, 3, 4]});
     expect('uiMailItemsRequested').toHaveBeenTriggeredOn(document);
-    // expect(dataExample.mostRecentCall.data).toEqual({
-    //   example: 'foobar'
-    // });
+    expect(uiMailItemsRequested.mostRecentCall.data).toEqual({
+      folder: 2
+    });
   });
 });
-
-
-// it('should listen to uiNeedsExampleData and trigger dataExample', function () {
-//   var dataExample = spyOnEvent(document, 'dataExample');
-//   this.component.$node.trigger('uiNeedsExampleData');
-//   expect(dataExample).toHaveBeenTriggeredOn(document);
-//   expect(dataExample.mostRecentCall.data).toEqual({
-//     example: 'foobar'
-//   });
-// });
