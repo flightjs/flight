@@ -63,6 +63,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(event.callback.target).toBe(myFunction);
 
       instance.off("myEvent");
+
       expect(instanceInfo.events.length).toBeFalsy();
     });
 
