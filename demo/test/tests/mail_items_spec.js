@@ -2,23 +2,45 @@
 
 describeComponent('app/component_ui/mail_items', function () {
   beforeEach(function () {
-    setupComponent(
-      "<table>\
-         <tr class='mail-item'><td></td></tr>\
-         <tr class='mail-item selected'><td></td></tr>\
-      </table>"
-    );
+    setupComponent('<div id="container"></>', {
+      itemContainerSelector: '#container',
+      deleteFolder: 'delete',
+      selectedMailItems: [2, 3]});
   });
 
-// OR
-// setUpComponent(readFixture('blah.js')
+  it('should render mail data in items container', function () {
+    this.component.attr.itemContainerSelector = '#container';
+    this.component.trigger('dataMailItemsServed', {markup: readFixtures('mail_items.html')});
+    expect(this.component.select('itemContainerSelector').find('tr').length).toBe(5);
+  });
 
-  // it('should listen to uiFolderSelectionChanged and trigger fetchMailItems', function () {
-  //   var uiMailItemsRequested = spyOnEvent(document, 'uiMailItemsRequested');
-  //   this.component.trigger('uiFolderSelectionChanged', {selectedIds: [2, 3, 4]});
-  //   expect('uiMailItemsRequested').toHaveBeenTriggeredOn(document);
-  //   expect(uiMailItemsRequested.mostRecentCall.data).toEqual({
-  //     folder: 2
-  //   });
-  // });
+  it('should trigger unselect all when rendering mail', function () {
+    var uiMailItemSelectionChanged = spyOnEvent(document, 'uiMailItemSelectionChanged');
+    this.component.trigger('dataMailItemsServed', {markup: readFixtures('mail_items.html')});
+    expect('uiMailItemSelectionChanged').toHaveBeenTriggeredOn(document);
+    expect(uiMailItemSelectionChanged.mostRecentCall.data).toEqual({
+      selectedIds: []
+    });
+  });
+
+  it('should request selections to move to trash when delete triggered', function () {
+    var uiMoveItemsRequested = spyOnEvent(document, 'uiMoveItemsRequested');
+    this.component.trigger('uiDeleteMail');
+    expect('uiMoveItemsRequested').toHaveBeenTriggeredOn(document);
+    expect(uiMoveItemsRequested.mostRecentCall.data).toEqual({
+      itemIds: [2, 3],
+      fromFolder: 'inbox',
+      toFolder: 'delete'
+    });
+  });
+
+  it('should update mail selections', function () {
+    this.component.trigger('uiMailItemSelectionChanged', {selectedIds: [4, 5]});
+    expect(this.component.attr.selectedMailItems).toEqual([4, 5]);
+  });
+
+  it('should update folder selections', function () {
+    this.component.trigger('uiFolderSelectionChanged', {selectedIds: ['sent']});
+    expect(this.component.attr.selectedFolders).toEqual(['sent']);
+  });
 });

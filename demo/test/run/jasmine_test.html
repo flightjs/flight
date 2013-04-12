@@ -37,6 +37,8 @@
     //window.consoleReporter = new jasmine.ConsoleReporter();
     //jasmine.getEnv().addReporter(consoleReporter);
 
+    jasmine.getFixtures().fixturesPath = '../fixtures';
+
     if(window.location.search) {
       var keyValuePairs = window.location.search.substring(1).split('&');
       keyValuePairs.forEach(function(pair) {
