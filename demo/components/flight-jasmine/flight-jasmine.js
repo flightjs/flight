@@ -72,7 +72,7 @@ jasmine.Env.prototype.describeMixin = function (mixinPath, specDefinitions) {
         this.Component = null;
         defineComponent.teardownAll();
       }.bind(this);
-      require(['flight/component'], requireCallback);
+      require(['components/flight/lib/component'], requireCallback);
       waitsFor(function () {
         return this.Component === null;
       }.bind(this));
