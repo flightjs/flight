@@ -37,7 +37,9 @@ define(
           width: $(this.attr.moveActionSelector).outerWidth()
         });
         window.setTimeout(
-          (function() {this.on(document, 'click', this.hideSelector)}).bind(this), 0);
+          (function() {
+            this.on(document, 'click', this.hideSelector)
+          }).bind(this), 0);
       };
 
       this.hideSelector = function() {
