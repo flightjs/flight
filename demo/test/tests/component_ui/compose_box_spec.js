@@ -48,7 +48,7 @@ describeComponent('app/component_ui/compose_box', function () {
   });
 
   it('triggers send request when send selected', function () {
-    var uiSendRequested = spyOnEvent(document, 'uiSendRequested');
+    spyOnEvent(document, 'uiSendRequested');
     this.component.trigger(this.component.attr.sendSelector, 'click');
     expect('uiSendRequested').toHaveBeenTriggeredOn(document);
   });

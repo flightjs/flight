@@ -1,8 +1,11 @@
 runTests([
-  'test/tests/folders_spec',
-  'test/tests/mail_items_spec',
-  'test/tests/mail_controls_spec',
-  'test/tests/with_select_spec',
-  'test/tests/compose_box_spec',
-  'test/tests/move_to_selector_spec',
+  'test/tests/component_ui/folders_spec',
+  'test/tests/component_ui/mail_items_spec',
+  'test/tests/component_ui/mail_controls_spec',
+  'test/tests/component_ui/with_select_spec',
+  'test/tests/component_ui/compose_box_spec',
+  'test/tests/component_ui/move_to_selector_spec',
+  'test/tests/component_data/compose_box_spec',
+  'test/tests/component_data/mail_items_spec',
+  'test/tests/component_data/move_to_spec'
 ]);

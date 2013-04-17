@@ -6,28 +6,28 @@ describeComponent('app/component_ui/mail_controls', function() {
   });
 
   it('should trigger appropriate event when delete control clicked', function() {
-    var uiDeleteMail = spyOnEvent(document, 'uiDeleteMail');
+    spyOnEvent(document, 'uiDeleteMail');
     this.component.trigger(this.component.select('deleteControlSelector'), 'click');
     expect('uiDeleteMail').toHaveBeenTriggeredOn(document);
   });
 
 
   it('should trigger appropriate event when move control clicked', function() {
-    var uiMoveMail = spyOnEvent(document, 'uiMoveMail');
+    spyOnEvent(document, 'uiMoveMail');
     this.component.trigger(this.component.select('moveControlSelector'), 'click');
     expect('uiMoveMail').toHaveBeenTriggeredOn(document);
   });
 
 
   it('should trigger appropriate event when forward control clicked', function() {
-    var uiForwardMail = spyOnEvent(document, 'uiForwardMail');
+    spyOnEvent(document, 'uiForwardMail');
     this.component.trigger(this.component.select('forwardControlSelector'), 'click');
     expect('uiForwardMail').toHaveBeenTriggeredOn(document);
   });
 
 
   it('should trigger appropriate event when reply to control clicked', function() {
-    var uiReplyToMail = spyOnEvent(document, 'uiReplyToMail');
+    spyOnEvent(document, 'uiReplyToMail');
     this.component.trigger(this.component.select('replyControlSelector'), 'click');
     expect('uiReplyToMail').toHaveBeenTriggeredOn(document);
   });

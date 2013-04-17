@@ -8,7 +8,7 @@ describeComponent('app/component_ui/move_to_selector', function () {
   });
 
   it('asks for available folders when move is requested', function () {
-    var uiAvailableFoldersRequested = spyOnEvent(document, 'uiAvailableFoldersRequested');
+    spyOnEvent(document, 'uiAvailableFoldersRequested');
     this.component.trigger('uiMoveMail');
     expect('uiAvailableFoldersRequested').toHaveBeenTriggeredOn(document);
   });
