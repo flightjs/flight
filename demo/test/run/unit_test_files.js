@@ -4,4 +4,5 @@ runTests([
   'test/tests/mail_controls_spec',
   'test/tests/with_select_spec',
   'test/tests/compose_box_spec',
+  'test/tests/move_to_selector_spec',
 ]);
