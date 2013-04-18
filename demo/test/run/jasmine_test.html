@@ -31,7 +31,8 @@
   <script>
 
     require.config({
-      baseUrl: '../../'
+      baseUrl: '../../',
+      urlArgs: "bust=" + (new Date()).getTime()
     });
 
     //window.consoleReporter = new jasmine.ConsoleReporter();

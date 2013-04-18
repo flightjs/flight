@@ -36,7 +36,4 @@ describeComponent('app/component_data/compose_box', function () {
     expect(newMail.subject).toBe('b');
     expect(newMail.message).toBe('c');
   });
-
-
-
 });
