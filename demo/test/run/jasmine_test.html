@@ -18,7 +18,7 @@
     <script src="../../components/flight-jasmine/flight-jasmine.js"></script>
 
 
-    <!--<script src="../phantom-jasmine/console-runner.js"></script>-->
+    <script src="../phantom-jasmine/console-runner.js"></script>
 
     <script src="../run_tests.js"></script>
 
@@ -35,8 +35,8 @@
       urlArgs: "bust=" + (new Date()).getTime()
     });
 
-    //window.consoleReporter = new jasmine.ConsoleReporter();
-    //jasmine.getEnv().addReporter(consoleReporter);
+    window.consoleReporter = new jasmine.ConsoleReporter();
+    jasmine.getEnv().addReporter(consoleReporter);
 
     jasmine.getFixtures().fixturesPath = '../fixtures';
 
