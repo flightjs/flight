@@ -35,7 +35,7 @@
   proto.statuses = {
     stopped : "stopped",
     running : "running",
-    fail    : "fail",
+    fail    : "failed",
     success : "success"
   };
 

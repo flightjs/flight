@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/twitter/flight.png?branch=test_flight_jasmine)](http://travis-ci.org/twitter/flight)

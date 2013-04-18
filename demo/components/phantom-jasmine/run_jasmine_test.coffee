@@ -18,6 +18,7 @@ class PhantomJasmineRunner
       else                @exit_func 2
 
 # Script Begin
+
 if phantom.args.length == 0
   console.log "Need a url as the argument"
   phantom.exit 1
@@ -40,6 +41,7 @@ address = phantom.args[0]
 
 page.open address, (status) ->
   if status != "success"
+    console.log status
     console.log address
     console.log "can't load the address!"
     phantom.exit 1
