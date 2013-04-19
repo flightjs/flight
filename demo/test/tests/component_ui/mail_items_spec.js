@@ -5,6 +5,7 @@ describeComponent('app/component_ui/mail_items', function () {
     setupComponent('<div id="container"></>', {
       itemContainerSelector: '#container',
       deleteFolder: 'delete',
+      selectedFolders: ['inbox'],
       selectedMailItems: [2, 3]});
   });
 

@@ -13,11 +13,10 @@ define(
 
     function moveToSelector() {
 
-      var selectedFolders = ['inbox']; //FIX ME
-      var selectedMailItems;
-
       this.defaultAttrs({
         selectionChangedEvent: 'uiMoveToSelectionChanged',
+        selectedMailItems: [],
+        selectedFolders: [],
         //selectors
         itemSelector: 'li.move-to-item',
         selectedItemSelector: 'li.move-to-item.selected'
@@ -25,7 +24,7 @@ define(
 
       this.requestSelectorWidget = function(ev, data) {
         this.trigger('uiAvailableFoldersRequested', {
-          folder: selectedFolders[0]
+          folder: this.attr.selectedFolders[0]
         })
       };
 
@@ -48,17 +47,17 @@ define(
       }
 
       this.updateMailItemSelections = function(ev, data) {
-        selectedMailItems = data.selectedIds;
+        this.attr.selectedMailItems = data.selectedIds;
       }
 
       this.updateFolderSelections = function(ev, data) {
-        selectedFolders = data.selectedIds;
+        this.attr.selectedFolders = data.selectedIds;
       }
 
       this.requestMoveTo = function(ev, data) {
         this.trigger('uiMoveItemsRequested', {
-          itemIds: selectedMailItems,
-          fromFolder: selectedFolders[0],
+          itemIds: this.attr.selectedMailItems,
+          fromFolder: this.attr.selectedFolders[0],
           toFolder: data.selectedIds[0]
         });
         this.$node.hide();

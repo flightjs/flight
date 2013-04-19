@@ -19,7 +19,7 @@ define(
         allowMultiSelect: true,
         selectionChangedEvent: 'uiMailItemSelectionChanged',
         selectedMailItems: [],
-        selectedFolders: ['inbox'],
+        selectedFolders: [],
         //selectors
         itemSelector: 'tr.mail-item',
         selectedItemSelector: 'tr.mail-item.selected'
