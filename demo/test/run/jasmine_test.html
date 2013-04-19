@@ -31,8 +31,11 @@
   <script>
 
     require.config({
-      //urlArgs: "bust=" + (new Date()).getTime(),
-      baseUrl: '../../'
+      urlArgs: "bust=" + (new Date()).getTime(),
+      baseUrl: '../../',
+      paths: {
+        bower_root: './components'
+      },
     });
 
     window.consoleReporter = new jasmine.ConsoleReporter();

@@ -17,7 +17,7 @@ jasmine.Env.prototype.describeComponent = function (componentPath, specDefinitio
         this.Component = Component;
       }.bind(this);
 
-      require(['components/flight/lib/registry', componentPath], requireCallback);
+      require(['bower_root/flight/lib/registry', componentPath], requireCallback);
 
       waitsFor(function() {
         return this.Component !== null;
@@ -30,7 +30,7 @@ jasmine.Env.prototype.describeComponent = function (componentPath, specDefinitio
         this.Component = null;
         defineComponent.teardownAll();
       }.bind(this);
-      require(['components/flight/lib/component'], requireCallback);
+      require(['bower_root/flight/lib/component'], requireCallback);
       waitsFor(function () {
         return this.Component === null;
       }.bind(this));
@@ -59,7 +59,7 @@ jasmine.Env.prototype.describeMixin = function (mixinPath, specDefinitions) {
         this.Component = defineComponent(function() {}, Mixin);
       }.bind(this);
 
-      require(['components/flight/lib/registry', 'components/flight/lib/component', mixinPath], requireCallback);
+      require(['bower_root/flight/lib/registry', 'bower_root/flight/lib/component', mixinPath], requireCallback);
 
       waitsFor(function() {
         return this.Component !== null;
@@ -72,7 +72,7 @@ jasmine.Env.prototype.describeMixin = function (mixinPath, specDefinitions) {
         this.Component = null;
         defineComponent.teardownAll();
       }.bind(this);
-      require(['components/flight/lib/component'], requireCallback);
+      require(['bower_root/flight/lib/component'], requireCallback);
       waitsFor(function () {
         return this.Component === null;
       }.bind(this));
