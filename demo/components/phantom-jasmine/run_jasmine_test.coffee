@@ -41,7 +41,6 @@ address = phantom.args[0]
 
 page.open address, (status) ->
   if status != "success"
-    console.log status
     console.log address
     console.log "can't load the address!"
     phantom.exit 1
