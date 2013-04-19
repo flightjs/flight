@@ -1,4 +1,7 @@
 /**
+ * Copyright 2013, Twitter Inc. and other contributors
+ * Licensed under the MIT License
+ *
  * wrapper for describe. load component before each test
  * @param componentPath
  * @param specDefinitions
@@ -17,7 +20,7 @@ jasmine.Env.prototype.describeComponent = function (componentPath, specDefinitio
         this.Component = Component;
       }.bind(this);
 
-      require(['bower_root/flight/lib/registry', componentPath], requireCallback);
+      require(['flight/lib/registry', componentPath], requireCallback);
 
       waitsFor(function() {
         return this.Component !== null;
@@ -30,7 +33,7 @@ jasmine.Env.prototype.describeComponent = function (componentPath, specDefinitio
         this.Component = null;
         defineComponent.teardownAll();
       }.bind(this);
-      require(['bower_root/flight/lib/component'], requireCallback);
+      require(['flight/lib/component'], requireCallback);
       waitsFor(function () {
         return this.Component === null;
       }.bind(this));
@@ -59,7 +62,7 @@ jasmine.Env.prototype.describeMixin = function (mixinPath, specDefinitions) {
         this.Component = defineComponent(function() {}, Mixin);
       }.bind(this);
 
-      require(['bower_root/flight/lib/registry', 'bower_root/flight/lib/component', mixinPath], requireCallback);
+      require(['flight/lib/registry', 'flight/lib/component', mixinPath], requireCallback);
 
       waitsFor(function() {
         return this.Component !== null;
@@ -72,7 +75,7 @@ jasmine.Env.prototype.describeMixin = function (mixinPath, specDefinitions) {
         this.Component = null;
         defineComponent.teardownAll();
       }.bind(this);
-      require(['bower_root/flight/lib/component'], requireCallback);
+      require(['flight/lib/component'], requireCallback);
       waitsFor(function () {
         return this.Component === null;
       }.bind(this));
@@ -385,4 +388,3 @@ var spyOnEvent = function(selector, eventName) {
   jasmine.JQuery.events.spyOn(selector, eventName);
   return jasmine.flight.events.spyOn(selector, eventName);
 };
-
