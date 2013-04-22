@@ -1,13 +1,21 @@
 "use strict";
 
-var dataStore;
-
 describeComponent('app/component_data/mail_items', function () {
   beforeEach(function () {
-    require(['app/data'], function(data) {
-      dataStore = data
-    });
-    setupComponent();
+    setupComponent(
+      {
+        dataStore: {
+          contacts: [
+            {"id": "contact_3"},
+            {"id": "contact_5"}
+          ],
+          mail: [
+            {id: "mail_1", contact_id: "contact_3", subject:"blah", message: "blugh", folders: ['inbox']},
+            {id: "mail_2", contact_id: "contact_5", subject:"blee", message: "blooo", folders: ['later']}
+          ]
+        }
+      }
+    );
   });
 
   it('serves mail items when requested', function () {
@@ -17,17 +25,12 @@ describeComponent('app/component_data/mail_items', function () {
   });
 
   it('should collate items for given folder when assembleItems is invoked with folder', function () {
-    require(['app/data'], function(data) {
-      dataStore = data
-    });
-
     var items = this.component.assembleItems('inbox');
-    expect(items.length).toBe(5);
-    //FIX DATA MUTABILITY ISSUE
-    // items = this.component.assembleItems('sent');
-    // expect(items.length).toBe(1);
-    items = this.component.assembleItems('trash');
-    expect(items.length).toBe(2);
+    expect(items.length).toBe(1);
+    items = this.component.assembleItems('sent');
+    expect(items.length).toBe(0);
+    items = this.component.assembleItems('later');
+    expect(items.length).toBe(1);
   });
 
   it('serves mail items after refresh', function () {

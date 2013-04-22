@@ -14,6 +14,10 @@ define(
 
     function moveTo() {
 
+      this.defaultAttrs({
+        dataStore: dataStore
+      });
+
       this.serveAvailableFolders = function(ev, data) {
         this.trigger("dataMoveToItemsServed", {
           markup: this.renderFolderSelector(this.getOtherFolders(data.folder))
@@ -26,7 +30,7 @@ define(
 
       this.moveItems = function(ev, data) {
         var itemsToMoveIds = data.itemIds
-        dataStore.mail.forEach(function(item) {
+        this.attr.dataStore.mail.forEach(function(item) {
           if (itemsToMoveIds.indexOf(item.id) > -1) {
             item.folders = [data.toFolder];
           }
@@ -35,7 +39,7 @@ define(
       };
 
       this.getOtherFolders = function(folder) {
-        return dataStore.folders.filter(function(e) {return e != folder});
+        return this.attr.dataStore.folders.filter(function(e) {return e != folder});
       };
 
       this.after("initialize", function() {

@@ -1,14 +1,21 @@
 "use strict";
 
-var dataStore;
-require(['app/data'], function(data) {
-  dataStore = data
-});
-
 describeComponent('app/component_data/compose_box', function () {
   beforeEach(function () {
     setupComponent(
-      {recipientHintId: 'abc'}
+      {
+        recipientHintId: "abc",
+        dataStore: {
+          contacts: [
+            {"id": "contact_3"},
+            {"id": "contact_5"}
+          ],
+          mail: [
+            {id: "mail_1", contact_id: "contact_3", subject:"blah", message: "blugh", folders: ['inbox']},
+            {id: "mail_2", contact_id: "contact_5", subject:"blee", message: "blooo", folders: ['later']}
+          ]
+        }
+      }
     );
   });
 
@@ -19,7 +26,7 @@ describeComponent('app/component_data/compose_box', function () {
   });
 
   it('returns the contact_id when getRecipientId is passed a relatedMailId', function () {
-    expect(this.component.getRecipientId('reply', 'mail_2139')).toBe('contact_342');
+    expect(this.component.getRecipientId('reply', 'mail_1')).toBe('contact_3');
   });
 
   it('returns the recipientHintId when getRecipientId is not passed a relatedMailId', function () {
@@ -28,11 +35,11 @@ describeComponent('app/component_data/compose_box', function () {
 
   it('sends email when requested', function () {
     var dataMailItemsRefreshRequested = spyOnEvent(document, 'dataMailItemsRefreshRequested');
-    this.component.trigger('uiSendRequested', {to_id: 'a', subject: 'b', message: 'c'});
+    this.component.trigger('uiSendRequested', {to_id: 'contact_9', subject: 'b', message: 'c'});
     expect('dataMailItemsRefreshRequested').toHaveBeenTriggeredOn(document);
-    var newMail = dataStore.mail.filter(function(e) {return e.contact_id == 'a'})[0];
+    var newMail = this.component.attr.dataStore.mail.filter(function(e) {return e.contact_id == 'contact_9'})[0];
     expect(newMail).toBeDefined();
-    expect(newMail.contact_id).toBe('a');
+    expect(newMail.contact_id).toBe('contact_9');
     expect(newMail.subject).toBe('b');
     expect(newMail.message).toBe('c');
   });
