@@ -12,14 +12,13 @@ define(
 
     function composeBox() {
 
-      var selectedFolders = ['inbox']; //FIX ME
-      var selectedMailItems;
-
       this.defaultAttrs({
         newMailType: 'newMail',
         forwardMailType: 'forward',
         replyMailType: 'reply',
         hintClass: 'hint',
+        selectedFolders: [],
+        selectedMailItems: [],
 
         //selectors
         composeControl: '.compose',
@@ -40,11 +39,11 @@ define(
       };
 
       this.forward = function() {
-        this.requestComposeBox(this.attr.forwardMailType, selectedMailItems);
+        this.requestComposeBox(this.attr.forwardMailType, this.attr.selectedMailItems);
       };
 
       this.reply = function() {
-        this.requestComposeBox(this.attr.replyMailType, selectedMailItems);
+        this.requestComposeBox(this.attr.replyMailType, this.attr.selectedMailItems);
       };
 
       this.requestComposeBox = function(type, relatedMailId) {
@@ -66,7 +65,7 @@ define(
           to_id: this.select('selectedRecipientSelector').attr('id'),
           subject: this.select('subjectSelector').text(),
           message: this.select('messageSelector').text(),
-          currentFolder: selectedFolders[0]
+          currentFolder: this.attr.selectedFolders[0]
         };
         this.trigger('uiSendRequested', data);
         this.$node.hide();
@@ -82,11 +81,11 @@ define(
       };
 
       this.updateMailItemSelections = function(ev, data) {
-        selectedMailItems = data.selectedIds;
+        this.attr.selectedMailItems = data.selectedIds;
       }
 
       this.updateFolderSelections = function(ev, data) {
-        selectedFolders = data.selectedIds;
+        this.attr.selectedFolders = data.selectedIds;
       }
 
       this.after('initialize', function() {

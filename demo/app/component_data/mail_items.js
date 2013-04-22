@@ -15,7 +15,8 @@ define(
     function mailItems() {
 
       this.defaultAttrs({
-        folder: 'inbox'
+        folder: 'inbox',
+        dataStore: dataStore
       });
 
       this.serveMailItems = function(ev, data) {
@@ -30,7 +31,7 @@ define(
       this.assembleItems = function(folder) {
         var items = [];
 
-        dataStore.mail.forEach(function(each) {
+        this.attr.dataStore.mail.forEach(function(each) {
           if (each.folders && each.folders.indexOf(folder) > -1) {
             items.push(this.getItemForView(each));
           }
@@ -44,7 +45,7 @@ define(
 
         thisItem = {id: itemData.id, important: itemData.important};
 
-        thisContact = dataStore.contacts.filter(function(contact) {
+        thisContact = this.attr.dataStore.contacts.filter(function(contact) {
           return contact.id == itemData.contact_id
         })[0];
         thisItem.name = [thisContact.firstName, thisContact.lastName].join(' ');

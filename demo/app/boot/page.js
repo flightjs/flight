@@ -25,13 +25,21 @@ define(
 
     function initialize() {
       MailItemsData.attachTo(document);
-      ComposeBoxData.attachTo(document);
+      ComposeBoxData.attachTo(document, {
+        selectedFolders: ['inbox']
+      });
       MoveToData.attachTo(document);
-      MailItemsUI.attachTo('#mail_items', {itemContainerSelector: '#mail_items_TB'});
+      MailItemsUI.attachTo('#mail_items', {
+        itemContainerSelector: '#mail_items_TB',
+        selectedFolders: ['inbox']
+      });
       MailControlsUI.attachTo('#mail_controls');
       ComposeBoxUI.attachTo('#compose_box');
       FoldersUI.attachTo('#folders');
-      MoveToSelectorUI.attachTo('#move_to_selector', {moveActionSelector: '#move_mail'});
+      MoveToSelectorUI.attachTo('#move_to_selector', {
+        moveActionSelector: '#move_mail',
+        selectedFolders: ['inbox']
+      });
     }
 
     return initialize;
