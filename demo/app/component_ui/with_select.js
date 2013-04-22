@@ -26,7 +26,7 @@ define(
         var $item = $(data.el), append;
 
         if ($item.hasClass(this.attr.selectedClass)) {
-          this.attr.allowMultiSelect && this.unselectItem($item);
+          this.unselectItem($item);
         } else {
           append = this.attr.allowMultiSelect && (ev.metaKey || ev.ctrlKey || ev.shiftKey);
           this.selectItem($item, append);

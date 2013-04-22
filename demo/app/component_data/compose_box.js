@@ -15,6 +15,7 @@ define(
     function composeBox() {
 
       this.defaultAttrs({
+        dataStore: dataStore,
         recipientHintId: 'recipient_hint',
         subjectHint: 'Subject',
         messageHint: 'Message',
@@ -30,7 +31,7 @@ define(
       };
 
       this.getSubject = function(type, relatedMailId) {
-        var relatedMail = dataStore.mail.filter(function(each) {
+        var relatedMail = this.attr.dataStore.mail.filter(function(each) {
           return each.id ==  relatedMailId;
         })[0];
 
@@ -47,7 +48,7 @@ define(
 
       this.renderComposeBox = function(type, relatedMailId) {
         var recipientId = this.getRecipientId(type, relatedMailId);
-        var contacts = dataStore.contacts.map(function(contact) {
+        var contacts = this.attr.dataStore.contacts.map(function(contact) {
           contact.recipient = (contact.id == recipientId);
           return contact;
         });
@@ -62,7 +63,7 @@ define(
       };
 
       this.getRecipientId = function(type, relatedMailId) {
-        var relatedMail = (type == 'reply') && dataStore.mail.filter(function(each) {
+        var relatedMail = (type == 'reply') && this.attr.dataStore.mail.filter(function(each) {
           return each.id ==  relatedMailId;
         })[0];
 
@@ -71,7 +72,7 @@ define(
 
 
       this.send = function(ev, data) {
-        dataStore.mail.push({
+        this.attr.dataStore.mail.push({
           id: String(Date.now()),
           contact_id: data.to_id,
           folders: ["sent"],

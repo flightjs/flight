@@ -1,0 +1,18 @@
+<div id="new_mail"></div>
+<div id="compose_box" class="compose-box modal hide fade in" style="display: block;">
+  <div id="compose_to" class="modal-header compose-header">
+    To: <select id="recipient_select">
+      <option id="recipient_hint" class="hint" style="color:#CACACA">[Select Recipient]</option>
+      <option id="contact_342">Michael Smith</option><option id="contact_377">Mary Jones</option>
+      <option id="contact_398">Billy Idiot</option>
+    </select>
+  </div>
+  <div class="modal-body compose-body">
+    <div id="compose_subject" class="hint" contenteditable="true">Subject</div>
+    <div id="compose_message" class="hint" contenteditable="true">Message</div>
+  </div>
+  <div class="modal-footer">
+    <button id="send_composed" disabled="disabled" class="btn btn-primary">Send</button>
+    <button id="cancel_composed" class="btn">Cancel</button>
+  </div>
+</div>

@@ -13,14 +13,13 @@ define(
 
     function mailItems() {
 
-      var selectedFolders = ['inbox']; //FIX ME
-      var selectedMailItems;
-
       this.defaultAttrs({
         deleteFolder: 'trash',
         selectedClass: 'selected',
         allowMultiSelect: true,
         selectionChangedEvent: 'uiMailItemSelectionChanged',
+        selectedMailItems: [],
+        selectedFolders: [],
         //selectors
         itemSelector: 'tr.mail-item',
         selectedItemSelector: 'tr.mail-item.selected'
@@ -33,17 +32,17 @@ define(
       }
 
       this.updateMailItemSelections = function(ev, data) {
-        selectedMailItems = data.selectedIds;
+        this.attr.selectedMailItems = data.selectedIds;
       }
 
       this.updateFolderSelections = function(ev, data) {
-        selectedFolders = data.selectedIds;
+        this.attr.selectedFolders = data.selectedIds;
       }
 
       this.requestDeletion = function() {
         this.trigger('uiMoveItemsRequested', {
-          itemIds: selectedMailItems,
-          fromFolder: selectedFolders[0],
+          itemIds: this.attr.selectedMailItems,
+          fromFolder: this.attr.selectedFolders[0],
           toFolder: this.attr.deleteFolder
         });
       };
