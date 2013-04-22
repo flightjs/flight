@@ -17,14 +17,12 @@ function startJasmine(component) {
 
 function runTests(tests) {
 
-  if (window.location.search.length > 1) {
-    // this allows you to pass the module name in the querystring.  Used by the documentation HTML.
-    // example: test.html?module=app/ui/design
-    if (location.search.match('module=')) {
-      var moduleId = location.getParameter('module');
-      var testFile = 'test/' + moduleId + '_spec';
-      tests = [testFile];
-    }
+  // this allows you to pass the module name in the querystring.  Used by the documentation HTML.
+  // example: test.html?module=app/ui/design
+  if (location.search.match('module=')) {
+    var moduleId = location.getParameter('module');
+    var testFile = 'test/' + moduleId + '_spec';
+    tests = [testFile];
   }
 
   tests.unshift('components/flight/lib/component');

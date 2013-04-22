@@ -1,7 +1,7 @@
 "use strict";
 
-describeComponent('app/component_data/mail_items', function () {
-  beforeEach(function () {
+describeComponent('app/component_data/mail_items', function() {
+  beforeEach(function() {
     setupComponent(
       {
         dataStore: {
@@ -18,13 +18,13 @@ describeComponent('app/component_data/mail_items', function () {
     );
   });
 
-  it('serves mail items when requested', function () {
+  it('serves mail items when requested', function() {
     spyOnEvent(document, 'dataMailItemsServed');
     this.component.trigger('uiMailItemsRequested', {folder: 'inbox'});
     expect('dataMailItemsServed').toHaveBeenTriggeredOn(document);
   });
 
-  it('should collate items for given folder when assembleItems is invoked with folder', function () {
+  it('should collate items for given folder when assembleItems is invoked with folder', function() {
     var items = this.component.assembleItems('inbox');
     expect(items.length).toBe(1);
     items = this.component.assembleItems('sent');
@@ -33,7 +33,7 @@ describeComponent('app/component_data/mail_items', function () {
     expect(items.length).toBe(1);
   });
 
-  it('serves mail items after refresh', function () {
+  it('serves mail items after refresh', function() {
     spyOnEvent(document, 'dataMailItemsServed');
     this.component.trigger('dataMailItemsRefreshRequested', {});
     expect('dataMailItemsServed').toHaveBeenTriggeredOn(document);

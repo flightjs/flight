@@ -1,11 +1,11 @@
 "use strict";
 
-describeComponent('app/component_ui/folders', function () {
-  beforeEach(function () {
+describeComponent('app/component_ui/folders', function() {
+  beforeEach(function() {
     setupComponent();
   });
 
-  it('should listen to uiFolderSelectionChanged and trigger fetchMailItems', function () {
+  it('should listen to uiFolderSelectionChanged and trigger fetchMailItems', function() {
     var uiMailItemsRequested = spyOnEvent(document, 'uiMailItemsRequested');
     this.component.trigger('uiFolderSelectionChanged', {selectedIds: [2, 3, 4]});
     expect('uiMailItemsRequested').toHaveBeenTriggeredOn(document);

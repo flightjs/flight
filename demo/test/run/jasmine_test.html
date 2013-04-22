@@ -43,17 +43,16 @@
 
     jasmine.getFixtures().fixturesPath = '../fixtures';
 
-    if(window.location.search) {
-      var keyValuePairs = window.location.search.substring(1).split('&');
-      keyValuePairs.forEach(function(pair) {
-        var chunks = pair.split('=');
-        var key = chunks[0];
-        var value = chunks[1];
-        if(key == 'using_path') {
-          using.path = value;
-        }
-      });
-    }
+    var keyValuePairs = window.location.search.substring(1).split('&');
+    keyValuePairs.forEach(function(pair) {
+      var chunks = pair.split('=');
+      var key = chunks[0];
+      var value = chunks[1];
+      if(key == 'using_path') {
+        using.path = value;
+      }
+    });
+
   </script>
 
   <script src="unit_test_files.js"></script>

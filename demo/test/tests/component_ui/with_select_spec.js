@@ -1,7 +1,7 @@
 "use strict";
 
-describeMixin('app/component_ui/with_select', function () {
-  beforeEach(function () {
+describeMixin('app/component_ui/with_select', function() {
+  beforeEach(function() {
     setupComponent(readFixtures('mail_items.html'), {
       selectedItemSelector: 'tr.mail-item.selected',
       selectionChangedEvent: 'testSelectionChangedEvent',
@@ -9,19 +9,19 @@ describeMixin('app/component_ui/with_select', function () {
     });
   });
 
-  it('appends selection to the selectionItem cache', function () {
+  it('appends selection to the selectionItem cache', function() {
     var $selectedElem = $('#mail_1');
     this.component.selectItem($selectedElem);
     expect(this.component.getSelectedIds().length).toBe(1);
   });
 
-  it('adds the selected class to the selected item', function () {
+  it('adds the selected class to the selected item', function() {
     var $selectedElem = $('#mail_2');
     this.component.selectItem($selectedElem);
     expect($selectedElem).toBe('.' + this.component.attr.selectedClass);
   });
 
-  it('it triggers selectionChangedEvent on selection', function () {
+  it('it triggers selectionChangedEvent on selection', function() {
     var $selectedElem = $('#mail_2139');
     var testSelectionChangedEvent = spyOnEvent(document, 'testSelectionChangedEvent');
     this.component.selectItem($selectedElem);
@@ -31,21 +31,21 @@ describeMixin('app/component_ui/with_select', function () {
     });
   });
 
-  it('removes unselected item from the selectionItem cache', function () {
+  it('removes unselected item from the selectionItem cache', function() {
     var $unselectedElem = $('#mail_1');
     this.component.attr.selectedIds = ['#mail_1']
     this.component.unselectItem($unselectedElem);
     expect(this.component.getSelectedIds().length).toBe(0);
   });
 
-  it('removes the selected class from the unselected item', function () {
+  it('removes the selected class from the unselected item', function() {
     var $unselectedElem = $('#mail_1');
     $unselectedElem.addClass(this.component.attr.selectedClass);
     this.component.unselectItem($unselectedElem);
     expect($unselectedElem).not.toBe('.' + this.component.attr.selectedClass);
   });
 
-  it('triggers selectionChangedEvent on unselection', function () {
+  it('triggers selectionChangedEvent on unselection', function() {
     var $unselectedElem = $('#mail_1');
     var testSelectionChangedEvent = spyOnEvent(document, 'testSelectionChangedEvent');
     this.component.selectItem($unselectedElem);

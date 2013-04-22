@@ -1,7 +1,7 @@
 "use strict";
 
-describeComponent('app/component_data/compose_box', function () {
-  beforeEach(function () {
+describeComponent('app/component_data/compose_box', function() {
+  beforeEach(function() {
     setupComponent(
       {
         recipientHintId: "abc",
@@ -19,21 +19,21 @@ describeComponent('app/component_data/compose_box', function () {
     );
   });
 
-  it('serves compose box when requested', function () {
+  it('serves compose box when requested', function() {
     spyOnEvent(document, 'dataComposeBoxServed');
     this.component.trigger('uiComposeBoxRequested', {});
     expect('dataComposeBoxServed').toHaveBeenTriggeredOn(document);
   });
 
-  it('returns the contact_id when getRecipientId is passed a relatedMailId', function () {
+  it('returns the contact_id when getRecipientId is passed a relatedMailId', function() {
     expect(this.component.getRecipientId('reply', 'mail_1')).toBe('contact_3');
   });
 
-  it('returns the recipientHintId when getRecipientId is not passed a relatedMailId', function () {
+  it('returns the recipientHintId when getRecipientId is not passed a relatedMailId', function() {
     expect(this.component.getRecipientId('reply')).toBe(this.component.attr.recipientHintId);
   });
 
-  it('sends email when requested', function () {
+  it('sends email when requested', function() {
     var dataMailItemsRefreshRequested = spyOnEvent(document, 'dataMailItemsRefreshRequested');
     this.component.trigger('uiSendRequested', {to_id: 'contact_9', subject: 'b', message: 'c'});
     expect('dataMailItemsRefreshRequested').toHaveBeenTriggeredOn(document);
