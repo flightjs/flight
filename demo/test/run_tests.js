@@ -34,10 +34,6 @@ function runTests(tests) {
 
 
 window.onerror = function(errorMsg, url, lineNumber) {
-  if (errorMsg == 'setting a property that has only a getter') {
-    //Selenium's plugin for Firefox 3.6 throws this error
-    return;
-  }
 
   //don't add more describes for additional cascading errors,
   //otherwise the suite that's already in progress will never end
