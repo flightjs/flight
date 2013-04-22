@@ -12,7 +12,7 @@ describeComponent('app/component_ui/mail_items', function () {
   it('should render mail data in items container', function () {
     this.component.attr.itemContainerSelector = '#container';
     this.component.trigger('dataMailItemsServed', {markup: readFixtures('mail_items.html')});
-    expect(this.component.select('itemContainerSelector').find('tr').length).toBe(5);
+    expect(this.component.select('itemContainerSelector').find('tr').length).toBe(3);
   });
 
   it('should trigger unselect all when rendering mail', function () {
