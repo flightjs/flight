@@ -1,3 +1,12 @@
+## v1.0.8 (04/02/2013)
+
+###features
+* bower ignores non-useful resources
+
+###bug fixes and tweaks
+* fix purging of event registry when unbinding
+* fix empty componentInfo check in registry
+
 ## v1.0.7 (04/02/2013)
 
 ###features
