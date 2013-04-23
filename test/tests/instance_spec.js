@@ -3,9 +3,9 @@
 define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
   var testString = "";
-  var Component = (function () {
+  var Component = (function() {
     function testComponent() {
-      this.after('initialize', function () {
+      this.after('initialize', function() {
         testString = testString || "";
         testString += "-initBase-";
       });
@@ -18,36 +18,32 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
   function withTestMixin1() {
     this.testVal = 69;
-    this.after('initialize', (function () {
+    this.after('initialize', (function() {
       testString = testString || "";
       testString += "-initTestMixin1-";
     }).bind(this));
   }
 
-  ;
-
   function withTestMixin2(input) {
     this.testArray = [24, 79];
-    this.testFunction = function () {
+    this.testFunction = function() {
       return input;
     }
-    this.after('initialize', function () {
+    this.after('initialize', function() {
       testString = testString || "";
       testString += "-initTestMixin2-";
     });
   }
 
-  ;
-
-  describe('(Core) instance', function () {
-    beforeEach(function () {
+  describe('(Core) instance', function() {
+    beforeEach(function() {
       window.outerDiv = document.createElement('div');
       window.innerDiv = document.createElement('div');
       window.outerDiv.className = window.innerDiv.className = "test-node";
       window.outerDiv.appendChild(window.innerDiv);
       document.body.appendChild(window.outerDiv);
     });
-    afterEach(function () {
+    afterEach(function() {
       document.body.removeChild(window.outerDiv);
       window.outerDiv = null;
       window.innerDiv = null;
@@ -55,27 +51,27 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       Component2.teardownAll();
     });
 
-    it('should reference supplied node in new instance', function () {
+    it('should reference supplied node in new instance', function() {
       var instance = new Component(window.outerDiv);
       expect(instance.node).toBe(window.outerDiv);
     });
 
-    it('should throw an exception if .on is given an invalid callback', function () {
+    it('should throw an exception if .on is given an invalid callback', function() {
       var instance = new Component(window.outerDiv);
 
       function definedCallback() {
       }
 
-      expect(function () {
+      expect(function() {
         instance.on('click', definedCallback);
       }).not.toThrow();
 
-      expect(function () {
+      expect(function() {
         instance.on('click', undefinedCallback);
       }).toThrow();
     });
 
-    it('should create instances for each element matching the given selector', function () {
+    it('should create instances for each element matching the given selector', function() {
       var registryTestComponentInfo = registry.findComponentInfo(Component);
       var sizeThen = registryTestComponentInfo ? registryTestComponentInfo.instances.length : 0;
       Component.attachTo('.test-node');
@@ -83,46 +79,83 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(sizeNow).toBe(sizeThen + 2);
     });
 
-    it('references expected nodes when we attach to div', function () {
+    it('references expected nodes when we attach to div', function() {
       Component.attachTo('.test-node');
       expect(registry.findInstanceInfoByNode(window.outerDiv)).toBeTruthy();
       expect(registry.findInstanceInfoByNode(window.innerDiv)).toBeTruthy();
     });
 
-    it('calls initializers in the correct order', function () {
+    it('calls initializers in the correct order', function() {
       testString = "";
       var instance = new Component(window.outerDiv);
       expect(testString).toBe("-initBase--initTestMixin1--initTestMixin2-");
     });
 
-    describe('multiple instances', function () {
-      it('should only attach once when multiple instances of the same Component are attached to the same DOM node', function () {
+    it('should remove instances for each element matching the given selector', function() {
+      var registryTestComponentInfo = registry.findComponentInfo(Component);
+      var sizeThen = registryTestComponentInfo ? registryTestComponentInfo.instances.length : 0;
+      Component.attachTo('.test-node');
+      Component.removeFrom('.test-node');
+      registryTestComponentInfo = registry.findComponentInfo(Component);
+      var sizeNow = registryTestComponentInfo ? Object.keys(registryTestComponentInfo.instances).length : 0;
+      expect(sizeNow).toBe(sizeThen);
+    });
+
+    it('removes Component instances from nodes attached to div', function() {
+      Component.attachTo('.test-node');
+      Component.removeFrom('.test-node');
+      expect(registry.findInstanceInfoByNode(window.outerDiv).length).toBe(0);
+      expect(registry.findInstanceInfoByNode(window.innerDiv).length).toBe(0);
+    });
+
+    it('does nothing if no instances are found when removing', function() {
+      Component.attachTo(document);
+      Component.removeFrom('body');
+      expect(Object.keys(registry.findComponentInfo(Component).instances).length).toBe(1);
+    });
+
+    describe('multiple instances', function() {
+      it('should only attach once when multiple instances of the same Component are attached to the same DOM node', function() {
         Component.attachTo('body');
         Component.attachTo('body');
         expect(Object.keys(registry.findComponentInfo(Component).instances).length).toBe(1);
       });
 
-      it('should attach all instances when the same Component is attached to different nodes', function () {
+      it('should attach all instances when the same Component is attached to different nodes', function() {
         Component.attachTo('body');
         Component.attachTo(document);
         expect(Object.keys(registry.findComponentInfo(Component).instances).length).toBe(2);
       });
 
-      it('should attach all instances when different Components are attached to the same node', function () {
+      it('should attach all instances when different Components are attached to the same node', function() {
         Component.attachTo('body');
         Component2.attachTo('body');
         expect(Object.keys(registry.findComponentInfo(Component).instances).length).toBe(1);
         expect(Object.keys(registry.findComponentInfo(Component2).instances).length).toBe(1);
       });
 
-      it('should merge multiple options arguments correctly', function () {
+      it('should merge multiple options arguments correctly', function() {
         Component.attachTo('.test-node', {foo: 46}, {bar: 48});
         var firstKey = Object.keys(registry.findComponentInfo(Component).instances)[0];
         var c = registry.findComponentInfo(Component).instances[firstKey].instance;
         expect(c.attr.foo).toBe(46);
         expect(c.attr.bar).toBe(48);
       });
+
+      it('should remove only the required instance when the same Component is attached to different nodes', function() {
+        Component.attachTo('body');
+        Component.attachTo(document);
+        Component.removeFrom('body');
+        expect(Object.keys(registry.findComponentInfo(Component).instances).length).toBe(1);
+      });
+
+      it('should remove only the required Component when different Components are attached to the same node', function() {
+        Component.attachTo('body');
+        Component2.attachTo('body');
+        Component.removeFrom('body');
+        expect(registry.findComponentInfo(Component)).toBe(null);
+        expect(Object.keys(registry.findComponentInfo(Component2).instances).length).toBe(1);
+      });
     });
   });
-
 });
