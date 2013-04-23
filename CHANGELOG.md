@@ -1,4 +1,4 @@
-## v1.0.8 (04/02/2013)
+## v1.0.8 (04/23/2013)
 
 ###features
 * bower ignores non-useful resources
