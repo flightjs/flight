@@ -13,6 +13,9 @@ $(BUILD)/flight.js: $(BUILD)
 
 standalone: clean $(BUILD)/flight.js
 
+test: standalone
+	@ phantomjs test/phantom-jasmine/run_jasmine_test.coffee test/run/jasmine_test.html
+
 release: standalone
 	git clone -b gh-pages $(REPO) $(GH_PAGES)
 	@ cp $(BUILD)/flight.js $(GH_PAGES)/flight.js
