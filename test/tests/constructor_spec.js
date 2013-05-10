@@ -33,6 +33,7 @@ define(['lib/component'], function (defineComponent) {
 
       expect(typeof TestComponent).toBe('function');
       expect(typeof TestComponent.attachTo).toBe('function');
+      expect(typeof TestComponent.removeFrom).toBe('function');
       expect(TestComponent.prototype.testVal).toBe(1066);
     });
 
