@@ -1,3 +1,11 @@
+## v1.0.9 (05/13/2013)
+
+###features
+* Event logger now works out-of-the-box
+
+###bug fixes and tweaks
+* Fix logger output
+
 ## v1.0.8 (04/23/2013)
 
 ###features
