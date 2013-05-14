@@ -27,7 +27,7 @@ Flight has been tested on all major browsers: Chrome, Firefox, Safari, Opera and
 ## Installation
 
 To ensure Flight is installed with the correct dependencies, we recommend using [bower](https://github.com/twitter/bower).
-Your client app will need a `component.json` file that looks something like this:
+Your client app will need a `bower.json` file that looks something like this:
 
     {
       "name": "myApp",
