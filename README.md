@@ -41,7 +41,8 @@ Then running `bower install` will add flight to the `components` directory of `m
 
 Alternatively, if you don't want to load Flight via a script loader, simply download and
 include the [standalone version](http://twitter.github.com/flight/flight.js) using a regular
-script tag then refer to [Using the standalone version](#using-the-standalone-version).
+script tag then refer to [Using the standalone version](#using-the-standalone-version). This
+file is also available via [cdn.js](//cdnjs.cloudflare.com/ajax/libs/flight/1.0.9/flight.min.js)
 
 ## Dependencies
 
