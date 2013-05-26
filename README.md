@@ -12,7 +12,7 @@ that components are highly portable and easily testable.
 As an added bonus, Flight includes a simple and safe mixin infrastructure allowing components to be easily
 extended with minimal boilerplate.
 
-**[Follow us on Twitter](https://twitter.com/flight)**  
+**[Follow us on Twitter](https://twitter.com/flight)**
 **[Visit our Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)**
 
 ## Sample App
@@ -26,7 +26,7 @@ Flight has been tested on all major browsers: Chrome, Firefox, Safari, Opera and
 
 ## Installation
 
-To ensure Flight is installed with the correct dependencies, we recommend using [bower](https://github.com/twitter/bower).
+To ensure Flight is installed with the correct dependencies, we recommend using [Bower](http://bower.io/).
 Your client app will need a `bower.json` file that looks something like this:
 
     {
@@ -47,7 +47,7 @@ file is also available via [cdn.js](//cdnjs.cloudflare.com/ajax/libs/flight/1.0.
 ## Dependencies
 
 Flight uses [ES5-shim](https://github.com/kriskowal/es5-shim) to polyfill ES5 support for older browsers and [jQuery](http://jquery.com)
-for DOM manipulation API. If you install flight with bower, these apps will be deployed in the `components`
+for DOM manipulation API. If you install Flight with Bower, these libraries will be installed in the `components`
 folder. Additionally you will need to include an AMD implementation such as [require.js](http://requirejs.org/)
 or [loadrunner](https://github.com/danwrong/loadrunner).
 
