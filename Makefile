@@ -14,7 +14,7 @@ $(BUILD)/flight.js: $(BUILD)
 standalone: clean $(BUILD)/flight.js
 
 test: standalone
-	@ phantomjs test/phantom-jasmine/run_jasmine_test.coffee test/run/jasmine_test.html
+	@ npm test
 
 release: standalone
 	git clone -b gh-pages $(REPO) $(GH_PAGES)
