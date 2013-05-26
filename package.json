@@ -1,11 +1,9 @@
 {
   "name": "flight",
   "version": "1.0.0",
-  "dependencies": {
-    "loadbuilder": ">=0.4.2"
-  },
   "devDependencies": {
-    "karma": "~0.8.5"
+    "karma": "~0.8.5",
+    "loadbuilder": ">=0.4.2"
   },
   "scripts": {
     "test": "./node_modules/.bin/karma start --browsers PhantomJS --single-run"
