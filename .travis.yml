@@ -1,4 +1,8 @@
 language: node_js
 node_js:
+  - 0.10
   - 0.8
-script: "npm install; make test"
+before_script:
+  - npm install -g bower
+  - bower install
+script: "make test"
