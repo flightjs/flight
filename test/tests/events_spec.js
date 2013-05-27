@@ -76,6 +76,28 @@ define(['lib/component'], function (defineComponent) {
       expect(spy).not.toHaveBeenCalled();
     });
 
+    it('correctly unbinds multiple registered events for the same callback function using "teardown"', function () {
+      var instance1 = new Component(window.outerDiv);
+      var spy = jasmine.createSpy();
+      instance1.on(document, 'event1', spy);
+      instance1.on(document, 'event2', spy);
+      instance1.teardown();
+      instance1.trigger('event1');
+      instance1.trigger('event2');
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('correctly unbinds multiple registered events for the same callback function using "teardownAll"', function () {
+      var instance1 = new Component(window.outerDiv);
+      var spy = jasmine.createSpy();
+      instance1.on(document, 'event1', spy);
+      instance1.on(document, 'event2', spy);
+      Component.teardownAll();
+      instance1.trigger('event1');
+      instance1.trigger('event2');
+      expect(spy).not.toHaveBeenCalled();
+    });
+
     it('does not unbind those registered events that share a callback, but were not sent "off" requests', function () {
       var instance1 = new Component(window.outerDiv);
       var spy = jasmine.createSpy();
@@ -134,7 +156,7 @@ define(['lib/component'], function (defineComponent) {
       var badBind = function () {
         instance.on(document, 'foo', "turkey")
       };
-      expect(badBind).toThrow("Unable to bind to 'foo' because the given callback is not a function or an object");
+      expect(badBind).toThrow("Unable to bind to 'foo."+instance.identity+"' because the given callback is not a function or an object");
     });
 
     it('merges eventData into triggered event data', function () {
