@@ -45,8 +45,8 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('bubbles native events between components', function () {
-      var instance1 = new Component(window.innerDiv);
-      var instance2 = new Component(window.outerDiv);
+      var instance1 = (new Component).initialize(window.innerDiv);
+      var instance2 = (new Component).initialize(window.outerDiv);
 
       var spy = jasmine.createSpy();
       instance2.on('click', spy);
@@ -55,7 +55,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('unbinds listeners using "off"', function () {
-      var instance1 = new Component(window.outerDiv);
+      var instance1 = (new Component).initialize(window.outerDiv);
 
       var spy = jasmine.createSpy();
       instance1.on('click', spy);
@@ -65,7 +65,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('correctly unbinds multiple registered events for the same callback function using "off"', function () {
-      var instance1 = new Component(window.outerDiv);
+      var instance1 = (new Component).initialize(window.outerDiv);
       var spy = jasmine.createSpy();
       instance1.on(document, 'event1', spy);
       instance1.on(document, 'event2', spy);
@@ -77,7 +77,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('does not unbind those registered events that share a callback, but were not sent "off" requests', function () {
-      var instance1 = new Component(window.outerDiv);
+      var instance1 = (new Component).initialize(window.outerDiv);
       var spy = jasmine.createSpy();
       instance1.on(document, 'event1', spy);
       instance1.on(document, 'event2', spy);
@@ -87,8 +87,8 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('bubbles custom events between components', function () {
-      var instance1 = new Component(window.innerDiv);
-      var instance2 = new Component(window.outerDiv);
+      var instance1 = (new Component).initialize(window.innerDiv);
+      var instance2 = (new Component).initialize(window.outerDiv);
 
       var spy = jasmine.createSpy();
       instance2.on('click', spy);
@@ -97,8 +97,8 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('can be attached to any element', function () {
-      var instance1 = new Component(window.innerDiv);
-      var instance2 = new Component(window.outerDiv);
+      var instance1 = (new Component).initialize(window.innerDiv);
+      var instance2 = (new Component).initialize(window.outerDiv);
 
       var spy = jasmine.createSpy();
       instance2.on(document, 'click', spy);
@@ -107,7 +107,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('makes data and target element available to callback', function () {
-      var instance = new Component(document.body);
+      var instance = (new Component).initialize(document.body);
       var data = {blah: 'blah'};
 
       var spy = jasmine.createSpy();
@@ -119,7 +119,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('ignores data parameters with value of undefined', function () {
-      var instance = new Component(document.body);
+      var instance = (new Component).initialize(document.body);
 
       var spy = jasmine.createSpy();
       instance.on(document, 'foo', spy);
@@ -130,7 +130,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('throws the expected error when attempting to bind to wrong type', function () {
-      var instance = new Component(document.body);
+      var instance = (new Component).initialize(document.body);
       var badBind = function () {
         instance.on(document, 'foo', "turkey")
       };
@@ -138,7 +138,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('merges eventData into triggered event data', function () {
-      var instance = new Component(document.body, { eventData: { penguins: 'cool', sheep: 'dull' } });
+      var instance = (new Component).initialize(document.body, { eventData: { penguins: 'cool', sheep: 'dull' } });
       var data = { sheep: 'thrilling' };
 
       var spy = jasmine.createSpy();
@@ -153,21 +153,21 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('executes the specified method when specified', function () {
-      var instance = new Component(document.body);
+      var instance = (new Component).initialize(document.body);
       instance.someMethod = jasmine.createSpy();
       instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
       expect(instance.someMethod).toHaveBeenCalled();
     });
 
     it('executes the specified function when specified', function () {
-      var instance = new Component(document.body);
+      var instance = (new Component).initialize(document.body);
       var spy = jasmine.createSpy();
       instance.trigger({ type: 'foo', defaultBehavior: spy });
       expect(spy).toHaveBeenCalled();
     });
 
     it('does not execute the specified method when a listener calls preventDefault', function () {
-      var instance = new Component(document.body);
+      var instance = (new Component).initialize(document.body);
       instance.someMethod = jasmine.createSpy();
 
       instance.on('foo', function (e) {
@@ -179,7 +179,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('does not execute the specified function when a listener calls preventDefault', function () {
-      var instance = new Component(document.body);
+      var instance = (new Component).initialize(document.body);
       var spy = jasmine.createSpy();
 
       instance.on('foo', function (e) {

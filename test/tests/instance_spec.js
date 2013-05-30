@@ -56,12 +56,12 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
     });
 
     it('should reference supplied node in new instance', function () {
-      var instance = new Component(window.outerDiv);
+      var instance = (new Component).initialize(window.outerDiv);
       expect(instance.node).toBe(window.outerDiv);
     });
 
     it('should throw an exception if .on is given an invalid callback', function () {
-      var instance = new Component(window.outerDiv);
+      var instance = (new Component).initialize(window.outerDiv);
 
       function definedCallback() {
       }
@@ -91,7 +91,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
     it('calls initializers in the correct order', function () {
       testString = "";
-      var instance = new Component(window.outerDiv);
+      var instance = (new Component).initialize(window.outerDiv);
       expect(testString).toBe("-initBase--initTestMixin1--initTestMixin2-");
     });
 

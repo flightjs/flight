@@ -51,7 +51,8 @@ define(['lib/component'], function (defineComponent) {
 
     it('adds core defaults', function () {
       var TestComponent = defineComponent(testComponentDefaultAttrs);
-      var instance = new TestComponent(document.body);
+      var instance = (new TestComponent).initialize(document.body);
+
       expect(instance.attr.core).toBe(35);
 
       TestComponent.teardownAll();
@@ -60,7 +61,7 @@ define(['lib/component'], function (defineComponent) {
     it('throws error if required attr not specified', function () {
       var TestComponent = defineComponent(testComponentDefaultAttrsRequired);
       expect(function () {
-        var instance = new TestComponent(document.body);
+        var instance = (new TestComponent).initialize(document.body);
       }).toThrow('Required attribute "req" not specified in attachTo for component "testComponentDefaultAttrsRequired".');
 
       TestComponent.teardownAll();
@@ -69,7 +70,7 @@ define(['lib/component'], function (defineComponent) {
     it("doesn't throw error if required attr is specified", function () {
       var TestComponent = defineComponent(testComponentDefaultAttrsRequired);
       expect(function () {
-        var instance = new TestComponent(document.body, { req: 'hello' });
+        var instance = (new TestComponent).initialize(document.body, { req: 'hello' });
       }).not.toThrow();
 
       TestComponent.teardownAll();
@@ -78,14 +79,15 @@ define(['lib/component'], function (defineComponent) {
     it("doesn't attach to empty jQuery objects", function () {
       var TestComponent = defineComponent(testComponentDefaultAttrs);
       var trouble = function () {
-        new TestComponent();
+        (new TestComponent).initialize();
       };
       expect(trouble).toThrow(new Error("Component needs a node"));
     });
 
     it('adds mixin defaults', function () {
       var TestComponent = defineComponent(testComponent, withGoodDefaults);
-      var instance = new TestComponent(document.body);
+      var instance = (new TestComponent).initialize(document.body);
+
       expect(instance.attr.extra).toBe(38);
 
       TestComponent.teardownAll();
@@ -93,7 +95,7 @@ define(['lib/component'], function (defineComponent) {
 
     it('adds core and mixin defaults', function () {
       var TestComponent = defineComponent(testComponentDefaultAttrs, withGoodDefaults);
-      var instance = new TestComponent(document.body);
+      var instance = (new TestComponent).initialize(document.body);
       expect(instance.attr.core).toBe(35);
       expect(instance.attr.extra).toBe(38);
 
