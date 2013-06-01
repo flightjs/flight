@@ -52,12 +52,11 @@ define(
       };
 
       this.after('initialize', function() {
-        this.on('click', {
+        this.on('.mail-action', 'click', {
           'deleteControlSelector': this.deleteMail,
           'moveControlSelector': this.moveMail,
           'forwardControlSelector': this.forwardMail,
           'replyControlSelector': this.replyToMail
-
         });
         this.on(document, 'uiMailItemSelectionChanged', this.restyleOnSelectionChange);
         this.on(document, 'uiFolderSelectionChanged', this.disableAll);
