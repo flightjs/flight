@@ -6,7 +6,7 @@ Looking to contribute something to Flight? Here's how you can help.
 ## Bugs reports
 
 A bug is a _demonstrable problem_ that is caused by the code in the
-repository. Good bug reports are extremely helpful - thank you!
+repository. Good bug reports are extremely helpful – thank you!
 
 Guidelines for bug reports:
 
@@ -20,8 +20,8 @@ Guidelines for bug reports:
    case and a live example.
 
 4. Please try to be as detailed as possible in your report. Include specific
-   information about the environment - operating system and version, browser
-   and version, version of Flight - and steps required to reproduce the issue.
+   information about the environment – operating system and version, browser
+   and version, version of Flight – and steps required to reproduce the issue.
 
 
 ## Feature requests & contribution enquiries
@@ -38,7 +38,7 @@ have good reasons for rejecting.
 
 ## Pull requests
 
-Good pull requests - patches, improvements, new features - are a fantastic
+Good pull requests – patches, improvements, new features – are a fantastic
 help. They should remain focused in scope and avoid containing unrelated
 commits.
 
@@ -49,18 +49,62 @@ coverage).
 Please follow this process; it's the best way to get your work included in the
 project:
 
-1. Create a new topic branch to contain your feature, change, or fix:
+1. [Fork](http://help.github.com/fork-a-repo/) the project, clone your fork,
+   and configure the remotes:
 
-2. Commit your changes in logical chunks. Provide clear and explanatory commit
-   messages. Use git's [interactive rebase](https://help.github.com/articles/interactive-rebase)
-   feature to tidy up your commits before making them public.
+   ```bash
+   # Clone your fork of the repo into the current directory
+   git clone https://github.com/<your-username>/flight
+   # Navigate to the newly cloned directory
+   cd <repo-name>
+   # Assign the original repo to a remote called "upstream"
+   git remote add upstream git://github.com/twitter/flight
+   ```
 
-3. Locally merge (or rebase) the upstream development branch into your topic branch:
+2. If you cloned a while ago, get the latest changes from upstream:
 
-4. Push your topic branch up to your fork:
+   ```bash
+   git checkout master
+   git pull upstream master
+   ```
 
-5. [Open a Pull Request](http://help.github.com/send-pull-requests/) with a
-   clear title and description.
+3. Install the dependencies (you must have Node.js and [Bower](http://bower.io)
+   installed), and create a new topic branch (off the main project development
+   branch) to contain your feature, change, or fix:
+
+   ```bash
+   npm install
+   bower install
+   git checkout -b <topic-branch-name>
+   ```
+
+4. Make sure to update, or add to the tests when appropriate. Patches and
+   features will not be accepted without tests. Run `make test` to check that
+   all tests pass after you've made changes.
+
+5. Commit your changes in logical chunks. Provide clear and explanatory commit
+   messages. Use Git's [interactive rebase](https://help.github.com/articles/interactive-rebase) feature to tidy up
+   your commits before making them public.
+
+6. Locally merge (or rebase) the upstream development branch into your topic branch:
+
+   ```bash
+   git pull [--rebase] upstream master
+   ```
+
+7. Push your topic branch up to your fork:
+
+   ```bash
+   git push origin <topic-branch-name>
+   ```
+
+8. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
+    with a clear title and description.
+
+9. If you are asked to amend your changes before they can be merged in, please
+   use `git commit --amend` (or rebasing for multi-commit Pull Requests) and
+   force push to your remote feature branch. You may also be asked to squash
+   commits.
 
 ## License
 
