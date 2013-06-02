@@ -1,25 +1,30 @@
 REPO = git@github.com:twitter/flight.git
-BUILD := build
-GH_PAGES = $(BUILD)/pages
+BUILD_DIR := build
+GH_PAGES = $(BUILD_DIR)/pages
+VERSION = `node -pe "require('./package.json').version"`
 
 clean:
-	@ rm -rf $(BUILD)
+	@ rm -rf $(BUILD_DIR)
 
-$(BUILD):
-	@ mkdir -p $(BUILD)
-
-$(BUILD)/flight.js: $(BUILD)
-	@ node lib/standalone/build.js
-
-standalone: clean $(BUILD)/flight.js
+standalone: clean
+	@ mkdir -p $(BUILD_DIR)
+	@ node tools/standalone/build.js
 
 test: standalone
 	@ npm test
 
+# clones the Flight project page into the 'build' directory
+# creates new directory for latest version
+# copies flight.js and flight.min.js
+# commits and pushes
 release: standalone
 	git clone -b gh-pages $(REPO) $(GH_PAGES)
-	@ cp $(BUILD)/flight.js $(GH_PAGES)/flight.js
+	@ rm -rf $(GH_PAGES)/release/latest
+	@ mkdir -p $(GH_PAGES)/release/latest
+	@ mkdir $(GH_PAGES)/release/$(VERSION)
+	@ cp $(BUILD_DIR)/*.js $(GH_PAGES)/release/latest
+	@ cp $(BUILD_DIR)/*.js $(GH_PAGES)/release/$(VERSION)
 	@ cd $(GH_PAGES); \
-	  git add flight.js; \
-	  git commit -m 'released new version of flight.js standalone'; \
+	  git add release; \
+	  git commit -m "Add latest release of standalone flight.js"; \
 	  git push origin gh-pages
