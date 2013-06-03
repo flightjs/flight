@@ -237,7 +237,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
     });
 
     it('should pass event, and data (inc. el property) to its callbacks', function () {
-      var instance = new Component(document, {'bodySelector': 'body'});
+      var instance = (new Component).initialize(document, {'bodySelector': 'body'});
       var myData = {blah: 'blah'};
 
       jasmine.Clock.useMock();
