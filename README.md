@@ -556,7 +556,7 @@ define(
 
   function(defineComponent, withDialog, withDropdown) {
 
-    defineComponent(fancyComponent, withDialog, withDropdown);
+    return defineComponent(fancyComponent, withDialog, withDropdown);
 
     function fancyComponent() {
       //...
