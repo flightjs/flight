@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "version": "1.0.9",
   "ignore": [
-    "lib/standalone",
+    "tools/standalone",
     "test",
     ".gitignore",
     ".travis.yml",
