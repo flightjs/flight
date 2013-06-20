@@ -15,7 +15,7 @@ define(
       this.initializeSelections = function() {
         this.select('selectedItemSelector').toArray().forEach(function(el) {
           this.attr.selectedIds.push(el.getAttribute('id'));
-        },this);
+        }, this);
       };
 
       this.getSelectedIds = function() {
