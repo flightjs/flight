@@ -7,6 +7,6 @@
     "uglify-js": "~2.3.6"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --browsers PhantomJS --single-run"
+    "test": "./node_modules/.bin/karma start --browsers Firefox --single-run"
   }
 }
