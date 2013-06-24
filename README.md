@@ -760,6 +760,12 @@ to
 
     var logLevel = 'all';
 
+## Testing
+
+Flight can be tested with any JavaScript testing framework like [Jasmine](https://github.com/pivotal/jasmine) or [Mocha](https://github.com/visionmedia/mocha).
+
+[flight-jasmine](https://github.com/twitter/flight-jasmine) and [flight-mocha](https://github.com/naoina/flight-mocha) are specific Flight extensions for this frameworks.
+
 ## Authors
 
 + [@angus-c](http://github.com/angus-c)
