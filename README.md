@@ -760,6 +760,12 @@ to
 
     var logLevel = 'all';
 
+## Testing
+
+The [flight-jasmine](https://github.com/twitter/flight-jasmine) and [flight-mocha](https://github.com/naoina/flight-mocha) libraries
+support flight testing in [Jasmine](https://github.com/pivotal/jasmine) and [Mocha](https://github.com/visionmedia/mocha)
+respectively. The Flight demo app uses flight-jasmine for its [tests](https://github.com/twitter/flight/tree/gh-pages/demo/test).
+
 ## Authors
 
 + [@angus-c](http://github.com/angus-c)
