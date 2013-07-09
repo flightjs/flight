@@ -16,12 +16,12 @@ created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
 
 ## Why Flight?
 
-Flight is only ~5K minified and gzipped. It's build upon jQuery, and has
+Flight is only ~5K minified and gzipped. It's built upon jQuery, and has
 first-class support for AMD and [Bower](http://bower.io/).
 
-Flight components are highly portable and easily testable. This is because
-a Flight component and its API is entirely decoupled from other components. They
-communicate only by triggering and subscribing to events.
+Flight components are highly portable and easily testable. This is because a
+Flight component (and its API) is entirely decoupled from other components.
+Flight components communicate only by triggering and subscribing to events.
 
 Flight also includes a simple and safe
 [mixin](https://javascriptweblog.wordpress.com/2011/05/31/a-fresh-look-at-javascript-mixins/)
@@ -36,6 +36,10 @@ write, and test your application.
 
 * [Flight generator](https://github.com/flightjs/generator-flight/)
   Recommended. One-step to setup everything you need to work with Flight.
+
+* [Flight package generator](https://github.com/flightjs/generator-flight-package/)
+  Recommended. One-step to setup everything you need to write and test a
+  standalone Flight component.
 
 * [Jasmine Flight](https://github.com/flightjs/jasmine-flight/)
   Extensions for the Jasmine test framework.
@@ -53,20 +57,18 @@ bower search flight
 ```
 
 The easiest way to write a standalone Flight component is to use the [Flight
-package generator](https://github.com/flightjs/generator-flight/):
+package generator](https://github.com/flightjs/generator-flight-package/):
 
 ```
-yo flight:package foo
+yo flight-package foo
 ```
 
 
 ## Installation
 
-If you prefer not to use the [Flight
-generator](https://github.com/flightjs/generator-flight/), it's highly
-recommended that you install Flight as an AMD package (including all the
-correct dependencies). This is best done with [Bower](http://bower.io/), a
-package manager.
+If you prefer not to use the Flight generators, it's highly recommended that
+you install Flight as an AMD package (including all the correct dependencies).
+This is best done with [Bower](http://bower.io/), a package manager for the web.
 
 ```
 npm install -g bower
@@ -141,7 +143,7 @@ define(function (require) {
 ```
 
 ```js
-/* attach an inbox component to a node with id 'inbox'*/
+/* attach an inbox component to a node with id 'inbox' */
 
 define(function (require) {
   var Inbox = require('inbox');
