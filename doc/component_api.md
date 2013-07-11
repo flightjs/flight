@@ -105,7 +105,7 @@ When a component is created we usually want it to perform an initial setup
 routine. Every Component has an empty initialize method attached to its
 prototype and we can augment this method by supplying a function as an argument
 to a special `after` method. (We'll talk about `before`, `after` and `around`
-in detail in the [advice](doc/advice_api.md) section of this document).
+in detail in the [advice](advice_api.md) section of this document).
 
 The initialize function is a good place to set up event listeners that bind to
 callbacks.
