@@ -3,7 +3,7 @@
 - In Flight, a mixin is a function which assigns properties to a target object (represented by the `this`
 keyword).
 - A typical mixin defines a set of functionality that will be useful to more than one component.
-- One mixin can be applied to any number of [Component](#components) definitions.
+- One mixin can be applied to any number of [Component](doc/component_api.md) definitions.
 - One Component definition can have any number of mixins applied to it.
 - Each Component defines a [*core*](#core_mixin) mixin within its own module.
 - A mixin can itself have mixins applied to it.
