@@ -28,7 +28,7 @@ define(function(require) {
 });
 ```
 
-`defineComponent` accepts any number of [mixin](doc/mixin_api.md) functions and returns
+`defineComponent` accepts any number of [mixin](mixin_api.md) functions and returns
 a new Component constructor with those mixins applied to its prototype.
 
 Each Component definition should include a function declaration describing its
@@ -182,7 +182,7 @@ define(function (require) {
 });
 ```
 
-...or by [mixins](doc/mixin_api.md).
+...or by [mixins](mixin_api.md).
 
 ### Finding elements
 
