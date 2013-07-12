@@ -1,6 +1,6 @@
 # Advice API
 
-In Flight, advice is a mixin (`'lib/advice.js'`) that defines `before`, `after`
+In Flight, advice is a mixin (`lib/advice.js`) that defines `before`, `after`
 and `around` methods.
 
 These can be used to modify existing functions by adding custom code. All
@@ -10,12 +10,13 @@ Moreover, since Component's are seeded with an empty `initialize` method,
 Component definitions will typically use `after` to define custom `initialize`
 behavior.
 
-## before and after
+## this.before(existingFuncName, customFunc)
 
-You can add custom code before or after an existing method by calling the
-respective advice function with two arguments. The first is the name of the
-function you want to augment, the second is a custom function to be invoked
-before or after the original:
+Run the `customFunc` function before the `existingFunc` function.
+
+* `existingFuncName`: a string that matches the name of the existing function
+  (`existingFunc`) you want to augment.
+* `customFunc`: the function to be invoked before `existingFunc`.
 
 ```js
 define(function() {
@@ -23,6 +24,23 @@ define(function() {
     this.before('announce', function() {
       clearThroat();
     });
+  }
+
+  return withDrama;
+});
+```
+
+## this.after(existingFuncName, customFunc)
+
+Run the `customFunc` function after the `existingFunc` function.
+
+* `existingFuncName`: a string that matches the name of the existing function
+  you want to augment.
+* `customFunc`: the function to be invoked after `existingFunc`.
+
+```js
+define(function() {
+  function withDrama() {
     this.after('leaving', function() {
       slamDoor();
     });
@@ -32,15 +50,19 @@ define(function() {
 });
 ```
 
-## around
+## this.around(existingFuncName, customFunc)
 
-This method is similar to `before` and `after` but allows the existing function
-to be invoked in the middle of your custom code (it's similar to
-[underscore](http://underscorejs.org/)'s `_wrap` function). Again the first
-argument is the existing function while the second is the custom function to go
-around it. The existing function will be passed to the custom function as an
-argument so that it can be referenced. If the custom function does not call the
-existing function then it will replace that function instead of surround it:
+Run the `existingFuncName` function in the middle of the `customFunc` function. It's
+similar to [underscore](http://underscorejs.org/)'s `_wrap` function).
+
+* `existingFuncName`: a string that matches the name of the existing function
+  you want to augment.
+* `customFunc(existingFunc)`: the function to wrap around `existingFunc`. The
+  `existingFunc` function will be passed to `customFunc` as an argument.
+
+The existing function is passed to the custom function as an argument so that
+it can be referenced. If the custom function does not call the existing
+function then it will replace that function instead of surround it:
 
 ```js
 define(function() {
