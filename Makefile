@@ -1,6 +1,6 @@
-REPO = git@github.com:twitter/flight.git
+SITE_REPO = git@github.com:flightjs/flightjs.github.io.git
 BUILD_DIR := build
-GH_PAGES = $(BUILD_DIR)/pages
+SITE_MASTER = $(BUILD_DIR)/site
 VERSION = `node -pe "require('./package.json').version"`
 
 clean:
@@ -18,13 +18,13 @@ test: standalone
 # copies flight.js and flight.min.js
 # commits and pushes
 release: standalone
-	git clone -b gh-pages $(REPO) $(GH_PAGES)
-	@ rm -rf $(GH_PAGES)/release/latest
-	@ mkdir -p $(GH_PAGES)/release/latest
-	@ mkdir $(GH_PAGES)/release/$(VERSION)
-	@ cp $(BUILD_DIR)/*.js $(GH_PAGES)/release/latest
-	@ cp $(BUILD_DIR)/*.js $(GH_PAGES)/release/$(VERSION)
-	@ cd $(GH_PAGES); \
+	git clone $(SITE_REPO) $(SITE_MASTER)
+	@ rm -rf $(SITE_MASTER)/release/latest
+	@ mkdir -p $(SITE_MASTER)/release/latest
+	@ mkdir $(SITE_MASTER)/release/$(VERSION)
+	@ cp $(BUILD_DIR)/*.js $(SITE_MASTER)/release/latest
+	@ cp $(BUILD_DIR)/*.js $(SITE_MASTER)/release/$(VERSION)
+	@ cd $(SITE_MASTER); \
 	  git add release; \
-	  git commit -m "Add latest release of standalone flight.js"; \
-	  git push origin gh-pages
+	  git commit -m "Add latest release of Flight"; \
+	  git push origin master
