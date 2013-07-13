@@ -8,7 +8,7 @@ created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
 [TweetDeck](https://web.tweetdeck.com/) web applications.
 
 * [Website](http://flightjs.github.io/)
-* [API documentation](doc)
+* [API documentation](doc/README.md)
 * [Flight example app](http://flightjs.github.io/example-app/) 
 * [Flight's Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)
 * [Flight on Twitter](https://twitter.com/flight)
