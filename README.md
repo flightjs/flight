@@ -50,7 +50,8 @@ write, and test your application.
 
 ## Finding and writing standalone components
 
-Flight components can be found by searching the Bower registry:
+You can browse all the [Flight components](http://flight-components.jit.su)
+available at this time. They can also be found by searching the Bower registry:
 
 ```
 bower search flight
