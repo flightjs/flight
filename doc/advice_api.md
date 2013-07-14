@@ -35,7 +35,7 @@ define(function() {
 Run the `customFunc` function after the `existingFunc` function.
 
 * `existingFuncName`: a string that matches the name of the existing function
-  you want to augment.
+  (`existingFunc`) you want to augment.
 * `customFunc`: the function to be invoked after `existingFunc`.
 
 ```js
@@ -52,17 +52,17 @@ define(function() {
 
 ## this.around(existingFuncName, customFunc)
 
-Run the `existingFuncName` function in the middle of the `customFunc` function. It's
+Run the `existingFunc` function in the middle of the `customFunc` function. It's
 similar to [underscore](http://underscorejs.org/)'s `_wrap` function).
 
 * `existingFuncName`: a string that matches the name of the existing function
-  you want to augment.
-* `customFunc(existingFunc)`: the function to wrap around `existingFunc`. The
-  `existingFunc` function will be passed to `customFunc` as an argument.
+  (`existingFunc`) you want to augment.
+* `customFunc`: the function to wrap around `existingFunc`. The `existingFunc`
+  function will be passed to `customFunc` as an argument.
 
 The existing function is passed to the custom function as an argument so that
 it can be referenced. If the custom function does not call the existing
-function then it will replace that function instead of surround it:
+function then it will replace that function instead of surrounding it:
 
 ```js
 define(function() {
