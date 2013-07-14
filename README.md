@@ -41,6 +41,9 @@ write, and test your application.
   Recommended. One-step to setup everything you need to write and test a
   standalone Flight component.
 
+* [Flight components list](http://flight-components.jit.su)
+  Recommended. View all Flight components available.
+
 * [Jasmine Flight](https://github.com/flightjs/jasmine-flight/)
   Extensions for the Jasmine test framework.
 
