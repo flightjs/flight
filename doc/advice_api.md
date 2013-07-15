@@ -14,9 +14,13 @@ behavior.
 
 Run the `customFunc` function before the `existingFunc` function.
 
-* `existingFuncName`: a string that matches the name of the existing function
-  (`existingFunc`) you want to augment.
-* `customFunc`: the function to be invoked before `existingFunc`.
+#### `existingFuncName`: String
+
+The name of the existing function (`existingFunc`) you want to augment.
+
+#### `customFunc`: Function
+
+The function to be invoked before `existingFunc`.
 
 ```js
 define(function() {
@@ -34,9 +38,13 @@ define(function() {
 
 Run the `customFunc` function after the `existingFunc` function.
 
-* `existingFuncName`: a string that matches the name of the existing function
-  (`existingFunc`) you want to augment.
-* `customFunc`: the function to be invoked after `existingFunc`.
+#### `existingFuncName`: String
+
+The name of the existing function (`existingFunc`) you want to augment.
+
+#### `customFunc`: Function
+
+The function to be invoked after `existingFunc`.
 
 ```js
 define(function() {
@@ -55,10 +63,14 @@ define(function() {
 Run the `existingFunc` function in the middle of the `customFunc` function. It's
 similar to [underscore](http://underscorejs.org/)'s `_wrap` function).
 
-* `existingFuncName`: a string that matches the name of the existing function
-  (`existingFunc`) you want to augment.
-* `customFunc`: the function to wrap around `existingFunc`. The `existingFunc`
-  function will be passed to `customFunc` as an argument.
+#### `existingFuncName`: String
+
+The name of the existing function (`existingFunc`) you want to augment.
+
+#### `customFunc`: Function
+
+The function to wrap around `existingFunc`. The `existingFunc` function will be
+passed to `customFunc` as an argument.
 
 The existing function is passed to the custom function as an argument so that
 it can be referenced. If the custom function does not call the existing
