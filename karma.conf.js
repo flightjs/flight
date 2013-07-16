@@ -25,15 +25,9 @@ files = [
 
   // loaded with require
   {pattern: 'lib/**/*.js', included: false},
-  {pattern: 'tools/**/*.js', included: false},
   {pattern: 'test/spec/**/*_spec.js', included: false},
 
   'test/test-main.js'
-];
-
-// list of files to exclude
-exclude = [
-  'lib/standalone/*.js'
 ];
 
 // use dots reporter, as travis terminal does not support escaping sequences
