@@ -1,11 +1,12 @@
 {
   "name": "flight",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "devDependencies": {
     "karma": "~0.8.5",
-    "loadbuilder": ">=0.4.2"
+    "loadbuilder": ">=0.4.2",
+    "uglify-js": "~2.3.6"
   },
   "scripts": {
-    "test": "./node_modules/.bin/karma start --browsers PhantomJS --single-run"
+    "test": "./node_modules/.bin/karma start --browsers Firefox --single-run"
   }
 }
