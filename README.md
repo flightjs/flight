@@ -9,7 +9,7 @@ created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
 
 * [Website](http://flightjs.github.io/)
 * [API documentation](doc/README.md)
-* [Flight example app](http://flightjs.github.io/example-app/) 
+* [Flight example app](http://flightjs.github.io/example-app/)
 * [Flight's Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)
 * [Flight on Twitter](https://twitter.com/flight)
 
@@ -94,7 +94,7 @@ You will have to reference Flight's installed dependencies –
 ## Standalone version
 
 Alternatively, you can manually install the [standalone
-version](http://flightjs.github.io/releases/latest/flight.js) of Flight, also
+version](http://flightjs.github.io/release/latest/flight.js) of Flight, also
 available on [cdnjs](http://cdnjs.com/). It exposes all of its modules as
 properties of a global variable, `flight`:
 
