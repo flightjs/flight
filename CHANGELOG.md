@@ -1,3 +1,14 @@
+## v1.0.10 (07/24/2013)
+
+###features
+* core component behavior now in base.js mixin/module
+* using karma for tests
+* refactored documentation now includes api docs
+
+###bug fixes and tweaks
+* update bower resources to match current bower naming scheme
+* tools/debug.js -> lib/debug.js
+
 ## v1.0.9 (05/13/2013)
 
 ###features
