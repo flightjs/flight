@@ -54,6 +54,50 @@ define(['lib/component'], function (defineComponent) {
       expect(spy).toHaveBeenCalled();
     });
 
+    it('can trigger from a specific node', function () {
+      var instance1 = (new Component).initialize(window.innerDiv);
+      var instance2 = (new Component).initialize(window.outerDiv);
+      var instance3 = (new Component).initialize(document);
+      var spy1, spy2;
+
+      //raw node
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger(document, 'click', {a:2, b:3});
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+      
+      //raw node, no payload
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger(document, 'click');
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();      
+
+      //selector
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger('body', 'click', {a:2});
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+
+      //JQuery object
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger($(document.body), 'click', {a:2});
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+    });
+
+
     it('unbinds listeners using "off"', function () {
       var instance1 = (new Component).initialize(window.outerDiv);
 
