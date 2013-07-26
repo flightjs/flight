@@ -1,7 +1,7 @@
 ## v1.1.0 (07/26/2013)
 
 ##api changes
-* new <Component> (not recommended) no longer auto-calls initialize
+* new \<Component\> (not recommended) no longer auto-calls initialize
 (use <Component>.attachTo)
 
 ###features
