@@ -234,5 +234,41 @@ define(['lib/component'], function (defineComponent) {
       expect(spy).not.toHaveBeenCalled();
     });
 
+    it('does trigger the event multiple times', function() {
+      var instance1 = (new Component).initialize(window.innerDiv);
+
+      var spy = jasmine.createSpy();
+      instance1.on(document, 'click', spy);
+      instance1.trigger('click');
+      expect(spy).toHaveBeenCalled();
+      instance1.trigger('click');
+      expect(spy.callCount).toBe(2);
+    });
+
+    describe ('"one" method', function() {
+
+      it('does not trigger the event more than once', function() {
+        var instance = (new Component).initialize(window.innerDiv);
+
+        var spy = jasmine.createSpy();
+        instance.one(document, 'click', spy);
+        instance.trigger('click');
+        expect(spy).toHaveBeenCalled();
+        instance.trigger('click');
+        expect(spy.callCount).toBe(1);
+      });
+
+      it('correctly passes args when no explicit node argument', function() {
+        var instance = (new Component).initialize(window.innerDiv);
+
+        var spy = jasmine.createSpy();
+        instance.one('click', spy);
+        instance.trigger('click');
+        expect(spy).toHaveBeenCalled();
+        instance.trigger('click');
+        expect(spy.callCount).toBe(1);
+      });
+
+    });
   });
 });
