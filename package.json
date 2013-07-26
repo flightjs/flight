@@ -1,6 +1,6 @@
 {
   "name": "flight",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "devDependencies": {
     "karma": "~0.8.5",
     "loadbuilder": ">=0.4.2",
