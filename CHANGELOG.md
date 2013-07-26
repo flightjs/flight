@@ -1,4 +1,8 @@
-## v1.0.10 (07/24/2013)
+## v1.1.0 (07/26/2013)
+
+##api changes
+* new <Component> (not recommended) no longer auto-calls initialize
+(use <Component>.attachTo)
 
 ###features
 * core component behavior now in base.js mixin/module
@@ -8,6 +12,14 @@
 ###bug fixes and tweaks
 * update bower resources to match current bower naming scheme
 * tools/debug.js -> lib/debug.js
+
+## v1.0.11 (07/26/2013)
+
+* rollback 1.0.10 due to API changes
+
+## v1.0.10 (07/24/2013)
+
+* becomes v1.1.0 due to API changes
 
 ## v1.0.9 (05/13/2013)
 
