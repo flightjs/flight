@@ -10,8 +10,8 @@ basePath = '';
 // list of files / patterns to load in the browser
 files = [
   // loaded without require
-  'bower_components/es5-shim/es5-shim.js',
-  'bower_components/es5-shim/es5-sham.js',
+  'app/bower_components/es5-shim/es5-shim.js',
+  'app/bower_components/es5-shim/es5-sham.js',
 
   // frameworks
   JASMINE,
@@ -20,7 +20,7 @@ files = [
   REQUIRE_ADAPTER,
 
   // loaded without require
-  'bower_components/jquery/jquery.js',
+  'app/bower_components/jquery/jquery.js',
   'build/flight.js',
 
   // loaded with require

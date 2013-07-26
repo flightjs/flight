@@ -5,6 +5,10 @@ define(['lib/component'], function (defineComponent) {
   describe("(Core) events", function () {
     var Component = (function () {
       function testComponent() {
+        this.attributes({
+          eventData: {}
+        });
+
         this.after('initialize', function () {
           this.testString || (this.testString = "");
           this.testString += "-initBase-";
@@ -119,8 +123,7 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('ignores data parameters with value of undefined', function () {
-      var instance = (new Component).initialize(document.body);
-
+      var instance = (new Component).initialize(document.body, { eventData: null});
       var spy = jasmine.createSpy();
       instance.on(document, 'foo', spy);
       instance.trigger('foo', undefined);

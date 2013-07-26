@@ -229,6 +229,9 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
 
     var Component = (function () {
       return defineComponent(function fnTest() {
+        this.attributes({
+          bodySelector: null
+        });
       });
     })();
 
