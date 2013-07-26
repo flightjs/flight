@@ -56,9 +56,9 @@ this.selectMenuItem = function(e) {
 
 ## this.initialize()
 
-This is an empty method attached to the prototype of every Component and Mixin.
-It can be used to perform an initial setup routine when a component instance is
-created.
+This method handles initialization and is attached to the prototype of every
+Component and Mixin. It can be used to perform an initial setup routine when a
+component instance is created.
 
 The method is augmented by supplying a function as an argument to the `after`
 method (see the [advice API](advice_api.md) for more information). This is a
