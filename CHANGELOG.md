@@ -1,8 +1,8 @@
 ## v1.1.0 (07/26/2013)
 
 ##api changes
-* new \<Component\> (not recommended) no longer auto-calls initialize
-(use <Component>.attachTo)
+* new \<Component\> (not recommended) no longer auto-calls initialize  
+(use \<Component\>.attachTo)
 
 ###features
 * core component behavior now in base.js mixin/module
