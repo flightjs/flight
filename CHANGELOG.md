@@ -1,3 +1,6 @@
+## v1.0.11 (07/26/2013)
+* same as 1.0.9 (promoting latest stable version)
+
 ## v1.0.9 (05/13/2013)
 
 ###features
