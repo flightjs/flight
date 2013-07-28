@@ -2,8 +2,8 @@
 
 Flight ships with a debug module which can help you trace the sequence of event
 triggering and binding. By default console logging is turned off, but you can
-you can log `trigger`, `bind` and `unbind` events by means of the following
-console commands:
+you can log `trigger`, `on` and `off` events by means of the following console
+commands:
 
 ```js
 // log everything
