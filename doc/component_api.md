@@ -18,6 +18,7 @@ property.
 **A Component instance cannot be referenced directly**; it communicates with
 other components via events.
 
+<a name="defineComponent"></a>
 ## defineComponent(...)
 
 Flight expects its client apps to support
@@ -69,6 +70,7 @@ Components make no assumptions about the existence of other objects. If you
 were to remove all other JavaScript on the site, this Component would still
 work as intended.
 
+<a name="defineComponent.teardownAll"></a>
 ## defineComponent.teardownAll()
 
 On `defineComponent` (i.e., the object exported by `lib/component`) this
@@ -92,6 +94,7 @@ define(function(require) {
 });
 ```
 
+<a name="Component.attachTo"></a>
 ## Component.attachTo(selector[, options])
 
 Create a new instance of a Component and attach it to a DOM node.
@@ -145,6 +148,7 @@ this.hideComponent = function() {
 };
 ```
 
+<a name="Component.teardownAll"></a>
 ## Component.teardownAll()
 
 On a Component constructor this method deletes every instance of that Component

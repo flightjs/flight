@@ -10,6 +10,7 @@ Moreover, since Component's are seeded with an empty `initialize` method,
 Component definitions will typically use `after` to define custom `initialize`
 behavior.
 
+<a name="this.before"></a>
 ## this.before(existingFuncName, customFunc)
 
 Run the `customFunc` function before the `existingFunc` function.
@@ -34,6 +35,7 @@ define(function() {
 });
 ```
 
+<a name="this.after"></a>
 ## this.after(existingFuncName, customFunc)
 
 Run the `customFunc` function after the `existingFunc` function.
@@ -58,6 +60,7 @@ define(function() {
 });
 ```
 
+<a name="this.around"></a>
 ## this.around(existingFuncName, customFunc)
 
 Run the `existingFunc` function in the middle of the `customFunc` function. It's
@@ -90,6 +93,7 @@ define(function() {
 });
 ```
 
+<a name="advice.withAdvice"></a>
 ## Making advice available to regular objects
 
 Advice can be mixed in to non-components using the compose module:
