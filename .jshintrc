@@ -1,0 +1,9 @@
+{
+  "browser": true,
+  "expr"   : true, // Suppress warnings like `a || (a = 1)`
+
+  "predef": [
+    "$",
+    "define"
+  ]
+}

@@ -2,6 +2,7 @@
   "name": "flight",
   "version": "1.1.0",
   "devDependencies": {
+    "jshint": "~2.1.4",
     "karma": "~0.10.1",
     "karma-jasmine": "~0.1.0",
     "karma-requirejs": "~0.1.0",
