@@ -1,6 +1,5 @@
-"use strict";
-
 define(['lib/component'], function (defineComponent) {
+  'use strict';
 
   describe('(Core) constructor', function () {
 
@@ -61,7 +60,7 @@ define(['lib/component'], function (defineComponent) {
     it('throws error if required attr not specified', function () {
       var TestComponent = defineComponent(testComponentDefaultAttrsRequired);
       expect(function () {
-        var instance = (new TestComponent).initialize(document.body);
+        (new TestComponent).initialize(document.body);
       }).toThrow('Required attribute "req" not specified in attachTo for component "testComponentDefaultAttrsRequired".');
 
       TestComponent.teardownAll();
@@ -70,7 +69,7 @@ define(['lib/component'], function (defineComponent) {
     it("doesn't throw error if required attr is specified", function () {
       var TestComponent = defineComponent(testComponentDefaultAttrsRequired);
       expect(function () {
-        var instance = (new TestComponent).initialize(document.body, { req: 'hello' });
+        (new TestComponent).initialize(document.body, { req: 'hello' });
       }).not.toThrow();
 
       TestComponent.teardownAll();

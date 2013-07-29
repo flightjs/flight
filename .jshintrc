@@ -1,9 +1,27 @@
 {
   "browser": true,
-  "expr"   : true, // Suppress warnings like `a || (a = 1)`
+
+  "expr"   : true,   // Suppress "Unexpected assignment expression" warnings
+                     // caused by e.g., `a || (a = 1)`
+
+  "eqnull": true,    // Allow double-equals when comparing with `null`
+
+  "validthis": true, // Suppress "Possible strict violation" warnings by
+                     // assuming that values of `this` are always correct
+
+  "-W058": true,     // Suppress "Missing '()' invoking a constructor" warnings
 
   "predef": [
+    "DEBUG",
+
     "$",
-    "define"
+    "define",
+
+    "afterEach",
+    "beforeEach",
+    "describe",
+    "expect",
+    "it",
+    "jasmine"
   ]
 }

@@ -14,7 +14,7 @@ test: standalone
 	@ npm test
 
 lint:
-	@ ./node_modules/.bin/jshint --show-non-errors lib
+	@ ./node_modules/.bin/jshint --show-non-errors lib test
 
 # clones the Flight project page into the 'build' directory
 # creates new directory for latest version

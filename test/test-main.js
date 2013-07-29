@@ -2,6 +2,7 @@ var tests = Object.keys(window.__karma__.files).filter(function (file) {
   return (/_spec\.js$/.test(file));
 });
 
+/*global requirejs*/
 requirejs.config({
     // Karma serves files from '/base'
     baseUrl: '/base',
