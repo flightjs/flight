@@ -59,13 +59,13 @@ this.selectMenuItem = function(e) {
 <a name="this.initialize"></a>
 ## this.initialize()
 
-This method is attached to the prototype of every Component, it accepts the component's node and an `options`
+This method is attached to the prototype of every Component; it accepts the component's node and an `options`
 object as arguments. The core implementation, which is called every time an instance is created, will assign the
 node to the instance and override the default `attr`s with the `options` object.
 
-The core method is typically augmented by supplying a function as an argument to the `after`
-method (see the [advice API](advice_api.md) for more information). This is a good place to set up event listeners
-that bind to callbacks.
+Components and Mixins will typically augment the core implementation by supplying a function as an argument to the
+`after` method (see the [advice API](advice_api.md) for more information). This is a good place to set up event
+listeners that bind to callbacks.
 
 ```js
 this.after('initialize', function() {
