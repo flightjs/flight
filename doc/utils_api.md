@@ -14,6 +14,8 @@ util.compose(a,b,c) -> a(b(c()));
 <a name="utils.countThen"></a>
 ## utils.countThen(num, base)
 
+Returns a function that will call `base` (with the given arguments) after it has been called `num` times
+
 <a name="utils.debounce"></a>
 ## utils.debounce(func, wait, immediate)
 
@@ -27,10 +29,16 @@ function on the leading instead of the trailing edge of the `wait` interval.
 <a name="utils.delegate"></a>
 ## utils.delegate(rules)
 
+Delegate to event handlers based on the event target. The `rules` argument is an object who's keys represent keys 
+in the component's `attr` object (resolving to the selector of the event target) and values are the handler to be
+called. 
+
+The handlers are lazily resolved when the event is fired.
+
 <a name="utils.isDomObj"></a>
 ## utils.isDomObj(obj)
 
-Detect if an object is a DOM object.
+Detect if an object is a DOM node.
 
 <a name="utils.isEnumerable"></a>
 ## utils.isEnumerable(obj, property)
