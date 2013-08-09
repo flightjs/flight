@@ -158,7 +158,7 @@ define(function (require) {
     'previousPageSelector': '#previousPage',
   });
 });
-
+```
 
 ### Components
 
