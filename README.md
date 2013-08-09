@@ -90,7 +90,6 @@ You will have to reference Flight's installed dependencies –
 ...
 ```
 
-
 ## Standalone version
 
 Alternatively, you can manually install the [standalone
@@ -111,8 +110,13 @@ properties of a global variable, `flight`:
 N.B. You will also need to manually install the correct versions of Flight's
 dependencies: ES5 Shim and jQuery.
 
+## Browser Support
 
-## Example
+Chrome, Firefox, Safari, Opera, IE 7+.
+
+## Quick Overview
+
+### Example
 
 A simple example of how to write and use a Flight component. Read the [API
 documentation](doc) for a comprehensive overview.
@@ -154,13 +158,74 @@ define(function (require) {
     'previousPageSelector': '#previousPage',
   });
 });
-```
 
 
-## Browser Support
+### Components
 
-Chrome, Firefox, Safari, Opera, IE 7+.
+- A Component is nothing more than a constructor with properties mixed into its prototype.
+- Every Component comes with a set of basic functionality such as event handling and component registration.
+([Base API](base_api.md))
+- Additionally, each Component definition mixes in a set of custom properties which describe its behavior.
+- When a component is attached to a DOM node, a new instance of that component is created. Each component
+instance references the DOM node via its `node` property.
+- Component instances cannot be referenced directly; they communicate with other components via events.
 
+[Component API](component_api.md)
+
+### Interacting with the DOM
+
+Once attached, component instances have direct access to their node object via the `node` property. (There's
+also a jQuery version of the node available via the `$node` property.)
+
+### Events in Flight
+
+Events are how Flight components interact. The Component prototype supplies methods for triggering events as
+well as for subscribing to and unsubscribing from events. These Component event methods are actually just convenient
+wrappers around regular event methods on DOM nodes.
+
+### Mixins
+
+- In Flight, a mixin is a function which assigns properties to a target object (represented by the `this`
+keyword).
+- A typical mixin defines a set of functionality that will be useful to more than one component.
+- One mixin can be applied to any number of [Component](#components) definitions.
+- One Component definition can have any number of mixins applied to it.
+- Each Component defines a [*core*](#core_mixin) mixin within its own module.
+- A mixin can itself have mixins applied to it.
+
+[Mixin API](mixin_api.md)
+
+### Advice
+
+In Flight, advice is a mixin (`'lib/advice.js'`) that defines `before`, `after` and `around` methods.
+
+These can be used to modify existing functions by adding custom code. All Components have advice mixed in to
+their prototype so that mixins can augment existing functions without requiring knowledge
+of the original implementation. Moreover, since Component's are seeded with an empty `initialize` method,
+Component definitions will typically use `after` to define custom `initialize` behavior.
+
+[Advice API](advice_api.md)
+
+### Debugging
+
+Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
+console logging is turned off, but you can you can log `trigger`, `bind` and `unbind` events by means of the following console
+commands:
+
+    DEBUG.events.logAll(); //log everything
+    DEBUG.events.logByAction('trigger'); //only log event triggers
+    DEBUG.events.logByName('click'); //only log events named 'click' - accepts * as wildcard
+    DEBUG.events.logNone(); //log nothing
+
+If you want to log everything by default, update the following line in [tools/debug.js](https://github.com/twitter/flight/blob/master/tools/debug/debug.js)
+
+    var logLevel = [];
+
+to
+
+    var logLevel = 'all';
+
+[Debug API](debug_api.md)
 
 ## Authors
 
