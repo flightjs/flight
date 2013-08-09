@@ -191,7 +191,7 @@ keyword).
 - Each Component defines a [*core*](#core_mixin) mixin within its own module.
 - A mixin can itself have mixins applied to it.
 
-### Advice [API](advice_api.md)
+### Advice ([API](advice_api.md))
 
 In Flight, advice is a mixin (`'lib/advice.js'`) that defines `before`, `after` and `around` methods.
 
@@ -200,7 +200,7 @@ their prototype so that mixins can augment existing functions without requiring 
 of the original implementation. Moreover, since Component's are seeded with an empty `initialize` method,
 Component definitions will typically use `after` to define custom `initialize` behavior.
 
-### Debugging [API](debug_api.md)
+### Debugging ([API](debug_api.md))
 
 Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
 console logging is turned off, but you can you can log `trigger`, `bind` and `unbind` events by means of the following console
