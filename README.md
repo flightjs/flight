@@ -160,17 +160,15 @@ define(function (require) {
 });
 ```
 
-### Components
+### Components ([Component API](component_api.md))
 
 - A Component is nothing more than a constructor with properties mixed into its prototype.
 - Every Component comes with a set of basic functionality such as event handling and component registration.
-([Base API](base_api.md))
+(see [Base API](base_api.md))
 - Additionally, each Component definition mixes in a set of custom properties which describe its behavior.
 - When a component is attached to a DOM node, a new instance of that component is created. Each component
 instance references the DOM node via its `node` property.
 - Component instances cannot be referenced directly; they communicate with other components via events.
-
-[Component API](component_api.md)
 
 ### Interacting with the DOM
 
@@ -183,7 +181,7 @@ Events are how Flight components interact. The Component prototype supplies meth
 well as for subscribing to and unsubscribing from events. These Component event methods are actually just convenient
 wrappers around regular event methods on DOM nodes.
 
-### Mixins
+### Mixins [Mixin API](mixin_api.md)
 
 - In Flight, a mixin is a function which assigns properties to a target object (represented by the `this`
 keyword).
@@ -193,9 +191,7 @@ keyword).
 - Each Component defines a [*core*](#core_mixin) mixin within its own module.
 - A mixin can itself have mixins applied to it.
 
-[Mixin API](mixin_api.md)
-
-### Advice
+### Advice [Advice API](advice_api.md)
 
 In Flight, advice is a mixin (`'lib/advice.js'`) that defines `before`, `after` and `around` methods.
 
@@ -204,9 +200,7 @@ their prototype so that mixins can augment existing functions without requiring 
 of the original implementation. Moreover, since Component's are seeded with an empty `initialize` method,
 Component definitions will typically use `after` to define custom `initialize` behavior.
 
-[Advice API](advice_api.md)
-
-### Debugging
+### Debugging [Debug API](debug_api.md)
 
 Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
 console logging is turned off, but you can you can log `trigger`, `bind` and `unbind` events by means of the following console
@@ -224,8 +218,6 @@ If you want to log everything by default, update the following line in [tools/de
 to
 
     var logLevel = 'all';
-
-[Debug API](debug_api.md)
 
 ## Authors
 
