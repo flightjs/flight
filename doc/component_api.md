@@ -106,9 +106,9 @@ Component instance will be created for each node.
 
 #### `options`: Object
 
-Optional. An object that will be merged into the `attr` object, which is a
-property of the Component instance. Any additional arguments are merged into
-the first `options` argument.
+Optional. An object that will be merged into the component's default `attr` object
+via the `initialize` method. Any additional arguments are merged into the first `options`
+argument.
 
 In the example below, we are creating an instance of an "inbox" Component and
 attaching it to a node with id `inbox`. We're also passing in values for a
