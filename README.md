@@ -116,10 +116,12 @@ Chrome, Firefox, Safari, Opera, IE 7+.
 
 ## Quick Overview
 
+Here's a brief overview of Flight concepts and syntax. Read the [API
+documentation](doc) for a comprehensive overview.
+
 ### Example
 
-A simple example of how to write and use a Flight component. Read the [API
-documentation](doc) for a comprehensive overview.
+A simple example of how to write and use a Flight component.
 
 ```js
 define(function (require) {
