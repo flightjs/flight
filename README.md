@@ -116,7 +116,7 @@ Chrome, Firefox, Safari, Opera, IE 7+.
 
 ## Quick Overview
 
-Here's a brief overview of Flight concepts and syntax. Read the [API
+Here's a brief introduction to Flight's key concepts and syntax. Read the [API
 documentation](doc) for a comprehensive overview.
 
 ### Example
