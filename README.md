@@ -205,21 +205,8 @@ Component definitions will typically use `after` to define custom `initialize` b
 ### Debugging ([API](doc/debug_api.md))
 
 Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
-console logging is turned off, but you can you can log `trigger`, `bind` and `unbind` events by means of the following console
-commands:
-
-    DEBUG.events.logAll(); //log everything
-    DEBUG.events.logByAction('trigger'); //only log event triggers
-    DEBUG.events.logByName('click'); //only log events named 'click' - accepts * as wildcard
-    DEBUG.events.logNone(); //log nothing
-
-If you want to log everything by default, update the following line in [tools/debug.js](https://github.com/twitter/flight/blob/master/tools/debug/debug.js)
-
-    var logLevel = [];
-
-to
-
-    var logLevel = 'all';
+console logging is turned off, but you can you can log `trigger`, `on` and `off` events by means of the following console
+commands.
 
 ## Authors
 
