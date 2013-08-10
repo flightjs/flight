@@ -162,11 +162,11 @@ define(function (require) {
 });
 ```
 
-### Components ([API](component_api.md))
+### Components ([API](doc/component_api.md))
 
 - A Component is nothing more than a constructor with properties mixed into its prototype.
 - Every Component comes with a set of basic functionality such as event handling and component registration.
-(see [Base API](base_api.md))
+(see [Base API](doc/base_api.md))
 - Additionally, each Component definition mixes in a set of custom properties which describe its behavior.
 - When a component is attached to a DOM node, a new instance of that component is created. Each component
 instance references the DOM node via its `node` property.
@@ -183,7 +183,7 @@ Events are how Flight components interact. The Component prototype supplies meth
 well as for subscribing to and unsubscribing from events. These Component event methods are actually just convenient
 wrappers around regular event methods on DOM nodes.
 
-### Mixins ([API](mixin_api.md))
+### Mixins ([API](doc/mixin_api.md))
 
 - In Flight, a mixin is a function which assigns properties to a target object (represented by the `this`
 keyword).
@@ -193,7 +193,7 @@ keyword).
 - Each Component defines a [*core*](#core_mixin) mixin within its own module.
 - A mixin can itself have mixins applied to it.
 
-### Advice ([API](advice_api.md))
+### Advice ([API](doc/advice_api.md))
 
 In Flight, advice is a mixin (`'lib/advice.js'`) that defines `before`, `after` and `around` methods.
 
@@ -202,7 +202,7 @@ their prototype so that mixins can augment existing functions without requiring 
 of the original implementation. Moreover, since Component's are seeded with an empty `initialize` method,
 Component definitions will typically use `after` to define custom `initialize` behavior.
 
-### Debugging ([API](debug_api.md))
+### Debugging ([API](doc/debug_api.md))
 
 Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
 console logging is turned off, but you can you can log `trigger`, `bind` and `unbind` events by means of the following console
