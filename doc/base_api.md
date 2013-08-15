@@ -102,7 +102,7 @@ this.after('initialize', function() {
 });
 ```
 
-Example of `handler` having the `ev` and `data` parameters that can be used
+Example of `handler` as an inline function. This demonstrates how the `ev` and `data` parameters can be used
 to receive data from the component's optional `trigger` parameter `eventPayload`.
 
 ```js
