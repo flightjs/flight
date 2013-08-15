@@ -270,4 +270,25 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
     Component.teardownAll();
   });
 
+  describe('countThen()', function () {
+    it('calls a wrapped function after n invocations', function () {
+      var spy = jasmine.createSpy();
+      var fn = util.countThen(2, spy);
+      expect(spy).not.toHaveBeenCalled();
+      fn();
+      expect(spy).not.toHaveBeenCalled();
+      fn();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('calls a wrapped function only once', function () {
+      var spy = jasmine.createSpy();
+      var fn = util.countThen(1, spy);
+      fn();
+      expect(spy.callCount).toBe(1);
+      fn();
+      expect(spy.callCount).toBe(1);
+    });
+  });
+
 });
