@@ -105,7 +105,7 @@ define(['lib/component'], function (defineComponent) {
     it('throws error when core and mixin defaults overlap', function () {
       expect(function () {
         defineComponent(testComponentDefaultAttrs, withBadDefaults);
-      }).toThrow("utils.push attempted to overwrite 'core' while running in protected mode");
+      }).toThrow('utils.push attempted to overwrite "core" while running in protected mode');
     });
 
   });

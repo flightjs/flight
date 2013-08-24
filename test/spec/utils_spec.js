@@ -163,7 +163,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       it('does not overwrite properties when protect is true', function () {
         expect(function () {
           util.push(foo, moo, true);
-        }).toThrow("utils.push attempted to overwrite 'b' while running in protected mode");
+        }).toThrow('utils.push attempted to overwrite "b" while running in protected mode');
       });
 
       it('recursively merges like properties when protect is false', function () {
@@ -210,7 +210,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
 
   describe('debounce()', function () {
 
-    it("should only call a debounce'd function after it has not been called for a given interval", function () {
+    it('should only call a debounce\'d function after it has not been called for a given interval', function () {
 
       jasmine.Clock.useMock();
 
@@ -225,7 +225,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
     });
   });
 
-  describe("delegate()", function () {
+  describe('delegate()', function () {
 
     var Component = (function () {
       return defineComponent(function fnTest() {
