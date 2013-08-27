@@ -56,8 +56,7 @@ module.exports = function (config) {
     // CLI --browsers Chrome, Firefox, Safari
     browsers: [
       'Chrome',
-      'Firefox',
-      'Safari'
+      'Firefox'
     ],
 
     // If browser does not capture in given timeout [ms], kill it
