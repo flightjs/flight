@@ -1,10 +1,10 @@
 "use strict";
 
-define(['lib/component', 'lib/utils', 'lib/compose'], function (defineComponent, util, compose) {
+define(['lib/component', 'lib/utils', 'lib/compose'], function (defineComponent, utils, compose) {
 
   describe('(Core) mixin', function () {
 
-    //var canWriteProtect = !util.isEnumerable(Object, 'getOwnPropertyDescriptor');
+    //var canWriteProtect = !utils.isEnumerable(Object, 'getOwnPropertyDescriptor');
 
     //TODO: temporarily turn off this until we resolvle IE8 and legacy clobbering
     var canWriteProtect = false;
