@@ -68,7 +68,7 @@ define(['lib/component'], function (defineComponent) {
       instance1.trigger(document, 'click', {a:2, b:3});
       expect(spy1).not.toHaveBeenCalled();
       expect(spy2).toHaveBeenCalled();
-      
+
       //raw node, no payload
       spy1 = jasmine.createSpy();
       instance2.on('click', spy1);
@@ -76,7 +76,7 @@ define(['lib/component'], function (defineComponent) {
       instance3.on('click', spy2);
       instance1.trigger(document, 'click');
       expect(spy1).not.toHaveBeenCalled();
-      expect(spy2).toHaveBeenCalled();      
+      expect(spy2).toHaveBeenCalled();
 
       //selector
       spy1 = jasmine.createSpy();
@@ -178,7 +178,7 @@ define(['lib/component'], function (defineComponent) {
       var badBind = function () {
         instance.on(document, 'foo', "turkey")
       };
-      expect(badBind).toThrow("Unable to bind to 'foo' because the given callback is not a function or an object");
+      expect(badBind).toThrow('Unable to bind to "foo" because the given callback is not a function or an object');
     });
 
     it('merges eventData into triggered event data', function () {

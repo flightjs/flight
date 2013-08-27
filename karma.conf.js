@@ -3,7 +3,9 @@
 // For all available config options and default values, see:
 // https://github.com/karma-runner/karma/blob/stable/lib/config.js#L54
 
-module.exports = function(config) {
+module.exports = function (config) {
+  'use strict';
+
   config.set({
     // base path, that will be used to resolve files and exclude
     basePath: '',
