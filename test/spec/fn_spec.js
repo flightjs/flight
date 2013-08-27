@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/component', 'lib/advice', 'lib/utils'], function (defineComponent, advice, util) {
+define(['lib/component', 'lib/advice'], function (defineComponent, advice) {
 
   var Component = (function () {
     return defineComponent(function fnTest() {
