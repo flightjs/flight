@@ -8,7 +8,7 @@ Utilities available with the `utils` modules.
 Build a function from other function(s)
 
 ```js
-util.compose(a,b,c) -> a(b(c()));
+utils.compose(a,b,c) -> a(b(c()));
 ```
 
 <a name="utils.countThen"></a>
