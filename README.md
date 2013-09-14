@@ -142,8 +142,8 @@ define(function (require) {
 
     // now initialize the component
     this.after('initialize', function() {
-      this.on('click', doSomething);
-      this.on('mouseover', doSomethingElse);
+      this.on('click', this.doSomething);
+      this.on('mouseover', this.doSomethingElse);
     });
   }
 });
