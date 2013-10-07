@@ -1,6 +1,5 @@
-"use strict";
-
 define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
+  'use strict';
 
   describe('(Core) utils', function () {
 
@@ -120,7 +119,6 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
     });
 
     describe('isDomObj()', function () {
-
       it('distinguishes DOM objects from other values', function () {
         var div = document.createElement('DIV');
         document.body.appendChild(div);
@@ -130,6 +128,8 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
         expect(utils.isDomObj(document)).toBe(true);
         expect(utils.isDomObj(document.body)).toBe(true);
         expect(utils.isDomObj(div)).toBe(true);
+
+        /*global alert*/
 
         //other objects
         expect(utils.isDomObj(alert)).toBe(false);
@@ -248,23 +248,19 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
 
       myData.el = document.body;
 
-      var callbackArgs = spy.mostRecentCall.args;
-
       expect(spy).toHaveBeenCalledWith(jasmine.any($.Event), myData);
-
     });
 
     it('makes "this" in delegated function references be the component instance', function () {
       var instance = new Component(document, {'bodySelector': 'body'});
 
       instance.on('click', {
-        bodySelector: function (el, event) {
+        bodySelector: function () {
           expect(this).toBe(instance);
         }
       });
 
       $(document.body).trigger('click');
-
     });
 
     Component.teardownAll();

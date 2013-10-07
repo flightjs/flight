@@ -1,6 +1,5 @@
-"use strict";
-
 define(['lib/component', 'lib/advice'], function (defineComponent, advice) {
+  'use strict';
 
   var Component = (function () {
     return defineComponent(function fnTest() {
@@ -81,7 +80,7 @@ define(['lib/component', 'lib/advice'], function (defineComponent, advice) {
           c: function () {
             this.testc += 'C!';
           }
-        }
+        };
 
         advice.withAdvice.call(subject);
 

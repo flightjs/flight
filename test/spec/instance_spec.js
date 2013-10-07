@@ -1,6 +1,5 @@
-"use strict";
-
 define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
+  'use strict';
 
   var testString = "";
   var Component = (function () {
@@ -24,20 +23,16 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
     }).bind(this));
   }
 
-  ;
-
   function withTestMixin2(input) {
     this.testArray = [24, 79];
     this.testFunction = function () {
       return input;
-    }
+    };
     this.after('initialize', function () {
       testString = testString || "";
       testString += "-initTestMixin2-";
     });
   }
-
-  ;
 
   describe('(Core) instance', function () {
     beforeEach(function () {
@@ -63,8 +58,8 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
     it('should throw an exception if .on is given an invalid callback', function () {
       var instance = (new Component).initialize(window.outerDiv);
 
-      function definedCallback() {
-      }
+      var definedCallback = function () {};
+      var undefinedCallback;
 
       expect(function () {
         instance.on('click', definedCallback);
@@ -91,7 +86,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
     it('calls initializers in the correct order', function () {
       testString = "";
-      var instance = (new Component).initialize(window.outerDiv);
+      (new Component).initialize(window.outerDiv);
       expect(testString).toBe("-initBase--initTestMixin1--initTestMixin2-");
     });
 

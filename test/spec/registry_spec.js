@@ -1,6 +1,5 @@
-"use strict";
-
 define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
+  'use strict';
 
   var Component = (function () {
     function testComponent() {
@@ -68,7 +67,6 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
     it('removes instances when we call removeInstanceInfo', function () {
       var instance = (new Component).initialize(window.outerDiv);
-      var instanceInfo = registry.allInstances[instance.identity];
 
       var previousNumberOfComponents = registry.components.length;
       var previousNumberOfInstances = Object.keys(registry.allInstances).length;

@@ -1,6 +1,5 @@
-"use strict";
-
 define(['lib/component'], function (defineComponent) {
+  'use strict';
 
   describe("(Core) events", function () {
     var Component = (function () {
@@ -176,7 +175,7 @@ define(['lib/component'], function (defineComponent) {
     it('throws the expected error when attempting to bind to wrong type', function () {
       var instance = (new Component).initialize(document.body);
       var badBind = function () {
-        instance.on(document, 'foo', "turkey")
+        instance.on(document, 'foo', "turkey");
       };
       expect(badBind).toThrow('Unable to bind to "foo" because the given callback is not a function or an object');
     });

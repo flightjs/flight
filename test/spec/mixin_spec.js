@@ -1,6 +1,5 @@
-"use strict";
-
-define(['lib/component', 'lib/utils', 'lib/compose'], function (defineComponent, utils, compose) {
+define(['lib/component', 'lib/compose'], function (defineComponent, compose) {
+  'use strict';
 
   describe('(Core) mixin', function () {
 
@@ -12,9 +11,9 @@ define(['lib/component', 'lib/utils', 'lib/compose'], function (defineComponent,
     it('should throw an exception if a mixin tries to overwrite a property', function () {
       var mixItIn = function () {
         defineComponent(function () {
-          this.myProperty = 23
+          this.myProperty = 23;
         }, function () {
-          this.myProperty = 38
+          this.myProperty = 38;
         });
       };
 
@@ -29,10 +28,10 @@ define(['lib/component', 'lib/utils', 'lib/compose'], function (defineComponent,
       var base = {mixedInCount: 0};
 
       var mixMeIn = function () {
-        this.mixedInCount++
+        this.mixedInCount++;
       };
       var mixMeToo = function () {
-        this.mixedInCount++
+        this.mixedInCount++;
       };
 
       compose.mixin(base, [mixMeIn]);
