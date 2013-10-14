@@ -1,7 +1,17 @@
+## v1.1.1 (10/15/2013)
+
+###features
+* better docs
+
+###bug fixes and tweaks
+* new Function -> function declaration to avoid CSP issues
+* more tests
+* normalize all references to the utils module
+
 ## v1.1.0 (07/26/2013)
 
 ##api changes
-* new \<Component\> (not recommended) no longer auto-calls initialize  
+* new \<Component\> (not recommended) no longer auto-calls initialize
 (use \<Component\>.attachTo)
 
 ###features
