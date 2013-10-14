@@ -2,7 +2,7 @@
   "name": "flight",
   "description": "Clientside component infrastructure",
   "main": "lib/index.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "ignore": [
     "tools/standalone",
     "test",
