@@ -4,13 +4,15 @@
   "main": "lib/index.js",
   "version": "1.1.1",
   "ignore": [
-    "tools/standalone",
+    "doc",
+    "tools",
     "test",
     ".gitignore",
     ".travis.yml",
     "CHANGELOG.md",
     "CONTRIBUTING.md",
     "Makefile",
+    "karma.conf.js",
     "package.json"
   ],
   "dependencies": {
