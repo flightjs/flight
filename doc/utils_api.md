@@ -29,9 +29,9 @@ function on the leading instead of the trailing edge of the `wait` interval.
 <a name="utils.delegate"></a>
 ## utils.delegate(rules)
 
-Delegate to event handlers based on the event target. The `rules` argument is an object who's keys represent keys 
+Delegate to event handlers based on the event target. The `rules` argument is an object who's keys represent keys
 in the component's `attr` object (resolving to the selector of the event target) and values are the handler to be
-called. 
+called.
 
 The handlers are lazily resolved when the event is fired.
 
@@ -113,3 +113,22 @@ Convert an object to an array. Optionally specify the index at which to begin ex
 
 Can produce only unique arrays of homogeneous primitives, e.g., an array of
 only strings, an array of only booleans, or an array of only numerics
+
+<a name="utils.once"></a>
+## utils.once(func)
+
+Ensures that a function will only be called once.
+```js
+var sum = 0;
+var increment = utils.once(function () { sum++; });
+increment(); // sum will equal 1
+increment(); // sum will still equal 1
+```
+
+Will only send one DELETE request to the server even if the click event is fired multiple times.
+```js
+var myHanlder = function () {
+  $.ajax({type: 'DELETE', url: 'someurl.com', data: {id: 1}});
+};
+this.on('click', utils.once(myHandler));
+```

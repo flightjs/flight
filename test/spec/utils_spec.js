@@ -291,4 +291,14 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
     });
   });
 
+  describe('once()', function () {
+    it('should only call a function once', function () {
+      var sum = 0;
+      var increment = utils.once(function () { sum++; });
+      increment();
+      increment();
+      expect(sum).toEqual(1);
+    });
+  });
+
 });
