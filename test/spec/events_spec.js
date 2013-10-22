@@ -5,9 +5,11 @@ define(['lib/component'], function (defineComponent) {
   describe("(Core) events", function () {
     var Component = (function () {
       function testComponent() {
+        this.exampleMethod = jasmine.createSpy();
         this.after('initialize', function () {
           this.testString || (this.testString = "");
           this.testString += "-initBase-";
+          this.on(document, 'exampleDocumentEvent', this.exampleMethod);
         });
       }
 
@@ -33,12 +35,15 @@ define(['lib/component'], function (defineComponent) {
 
     beforeEach(function () {
       window.outerDiv = document.createElement('div');
+      window.anotherDiv = document.createElement('div');
       window.innerDiv = document.createElement('div');
       window.outerDiv.appendChild(window.innerDiv);
       document.body.appendChild(window.outerDiv);
+      document.body.appendChild(window.anotherDiv);
     });
     afterEach(function () {
       document.body.removeChild(window.outerDiv);
+      document.body.removeChild(window.anotherDiv);
       window.outerDiv = null;
       window.innerDiv = null;
       Component.teardownAll();
@@ -128,6 +133,14 @@ define(['lib/component'], function (defineComponent) {
       instance1.off(document, 'event1', spy);
       instance1.trigger('event2');
       expect(spy).toHaveBeenCalled();
+    });
+
+    it('does not unbind event handlers which share a node but were registered by different instances', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var instance2 = (new Component).initialize(window.anotherDiv);
+      instance1.off(document, 'exampleDocumentEvent', instance1.exampleMethod);
+      instance1.trigger('exampleDocumentEvent');
+      expect(instance2.exampleMethod).toHaveBeenCalled();
     });
 
     it('bubbles custom events between components', function () {
