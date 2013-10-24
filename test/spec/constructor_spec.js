@@ -108,7 +108,7 @@ define(['lib/component'], function (defineComponent) {
       }).toThrow('utils.push attempted to overwrite "core" while running in protected mode');
     });
 
-    ddescribe('teardownAll', function () {
+    describe('teardownAll', function () {
 
       it('should teardown all instances', function () {
         var TestComponent = defineComponent(testComponent);
@@ -130,8 +130,9 @@ define(['lib/component'], function (defineComponent) {
           instance2.teardown();
           original.call(this);
         }.bind(instance1);
-
-        TestComponent.teardownAll();
+        expect(function () {
+          TestComponent.teardownAll();
+        }).not.toThrow();
       });
 
     });
