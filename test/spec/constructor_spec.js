@@ -108,5 +108,34 @@ define(['lib/component'], function (defineComponent) {
       }).toThrow('utils.push attempted to overwrite "core" while running in protected mode');
     });
 
+    describe('teardownAll', function () {
+
+      it('should teardown all instances', function () {
+        var TestComponent = defineComponent(testComponent);
+        var instance1 = (new TestComponent).initialize(document.body)
+        var instance2 = (new TestComponent).initialize(document.body);
+        spyOn(instance1, 'teardown').andCallThrough();
+        spyOn(instance2, 'teardown').andCallThrough();
+        TestComponent.teardownAll();
+        expect(instance1.teardown).toHaveBeenCalled();
+        expect(instance2.teardown).toHaveBeenCalled();
+      });
+
+      it('should support teardowns that cause other teardowns', function () {
+        var TestComponent = defineComponent(testComponent);
+        var instance1 = (new TestComponent).initialize(document.body)
+        var instance2 = (new TestComponent).initialize(document.body);
+        var original = instance1.teardown;
+        instance1.teardown = function () {
+          instance2.teardown();
+          original.call(this);
+        }.bind(instance1);
+        expect(function () {
+          TestComponent.teardownAll();
+        }).not.toThrow();
+      });
+
+    });
+
   });
 });
