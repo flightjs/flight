@@ -44,6 +44,30 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
         instance.trigger('click', {a:2});
         expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', '\'div.myDiv\'', '');
       });
+
+      it('logs trigger with event object', function () {
+        spyOn(console, 'info');
+        instance.trigger({type:'click'});
+        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', '\'div.myDiv\'', '');
+      });
+
+      it('logs trigger for custom node with event object', function () {
+        spyOn(console, 'info');
+        instance.trigger('document', {type:'click'});
+        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', 'document', '');
+      });
+
+      it('logs trigger with event object and payload', function () {
+        spyOn(console, 'info');
+        instance.trigger({type:'click'}, {a:2});
+        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', '\'div.myDiv\'', '');
+      });
+
+      it('logs trigger for custom node with event object and payload', function () {
+        spyOn(console, 'info');
+        instance.trigger('document', {type:'click'}, {a:2});
+        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', 'document', '');
+      });
     });
 
     describe('on logging', function () {
@@ -109,6 +133,21 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
         console.info.isSpy = false;
         spyOn(console, 'info');
         instance.off('cluck', instance.handler);
+        expect(console.info).not.toHaveBeenCalled();
+      });
+
+      it('only logs filtered event objects', function () {
+        debug.events.logByName('click', 'clack');
+        spyOn(console, 'info');
+        instance.trigger({type:'click'});
+        expect(console.info).toHaveBeenCalled();
+        console.info.isSpy = false;
+        spyOn(console, 'info');
+        instance.on({type:'clack'}, instance.handler);
+        expect(console.info).toHaveBeenCalled();
+        console.info.isSpy = false;
+        spyOn(console, 'info');
+        instance.off({type:'cluck'}, instance.handler);
         expect(console.info).not.toHaveBeenCalled();
       });
     });
