@@ -227,14 +227,20 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
 
   describe('delegate()', function () {
 
+    beforeEach(function () {
+      window.div = document.createElement('div');
+      document.body.appendChild(window.div);
+    });
+    afterEach(function () {
+      document.body.removeChild(window.div);
+      window.div = null;
+      Component.teardownAll();
+    });
+
     var Component = (function () {
       return defineComponent(function fnTest() {
       });
     })();
-
-    afterEach(function () {
-      Component.teardownAll();
-    });
 
     it('should pass event, and data (inc. el property) to its callbacks', function () {
       var instance = (new Component).initialize(document, {'bodySelector': 'body'});
@@ -258,7 +264,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
       var instance = (new Component).initialize(document, {'bodySelector': 'body'});
 
       instance.on('click', {
-        bodySelector: function (el, event) {
+        bodySelector: function (event) {
           expect(this).toBe(instance);
         }
       });
@@ -267,22 +273,49 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
 
     });
 
-    it('should ignore subsequent handlers after stopPropagation called on event', function () {
-      var instance = (new Component).initialize(document, {'body': 'body', 'document': 'document'});
-      var spy = jasmine.createSpy();
+    it('should invoke all matching handlers if stopPropagation not called on event', function () {
+
+      var instance = (new Component).initialize(document, {'divSelector': 'div', 'bodySelector': 'body'});
+      var spy1 = jasmine.createSpy();
+      var spy2 = jasmine.createSpy();
 
       instance.on('click', {
-        'body': function (el, event) {
-          event.stopPropagation;
+        'divSelector': function (event) {
+          spy1();
         },
-        'document': function() {spy()}
+        'bodySelector': function() {
+          spy2();
+        }
       });
 
-      $('body').trigger('click');
-      expect(spy).not.toHaveBeenCalled();
+      $('div').trigger('click');
+      expect(spy1).toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
     });
 
-    Component.teardownAll();
+
+    it('should not call handlers after stopPropagation called on event', function () {
+
+      var instance = (new Component).initialize(document, {'divSelector': 'div', 'bodySelector': 'body'});
+      var spy1 = jasmine.createSpy();
+      var spy2 = jasmine.createSpy();
+
+      instance.on('click', {
+        'divSelector': function (event) {
+          event.stopPropagation();
+          spy1();
+        },
+        'bodySelector': function() {
+          spy2();
+        }
+      });
+
+      $('div').trigger('click');
+      expect(spy1).toHaveBeenCalled();
+      expect(spy2).not.toHaveBeenCalled();
+    });
+
+
   });
 
   describe('countThen()', function () {
