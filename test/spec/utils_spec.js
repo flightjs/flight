@@ -255,7 +255,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
     });
 
     it('makes "this" in delegated function references be the component instance', function () {
-      var instance = new Component(document, {'bodySelector': 'body'});
+      var instance = (new Component).initialize(document, {'bodySelector': 'body'});
 
       instance.on('click', {
         bodySelector: function (el, event) {
@@ -265,6 +265,21 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
 
       $(document.body).trigger('click');
 
+    });
+
+    it('should ignore subsequent handlers after stopPropagation called on event', function () {
+      var instance = (new Component).initialize(document, {'body': 'body', 'document': 'document'});
+      var spy = jasmine.createSpy();
+
+      instance.on('click', {
+        'body': function (el, event) {
+          event.stopPropagation;
+        },
+        'document': function() {spy()}
+      });
+
+      $('body').trigger('click');
+      expect(spy).not.toHaveBeenCalled();
     });
 
     Component.teardownAll();
