@@ -1,6 +1,6 @@
 {
   "name": "flight",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "devDependencies": {
     "karma": "~0.10.1",
     "karma-jasmine": "~0.1.0",
