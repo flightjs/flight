@@ -1,3 +1,15 @@
+## v1.1.2 (10/15/2013)
+
+###features
+* new `once` method can be used to mimick jQuery's $node.once behavior (PR 186)
+* prevent subsequent event delegations by calling stopPropagation on the event (PR 202)
+
+###bug fixes and tweaks
+* prevent component.off from closing all event bindings for a given event and node (PR 192)
+* clean up debugger and logger code (PR 193)
+* ensure nested teardown support (PR 194)
+* documentation improvements
+
 ## v1.1.1 (10/15/2013)
 
 ###features
