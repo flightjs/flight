@@ -17,7 +17,7 @@ created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
 ## Why Flight?
 
 Flight is only ~5K minified and gzipped. It's built upon jQuery, and has
-first-class support for AMD and [Bower](http://bower.io/).
+first-class support for Asynchronous Module Definition (AMD) and [Bower](http://bower.io/).
 
 Flight components are highly portable and easily testable. This is because a
 Flight component (and its API) is entirely decoupled from other components.
