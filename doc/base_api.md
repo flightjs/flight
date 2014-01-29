@@ -101,9 +101,9 @@ this.after('initialize', function() {
   this.on('click', this.selectItem);
 });
 ```
-ef
-Example of `handler` as an inline function. This demonstrates how the `ev` and `data` parameters can be used
-to receive data from the component's optional `trigger` parameter `eventPayload`.
+
+Example of `handler` as an inline function (this demonstrates how the `ev` and `data` parameters can be used
+to receive data from the component's optional `trigger` parameter `eventPayload`):
 
 ```js
 this.on(document, 'dataSent', function (ev, data) {
