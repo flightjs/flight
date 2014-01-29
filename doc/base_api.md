@@ -101,7 +101,7 @@ this.after('initialize', function() {
   this.on('click', this.selectItem);
 });
 ```
-
+ef
 Example of `handler` as an inline function. This demonstrates how the `ev` and `data` parameters can be used
 to receive data from the component's optional `trigger` parameter `eventPayload`.
 
@@ -113,7 +113,7 @@ this.on(document, 'dataSent', function (ev, data) {
 
 Example of `handler` being an object that maps event targets to callbacks.
 This is effectively event delegation; selector values are resolved, at event
-time, by keying into the `attr` property of the component.
+time, by keying into the `attr` property of the component. The target element is exposed in the handler's data payload as `el`
 
 ```js
 this.defaultAttrs({
