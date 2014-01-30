@@ -40,9 +40,10 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
       });
 
       it('logs trigger with payload', function () {
+        var data = {a:2};
         spyOn(console, 'info');
-        instance.trigger('click', {a:2});
-        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', '\'div.myDiv\'', '');
+        instance.trigger('click', data);
+        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, '\'div.myDiv\'', '');
       });
 
       it('logs trigger with event object', function () {
@@ -58,15 +59,17 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
       });
 
       it('logs trigger with event object and payload', function () {
+        var data = {a:2};
         spyOn(console, 'info');
-        instance.trigger({type:'click'}, {a:2});
-        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', '\'div.myDiv\'', '');
+        instance.trigger({type:'click'}, data);
+        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, '\'div.myDiv\'', '');
       });
 
       it('logs trigger for custom node with event object and payload', function () {
+        var data = {a:2};
         spyOn(console, 'info');
-        instance.trigger('document', {type:'click'}, {a:2});
-        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', 'document', '');
+        instance.trigger('document', {type:'click'}, data);
+        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, 'document', '');
       });
     });
 
@@ -82,7 +85,6 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
         instance.on('body', 'start', instance.handler);
         expect(console.info).toHaveBeenCalledWith('<-', 'on', '[start]', 'body', '');
       });
-
     });
 
     describe('off logging', function () {
