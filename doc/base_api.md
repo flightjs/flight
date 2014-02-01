@@ -206,6 +206,9 @@ this.updateSuccessful = function() {
 }
 ```
 
+If your component has `attr.eventData` attribute it will be merged into
+the `eventPayload` of every event the component triggers.
+
 <a name="this.teardown"></a>
 ## this.teardown()
 
