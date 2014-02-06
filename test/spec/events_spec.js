@@ -102,6 +102,33 @@ define(['lib/component'], function (defineComponent) {
       expect(spy2).toHaveBeenCalled();
     });
 
+    it('proxy from one to another when declared using "on" with a string', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+
+      // Declare an event proxy from 'click' → 'customEvent'
+      instance.on('click', 'customEvent');
+
+      var spy = jasmine.createSpy();
+      instance.on('customEvent', spy);
+
+      instance.trigger('click');
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('proxy from one to another when declared using "on" with an object', function () {
+      var instance = (new Component).initialize(window.outerDiv, {'customAttr': 'div'});
+
+      // Declare an event proxy from 'click' → 'customEvent'
+      instance.on('click', {
+        'customAttr': 'customEvent'
+      });
+
+      var spy = jasmine.createSpy();
+      instance.on(window.innerDiv, 'customEvent', spy);
+
+      instance.trigger(window.innerDiv, 'click');
+      expect(spy).toHaveBeenCalled();
+    });
 
     it('unbinds listeners using "off"', function () {
       var instance1 = (new Component).initialize(window.outerDiv);
@@ -200,7 +227,7 @@ define(['lib/component'], function (defineComponent) {
     it('throws the expected error when attempting to bind to wrong type', function () {
       var instance = (new Component).initialize(document.body);
       var badBind = function () {
-        instance.on(document, 'foo', "turkey")
+        instance.on(document, 'foo', 1234);
       };
       expect(badBind).toThrow('Unable to bind to "foo" because the given callback is not a function or an object');
     });
