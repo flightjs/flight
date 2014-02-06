@@ -89,9 +89,9 @@ Defaults to the component instance's `node` value.
 
 The event type to listen for.
 
-#### `handler`: Function | Object
+#### `handler`: Function | Object | String
 
-Either a function (callback) to be invoked, or a map of targets and callbacks.
+Either a function (callback) to be invoked, a map of targets and callbacks, or a string (event name) to be triggered.
 
 Example of `handler` being a function:
 
@@ -125,6 +125,29 @@ this.after('initialize', function() {
   this.on('click', {
     menuItemSelector: this.selectMenuItem,
     saveButtonSelector: this.saveAll
+  });
+});
+```
+
+Example of `handler` being a string that maps events to other events.
+This is useful for proxying browser events to more meaningful custom events.
+
+```js
+this.on('click', 'uiComponentClick');
+```
+
+Example of `handler` being an object that maps events to other events.
+
+```js
+this.defaultAttrs({
+  menuItemSelector: '.menuItem',
+  saveButtonSelector: '#save'
+});
+
+this.after('initialize', function() {
+  this.on('click', {
+    menuItemSelector: 'uiMenuItemClick',
+    saveButtonSelector: 'uiSaveButtonClick'
   });
 });
 ```
