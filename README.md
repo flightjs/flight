@@ -85,7 +85,7 @@ You will have to reference Flight's installed dependencies –
 ```html
 <script src="bower_components/es5-shim/es5-shim.js"></script>
 <script src="bower_components/es5-shim/es5-sham.js"></script>
-<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <script data-main="main.js" src="bower_components/requirejs/require.js"></script>
 ...
 ```
