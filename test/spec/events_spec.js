@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/component'], function (defineComponent) {
+define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
   describe("(Core) events", function () {
     var Component = (function () {
@@ -9,7 +9,6 @@ define(['lib/component'], function (defineComponent) {
         this.after('initialize', function () {
           this.testString || (this.testString = "");
           this.testString += "-initBase-";
-          this.on(document, 'exampleDocumentEvent', this.exampleMethod);
         });
       }
 
@@ -168,6 +167,30 @@ define(['lib/component'], function (defineComponent) {
       expect(spy).toHaveBeenCalled();
     });
 
+    it('removes the binding when "off" is supplied with a bound callback', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var spy = jasmine.createSpy();
+      instance1.on(document, 'event1', spy);
+      var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
+        return e.type=="event1"
+       })[0].callback;
+      instance1.off(document, 'event1', boundCb);
+      instance1.trigger('event1');
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('retains one binding when another is removed for multiple registered events for the same callback function when "off" is supplied with a bound callback', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var spy = jasmine.createSpy();
+      instance1.on(document, 'event1', spy);
+      instance1.on(document, 'event2', spy);
+      var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
+        return e.type=="event1"
+       })[0].callback;
+      instance1.off(document, 'event1', boundCb);
+      instance1.trigger('event2');
+      expect(spy).toHaveBeenCalled();
+    });
 
     it('does not unbind those registered events that share a callback, but were not sent "off" requests', function () {
       var instance1 = (new Component).initialize(window.outerDiv);
@@ -179,12 +202,31 @@ define(['lib/component'], function (defineComponent) {
       expect(spy).toHaveBeenCalled();
     });
 
+    it('does not unbind those registered events that share a callback, but were not sent "off" requests (when "off" is supplied with a bound callback)', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var instance2 = (new Component).initialize(window.anotherDiv);
+      var spy1 = jasmine.createSpy();
+      instance1.on(document, 'event1', spy1);
+      var spy2 = jasmine.createSpy();
+      instance1.on(document, 'event1', spy2);
+      var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
+        return e.type=="event1"
+      })[0].callback;
+      instance1.off(document, 'event1', boundCb);
+      instance1.trigger('event1');
+      expect(spy2).toHaveBeenCalled();
+    });
+
     it('does not unbind event handlers which share a node but were registered by different instances', function () {
       var instance1 = (new Component).initialize(window.outerDiv);
       var instance2 = (new Component).initialize(window.anotherDiv);
-      instance1.off(document, 'exampleDocumentEvent', instance1.exampleMethod);
-      instance1.trigger('exampleDocumentEvent');
-      expect(instance2.exampleMethod).toHaveBeenCalled();
+      var spy1 = jasmine.createSpy();
+      instance1.on(document, 'event1', spy1);
+      var spy2 = jasmine.createSpy();
+      instance1.on(document, 'event1', spy2);
+      instance1.off(document, 'event1', spy1);
+      instance1.trigger('event1');
+      expect(spy2).toHaveBeenCalled();
     });
 
     it('bubbles custom events between components', function () {
