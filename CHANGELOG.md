@@ -1,3 +1,20 @@
+## v1.1.3 (2/18/2014)
+
+###features
+* `on` now optionally accepts an event to trigger instead of a callback
+https://github.com/flightjs/flight/pull/217
+
+* logger now shows trigger payload
+https://github.com/flightjs/flight/pull/213
+
+* `getBoundRequests` addes to registry as a convenience
+https://github.com/flightjs/flight/pull/214
+
+###bug fixes and tweaks
+
+* correct clean-up when 'off' callback is a bound function
+https://github.com/flightjs/flight/pull/222
+
 ## v1.1.2 (1/14/2014)
 
 ###features
