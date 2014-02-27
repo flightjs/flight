@@ -347,6 +347,13 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
       increment();
       expect(sum).toEqual(1);
     });
+
+    it('should only call a recursive function once', function () {
+      var sum = 0;
+      var increment = utils.once(function () { sum++; increment(); });
+      increment();
+      expect(sum).toEqual(1);
+    });
   });
 
 });
