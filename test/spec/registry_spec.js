@@ -100,6 +100,22 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       //pass phoney node, find nothing
       expect(registry.findInstanceInfoByNode(window.innerDiv).length).toBeFalsy();
     });
+
+    it('generates correct boundEventNames when there are none', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+
+      expect(registry.getBoundEventNames(instance).length).toBe(0);
+    });
+
+    it('generates correct boundEventNames when there are some', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+      instance.on('click', function() {});
+      instance.on(document, 'click', function() {});
+      instance.on('customEvent', function() {});
+
+      expect(registry.getBoundEventNames(instance).length).toBe(3);
+      expect(registry.getBoundEventNames(instance)).toEqual(['click', 'click', 'customEvent']);
+    });
   });
 
 });

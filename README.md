@@ -9,7 +9,7 @@ created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
 
 * [Website](http://flightjs.github.io/)
 * [API documentation](doc/README.md)
-* [Flight example app](http://flightjs.github.io/example-app/) 
+* [Flight example app](http://flightjs.github.io/example-app/) ([Source](https://github.com/flightjs/example-app))
 * [Flight's Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)
 * [Flight on Twitter](https://twitter.com/flight)
 
@@ -17,7 +17,7 @@ created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
 ## Why Flight?
 
 Flight is only ~5K minified and gzipped. It's built upon jQuery, and has
-first-class support for AMD and [Bower](http://bower.io/).
+first-class support for Asynchronous Module Definition (AMD) and [Bower](http://bower.io/).
 
 Flight components are highly portable and easily testable. This is because a
 Flight component (and its API) is entirely decoupled from other components.
@@ -85,16 +85,15 @@ You will have to reference Flight's installed dependencies –
 ```html
 <script src="bower_components/es5-shim/es5-shim.js"></script>
 <script src="bower_components/es5-shim/es5-sham.js"></script>
-<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <script data-main="main.js" src="bower_components/requirejs/require.js"></script>
 ...
 ```
 
-
 ## Standalone version
 
 Alternatively, you can manually install the [standalone
-version](http://flightjs.github.io/releases/latest/flight.js) of Flight, also
+version](http://flightjs.github.io/release/latest/flight.js) of Flight, also
 available on [cdnjs](http://cdnjs.com/). It exposes all of its modules as
 properties of a global variable, `flight`:
 
@@ -111,11 +110,18 @@ properties of a global variable, `flight`:
 N.B. You will also need to manually install the correct versions of Flight's
 dependencies: ES5 Shim and jQuery.
 
+## Browser Support
 
-## Example
+Chrome, Firefox, Safari, Opera, IE 7+.
 
-A simple example of how to write and use a Flight component. Read the [API
+## Quick Overview
+
+Here's a brief introduction to Flight's key concepts and syntax. Read the [API
 documentation](doc) for a comprehensive overview.
+
+### Example
+
+A simple example of how to write and use a Flight component.
 
 ```js
 define(function (require) {
@@ -136,8 +142,8 @@ define(function (require) {
 
     // now initialize the component
     this.after('initialize', function() {
-      this.on('click', doSomething);
-      this.on('mouseover', doSomethingElse);
+      this.on('click', this.doSomething);
+      this.on('mouseover', this.doSomethingElse);
     });
   }
 });
@@ -156,11 +162,51 @@ define(function (require) {
 });
 ```
 
+### Components ([API](doc/component_api.md))
 
-## Browser Support
+- A Component is nothing more than a constructor with properties mixed into its prototype.
+- Every Component comes with a set of basic functionality such as event handling and component registration.
+(see [Base API](doc/base_api.md))
+- Additionally, each Component definition mixes in a set of custom properties which describe its behavior.
+- When a component is attached to a DOM node, a new instance of that component is created. Each component
+instance references the DOM node via its `node` property.
+- Component instances cannot be referenced directly; they communicate with other components via events.
 
-Chrome, Firefox, Safari, Opera, IE 7+.
+### Interacting with the DOM
 
+Once attached, component instances have direct access to their node object via the `node` property. (There's
+also a jQuery version of the node available via the `$node` property.)
+
+### Events in Flight
+
+Events are how Flight components interact. The Component prototype supplies methods for triggering events as
+well as for subscribing to and unsubscribing from events. These Component event methods are actually just convenient
+wrappers around regular event methods on DOM nodes.
+
+### Mixins ([API](doc/mixin_api.md))
+
+- In Flight, a mixin is a function which assigns properties to a target object (represented by the `this`
+keyword).
+- A typical mixin defines a set of functionality that will be useful to more than one component.
+- One mixin can be applied to any number of [Component](#components) definitions.
+- One Component definition can have any number of mixins applied to it.
+- Each Component defines a [*core*](#core_mixin) mixin within its own module.
+- A mixin can itself have mixins applied to it.
+
+### Advice ([API](doc/advice_api.md))
+
+In Flight, advice is a mixin (`'lib/advice.js'`) that defines `before`, `after` and `around` methods.
+
+These can be used to modify existing functions by adding custom code. All Components have advice mixed in to
+their prototype so that mixins can augment existing functions without requiring knowledge
+of the original implementation. Moreover, since Component's are seeded with an empty `initialize` method,
+Component definitions will typically use `after` to define custom `initialize` behavior.
+
+### Debugging ([API](doc/debug_api.md))
+
+Flight ships with a debug module which can help you trace the sequence of event triggering and binding. By default
+console logging is turned off, but you can you can log `trigger`, `on` and `off` events by means of the following console
+commands.
 
 ## Authors
 

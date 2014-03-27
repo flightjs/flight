@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/component', 'lib/utils'], function (defineComponent, util) {
+define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
 
   describe('(Core) utils', function () {
 
@@ -10,7 +10,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
         var result;
 
         function testFn() {
-          result = util.toArray(arguments);
+          result = utils.toArray(arguments);
         }
 
         testFn('apple', 'pear');
@@ -27,7 +27,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
         var result;
 
         function testFn() {
-          result = util.toArray(arguments);
+          result = utils.toArray(arguments);
         }
 
         testFn('apple', 'pear');
@@ -39,7 +39,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
         var result;
 
         function testFn() {
-          result = util.toArray(arguments, 1);
+          result = utils.toArray(arguments, 1);
         }
 
         testFn('apple', 'pear');
@@ -60,14 +60,14 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       });
 
       it('creates a copy', function () {
-        merged = util.merge(foo);
+        merged = utils.merge(foo);
         //reassign to merged
         merged = "monkey";
         expect(foo.a).toBe(32);
       });
 
       it('merges distinct properties', function () {
-        merged = util.merge(foo, boo);
+        merged = utils.merge(foo, boo);
         expect(merged.a).toBe(32);
         expect(merged.b.aa).toBe(33);
         expect(merged.b.bb).toBe(94);
@@ -75,7 +75,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       });
 
       it('recursively merges like properties upon request', function () {
-        merged = util.merge(foo, moo, true);
+        merged = utils.merge(foo, moo, true);
         expect(merged.a).toBe(32);
         expect(merged.b.aa).toBe(37);
         expect(merged.b.bb).toBe(94);
@@ -84,7 +84,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       });
 
       it('does not recursively merge when not requested', function () {
-        merged = util.merge(foo, moo);
+        merged = utils.merge(foo, moo);
         expect(merged.a).toBe(32);
         expect(merged.b.aa).toBe(37);
         expect(merged.b.bb).toBe(undefined);
@@ -93,7 +93,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       });
 
       it('merges more than two objects', function () {
-        merged = util.merge(foo, boo, moo, true);
+        merged = utils.merge(foo, boo, moo, true);
         expect(merged.a).toBe(32);
         expect(merged.b.aa).toBe(37);
         expect(merged.b.bb).toBe(94);
@@ -103,17 +103,17 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       });
 
       it('copies extra when base is undefined', function () {
-        merged = util.merge(undefined, foo);
+        merged = utils.merge(undefined, foo);
         expect(merged).toEqual(foo);
       });
 
       it('copies base when extra is undefined', function () {
-        merged = util.merge(moo, undefined);
+        merged = utils.merge(moo, undefined);
         expect(merged).toEqual(moo);
       });
 
       it('returns empty hash when base and extra are undefined', function () {
-        merged = util.merge(undefined, undefined);
+        merged = utils.merge(undefined, undefined);
         expect(typeof merged).toEqual("object");
         expect(Object.keys(merged).length).toEqual(0);
       });
@@ -126,20 +126,20 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
         document.body.appendChild(div);
 
         //DOM objects
-        expect(util.isDomObj(window)).toBe(true);
-        expect(util.isDomObj(document)).toBe(true);
-        expect(util.isDomObj(document.body)).toBe(true);
-        expect(util.isDomObj(div)).toBe(true);
+        expect(utils.isDomObj(window)).toBe(true);
+        expect(utils.isDomObj(document)).toBe(true);
+        expect(utils.isDomObj(document.body)).toBe(true);
+        expect(utils.isDomObj(div)).toBe(true);
 
         //other objects
-        expect(util.isDomObj(alert)).toBe(false);
-        expect(util.isDomObj({})).toBe(false);
-        expect(util.isDomObj([1, 2, 3])).toBe(false);
+        expect(utils.isDomObj(alert)).toBe(false);
+        expect(utils.isDomObj({})).toBe(false);
+        expect(utils.isDomObj([1, 2, 3])).toBe(false);
 
         //primitives
-        expect(util.isDomObj("banana")).toBe(false);
-        expect(util.isDomObj("34")).toBe(false);
-        expect(util.isDomObj(true)).toBe(false);
+        expect(utils.isDomObj("banana")).toBe(false);
+        expect(utils.isDomObj("34")).toBe(false);
+        expect(utils.isDomObj(true)).toBe(false);
 
         document.body.removeChild(div);
         div = null;
@@ -153,7 +153,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       var moo = {b: {aa: 37, cc: 58}, d: 78};
 
       it('merges distinct properties', function () {
-        var pushed = util.push(foo, boo);
+        var pushed = utils.push(foo, boo);
         expect(pushed.a).toBe(32);
         expect(pushed.b.aa).toBe(33);
         expect(pushed.b.bb).toBe(94);
@@ -162,12 +162,12 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
 
       it('does not overwrite properties when protect is true', function () {
         expect(function () {
-          util.push(foo, moo, true);
-        }).toThrow("utils.push attempted to overwrite 'b' while running in protected mode");
+          utils.push(foo, moo, true);
+        }).toThrow('utils.push attempted to overwrite "b" while running in protected mode');
       });
 
       it('recursively merges like properties when protect is false', function () {
-        var pushed = util.push(foo, moo);
+        var pushed = utils.push(foo, moo);
         expect(pushed.a).toBe(32);
         expect(pushed.b.aa).toBe(37);
         expect(pushed.b.bb).toBe(94);
@@ -176,12 +176,12 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       });
 
       it('returns undefined when base is undefined', function () {
-        var pushed = util.push(undefined, foo);
+        var pushed = utils.push(undefined, foo);
         expect(pushed).toBe(undefined);
       });
 
       it('returns base when extra is undefined', function () {
-        var pushed = util.push(moo, undefined);
+        var pushed = utils.push(moo, undefined);
         expect(pushed).toBe(moo);
       });
     });
@@ -195,7 +195,7 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
       jasmine.Clock.useMock();
 
       var spy = jasmine.createSpy();
-      var throttledFn = util.throttle(spy, 500);
+      var throttledFn = utils.throttle(spy, 500);
       throttledFn();
       expect(spy.callCount).toBe(1);
       throttledFn();
@@ -210,12 +210,12 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
 
   describe('debounce()', function () {
 
-    it("should only call a debounce'd function after it has not been called for a given interval", function () {
+    it('should only call a debounce\'d function after it has not been called for a given interval', function () {
 
       jasmine.Clock.useMock();
 
       var spy = jasmine.createSpy();
-      var debouncedFn = util.debounce(spy, 500);
+      var debouncedFn = utils.debounce(spy, 500);
       debouncedFn();
       jasmine.Clock.tick(400);
       expect(spy).not.toHaveBeenCalled();
@@ -225,19 +225,25 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
     });
   });
 
-  describe("delegate()", function () {
+  describe('delegate()', function () {
+
+    beforeEach(function () {
+      window.div = document.createElement('div');
+      document.body.appendChild(window.div);
+    });
+    afterEach(function () {
+      document.body.removeChild(window.div);
+      window.div = null;
+      Component.teardownAll();
+    });
 
     var Component = (function () {
       return defineComponent(function fnTest() {
-        this.attributes({
+        this.defaultAttrs({
           bodySelector: null
         });
       });
     })();
-
-    afterEach(function () {
-      Component.teardownAll();
-    });
 
     it('should pass event, and data (inc. el property) to its callbacks', function () {
       var instance = (new Component).initialize(document, {'bodySelector': 'body'});
@@ -258,10 +264,10 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
     });
 
     it('makes "this" in delegated function references be the component instance', function () {
-      var instance = new Component(document, {'bodySelector': 'body'});
+      var instance = (new Component).initialize(document, {'bodySelector': 'body'});
 
       instance.on('click', {
-        bodySelector: function (el, event) {
+        bodySelector: function (event) {
           expect(this).toBe(instance);
         }
       });
@@ -270,7 +276,87 @@ define(['lib/component', 'lib/utils'], function (defineComponent, util) {
 
     });
 
-    Component.teardownAll();
+    it('should invoke all matching handlers if stopPropagation not called on event', function () {
+
+      var instance = (new Component).initialize(document, {'divSelector': 'div', 'bodySelector': 'body'});
+      var spy1 = jasmine.createSpy();
+      var spy2 = jasmine.createSpy();
+
+      instance.on('click', {
+        'divSelector': function (event) {
+          spy1();
+        },
+        'bodySelector': function() {
+          spy2();
+        }
+      });
+
+      $('div').trigger('click');
+      expect(spy1).toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+    });
+
+
+    it('should not call handlers after stopPropagation called on event', function () {
+
+      var instance = (new Component).initialize(document, {'divSelector': 'div', 'bodySelector': 'body'});
+      var spy1 = jasmine.createSpy();
+      var spy2 = jasmine.createSpy();
+
+      instance.on('click', {
+        'divSelector': function (event) {
+          event.stopPropagation();
+          spy1();
+        },
+        'bodySelector': function() {
+          spy2();
+        }
+      });
+
+      $('div').trigger('click');
+      expect(spy1).toHaveBeenCalled();
+      expect(spy2).not.toHaveBeenCalled();
+    });
+
+
+  });
+
+  describe('countThen()', function () {
+    it('calls a wrapped function after n invocations', function () {
+      var spy = jasmine.createSpy();
+      var fn = utils.countThen(2, spy);
+      expect(spy).not.toHaveBeenCalled();
+      fn();
+      expect(spy).not.toHaveBeenCalled();
+      fn();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('calls a wrapped function only once', function () {
+      var spy = jasmine.createSpy();
+      var fn = utils.countThen(1, spy);
+      fn();
+      expect(spy.callCount).toBe(1);
+      fn();
+      expect(spy.callCount).toBe(1);
+    });
+  });
+
+  describe('once()', function () {
+    it('should only call a function once', function () {
+      var sum = 0;
+      var increment = utils.once(function () { sum++; });
+      increment();
+      increment();
+      expect(sum).toEqual(1);
+    });
+
+    it('should only call a recursive function once', function () {
+      var sum = 0;
+      var increment = utils.once(function () { sum++; increment(); });
+      increment();
+      expect(sum).toEqual(1);
+    });
   });
 
 });

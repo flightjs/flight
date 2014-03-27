@@ -1,3 +1,65 @@
+## v1.1.3 (2/18/2014)
+
+###features
+* `on` now optionally accepts an event to trigger instead of a callback
+https://github.com/flightjs/flight/pull/217
+
+* logger now shows trigger payload
+https://github.com/flightjs/flight/pull/213
+
+* `getBoundRequests` addes to registry as a convenience
+https://github.com/flightjs/flight/pull/214
+
+###bug fixes and tweaks
+
+* correct clean-up when 'off' callback is a bound function
+https://github.com/flightjs/flight/pull/222
+
+## v1.1.2 (1/14/2014)
+
+###features
+* new `once` util can be used to mimick jQuery's $node.once behavior (PR 186)
+* delegate method now interruptible by calling stopPropagation on the event (PR 202)
+
+###bug fixes and tweaks
+* prevent component.off from closing all event bindings for a given event and node (PR 192)
+* clean up debugger and logger code (PR 193)
+* ensure nested teardown support (PR 194)
+* documentation improvements
+
+## v1.1.1 (10/15/2013)
+
+###features
+* better docs
+
+###bug fixes and tweaks
+* new Function -> function declaration to avoid CSP issues
+* more tests
+* normalize all references to the utils module
+
+## v1.1.0 (07/26/2013)
+
+##api changes
+* new \<Component\> (not recommended) no longer auto-calls initialize
+(use \<Component\>.attachTo)
+
+###features
+* core component behavior now in base.js mixin/module
+* using karma for tests
+* refactored documentation now includes api docs
+
+###bug fixes and tweaks
+* update bower resources to match current bower naming scheme
+* tools/debug.js -> lib/debug.js
+
+## v1.0.11 (07/26/2013)
+
+* rollback 1.0.10 due to API changes
+
+## v1.0.10 (07/24/2013)
+
+* becomes v1.1.0 due to API changes
+
 ## v1.0.9 (05/13/2013)
 
 ###features

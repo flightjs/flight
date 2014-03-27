@@ -1,14 +1,11 @@
 "use strict";
 
-define(['lib/component'], function (defineComponent) {
+define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
   describe("(Core) events", function () {
     var Component = (function () {
       function testComponent() {
-        this.attributes({
-          eventData: {}
-        });
-
+        this.exampleMethod = jasmine.createSpy();
         this.after('initialize', function () {
           this.testString || (this.testString = "");
           this.testString += "-initBase-";
@@ -37,12 +34,15 @@ define(['lib/component'], function (defineComponent) {
 
     beforeEach(function () {
       window.outerDiv = document.createElement('div');
+      window.anotherDiv = document.createElement('div');
       window.innerDiv = document.createElement('div');
       window.outerDiv.appendChild(window.innerDiv);
       document.body.appendChild(window.outerDiv);
+      document.body.appendChild(window.anotherDiv);
     });
     afterEach(function () {
       document.body.removeChild(window.outerDiv);
+      document.body.removeChild(window.anotherDiv);
       window.outerDiv = null;
       window.innerDiv = null;
       Component.teardownAll();
@@ -56,6 +56,83 @@ define(['lib/component'], function (defineComponent) {
       instance2.on('click', spy);
       instance1.trigger('click');
       expect(spy).toHaveBeenCalled();
+    });
+
+    it('can trigger from a specific node', function () {
+      var instance1 = (new Component).initialize(window.innerDiv);
+      var instance2 = (new Component).initialize(window.outerDiv);
+      var instance3 = (new Component).initialize(document);
+      var spy1, spy2;
+
+      //raw node
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger(document, 'click', {a:2, b:3});
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+
+      //raw node, no payload
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger(document, 'click');
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+
+      //selector
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger('body', 'click', {a:2});
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+
+      //JQuery object
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger($(document.body), 'click', {a:2});
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+    });
+
+    it('proxy from one to another when declared using "on" with a string', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+      var data = {actor: 'Brent Spiner'};
+
+      // Declare an event proxy from 'sourceEvent' â†’ 'targetEvent'
+      instance.on('sourceEvent', 'targetEvent');
+
+      var spy = jasmine.createSpy();
+      instance.on('targetEvent', spy);
+
+      instance.trigger('sourceEvent', data);
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy.mostRecentCall.args[1]).toEqual(data);
+    });
+
+    it('proxy from one to another when declared using "on" with an object', function () {
+      var instance = (new Component).initialize(window.outerDiv, {'innerDiv': 'div'});
+      var data = {actor: 'Brent Spiner'};
+
+      // Declare an event proxy from 'sourceEvent' â†’ 'targetEvent'
+      instance.on('sourceEvent', {
+        'innerDiv': 'targetEvent'
+      });
+
+      var spy = jasmine.createSpy();
+      instance.on(window.innerDiv, 'targetEvent', spy);
+
+      instance.trigger(window.innerDiv, 'sourceEvent', data);
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy.mostRecentCall.args[1]).toEqual(data);
     });
 
     it('unbinds listeners using "off"', function () {
@@ -80,6 +157,41 @@ define(['lib/component'], function (defineComponent) {
       expect(spy).not.toHaveBeenCalled();
     });
 
+    it('retains one binding when another is removed for multiple registered events for the same callback function using "off"', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var spy = jasmine.createSpy();
+      instance1.on(document, 'event1', spy);
+      instance1.on(document, 'event2', spy);
+      instance1.off(document, 'event1', spy);
+      instance1.trigger('event2');
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('removes the binding when "off" is supplied with a bound callback', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var spy = jasmine.createSpy();
+      instance1.on(document, 'event1', spy);
+      var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
+        return e.type=="event1"
+       })[0].callback;
+      instance1.off(document, 'event1', boundCb);
+      instance1.trigger('event1');
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('retains one binding when another is removed for multiple registered events for the same callback function when "off" is supplied with a bound callback', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var spy = jasmine.createSpy();
+      instance1.on(document, 'event1', spy);
+      instance1.on(document, 'event2', spy);
+      var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
+        return e.type=="event1"
+       })[0].callback;
+      instance1.off(document, 'event1', boundCb);
+      instance1.trigger('event2');
+      expect(spy).toHaveBeenCalled();
+    });
+
     it('does not unbind those registered events that share a callback, but were not sent "off" requests', function () {
       var instance1 = (new Component).initialize(window.outerDiv);
       var spy = jasmine.createSpy();
@@ -88,6 +200,33 @@ define(['lib/component'], function (defineComponent) {
       instance1.off(document, 'event1', spy);
       instance1.trigger('event2');
       expect(spy).toHaveBeenCalled();
+    });
+
+    it('does not unbind those registered events that share a callback, but were not sent "off" requests (when "off" is supplied with a bound callback)', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var instance2 = (new Component).initialize(window.anotherDiv);
+      var spy1 = jasmine.createSpy();
+      instance1.on(document, 'event1', spy1);
+      var spy2 = jasmine.createSpy();
+      instance1.on(document, 'event1', spy2);
+      var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
+        return e.type=="event1"
+      })[0].callback;
+      instance1.off(document, 'event1', boundCb);
+      instance1.trigger('event1');
+      expect(spy2).toHaveBeenCalled();
+    });
+
+    it('does not unbind event handlers which share a node but were registered by different instances', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var instance2 = (new Component).initialize(window.anotherDiv);
+      var spy1 = jasmine.createSpy();
+      instance1.on(document, 'event1', spy1);
+      var spy2 = jasmine.createSpy();
+      instance1.on(document, 'event1', spy2);
+      instance1.off(document, 'event1', spy1);
+      instance1.trigger('event1');
+      expect(spy2).toHaveBeenCalled();
     });
 
     it('bubbles custom events between components', function () {
@@ -123,7 +262,8 @@ define(['lib/component'], function (defineComponent) {
     });
 
     it('ignores data parameters with value of undefined', function () {
-      var instance = (new Component).initialize(document.body, { eventData: null});
+      var instance = (new Component).initialize(document.body);
+
       var spy = jasmine.createSpy();
       instance.on(document, 'foo', spy);
       instance.trigger('foo', undefined);
@@ -135,9 +275,9 @@ define(['lib/component'], function (defineComponent) {
     it('throws the expected error when attempting to bind to wrong type', function () {
       var instance = (new Component).initialize(document.body);
       var badBind = function () {
-        instance.on(document, 'foo', "turkey")
+        instance.on(document, 'foo', 1234);
       };
-      expect(badBind).toThrow("Unable to bind to 'foo' because the given callback is not a function or an object");
+      expect(badBind).toThrow('Unable to bind to "foo" because the given callback is not a function or an object');
     });
 
     it('merges eventData into triggered event data', function () {

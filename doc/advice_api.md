@@ -6,10 +6,10 @@ and `around` methods.
 These can be used to modify existing functions by adding custom code. All
 Components have advice mixed in to their prototype so that mixins can augment
 existing functions without requiring knowledge of the original implementation.
-Moreover, since Component's are seeded with an empty `initialize` method,
-Component definitions will typically use `after` to define custom `initialize`
-behavior.
+Mixins will typically use the `after` method to define custom `initialize`
+behavior for the target component.
 
+<a name="this.before"></a>
 ## this.before(existingFuncName, customFunc)
 
 Run the `customFunc` function before the `existingFunc` function.
@@ -34,6 +34,7 @@ define(function() {
 });
 ```
 
+<a name="this.after"></a>
 ## this.after(existingFuncName, customFunc)
 
 Run the `customFunc` function after the `existingFunc` function.
@@ -58,6 +59,7 @@ define(function() {
 });
 ```
 
+<a name="this.around"></a>
 ## this.around(existingFuncName, customFunc)
 
 Run the `existingFunc` function in the middle of the `customFunc` function. It's
@@ -90,6 +92,7 @@ define(function() {
 });
 ```
 
+<a name="advice.withAdvice"></a>
 ## Making advice available to regular objects
 
 Advice can be mixed in to non-components using the compose module:
