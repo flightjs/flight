@@ -14,6 +14,6 @@
     "uglify-js": "~2.3.6"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --browsers Firefox --single-run"
+    "test": "karma start --browsers Firefox --single-run"
   }
 }
