@@ -117,6 +117,22 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy.mostRecentCall.args[1]).toEqual(data);
     });
 
+    it('proxy from one to another when declared using "on" with a string and a specific node', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+      var data = {actor: 'Brent Spiner'};
+
+      // Declare an event proxy from 'sourceEvent' → 'targetEvent'
+      instance.on(document, 'sourceEvent', 'targetEvent');
+
+      var spy = jasmine.createSpy();
+      instance.on('targetEvent', spy);
+
+      $(document).trigger('sourceEvent', data);
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy.mostRecentCall.args[1]).toEqual(data);
+    });
+
     it('proxy from one to another when declared using "on" with an object', function () {
       var instance = (new Component).initialize(window.outerDiv, {'innerDiv': 'div'});
       var data = {actor: 'Brent Spiner'};
