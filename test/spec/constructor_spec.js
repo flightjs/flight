@@ -12,6 +12,10 @@ define(['lib/component'], function (defineComponent) {
       this.defaultAttrs({extra: 38});
     }
 
+    function withBadDefaults() {
+      this.defaultAttrs({core: 38});
+    }
+
     it('exports a define function', function () {
       expect(typeof defineComponent).toBe('function');
     });
@@ -45,11 +49,69 @@ define(['lib/component'], function (defineComponent) {
       expect(TestComponent.toString()).toBe('testComponent, withGoodDefaults');
     });
 
+    describe('Component.mixin', function () {
+
+      var testString1, testString2, testString3 = "";
+      var TestComponent;
+
+      function baseMixin() {
+        this.fn1 = function() {
+          testString1 += "testString1"; return testString1
+        };
+        this.fn2 = function() {
+          testString2 += "testString2"; return testString2
+        };
+      }
+
+      function augmentingMixin() {
+        this.before('fn1', function() {
+          testString1 += "augmented "
+        });
+        this.fn3 = function() {
+          testString3 += "testString3"; return testString3
+        };
+      }
+
+      function initData() {
+        testString1 = "";
+        testString2 = "";
+        testString3 = "";
+      }
+
+      beforeEach(function () {
+        initData();
+        TestComponent = defineComponent(testComponent, baseMixin);
+      });
+
+      afterEach(function () {
+        TestComponent.teardownAll();
+      });
+
+      it('is a function', function () {
+        expect(typeof TestComponent.mixin).toBe('function');
+      });
+      it('augments a base component', function () {
+        var instance1 = (new TestComponent).initialize(document.body);
+        expect(instance1.fn1()).toBe('testString1');
+        expect(instance1.fn2()).toBe('testString2');
+        expect(instance1.fn3).not.toBeDefined();
+
+        initData();
+
+        TestComponent.mixin(augmentingMixin);
+        expect(instance1.fn1()).toBe('augmented testString1');
+        expect(instance1.fn2()).toBe('testString2');
+        expect(instance1.fn3()).toBe('testString3');
+      });
+
+
+    });
+
     describe('teardownAll', function () {
 
       it('should teardown all instances', function () {
         var TestComponent = defineComponent(testComponent);
-        var instance1 = (new TestComponent).initialize(document.body)
+        var instance1 = (new TestComponent).initialize(document.body);
         var instance2 = (new TestComponent).initialize(document.body);
         spyOn(instance1, 'teardown').andCallThrough();
         spyOn(instance2, 'teardown').andCallThrough();
@@ -60,7 +122,7 @@ define(['lib/component'], function (defineComponent) {
 
       it('should support teardowns that cause other teardowns', function () {
         var TestComponent = defineComponent(testComponent);
-        var instance1 = (new TestComponent).initialize(document.body)
+        var instance1 = (new TestComponent).initialize(document.body);
         var instance2 = (new TestComponent).initialize(document.body);
         var original = instance1.teardown;
         instance1.teardown = function () {
