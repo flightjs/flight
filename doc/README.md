@@ -6,7 +6,7 @@
   * [this.around](advice_api.md#this.around)
   * [advice.withAdvice](advice_api.md#advice.withAdvice)
 * [Base API](base_api.md)
-  * [this.defaultAttrs](base_api.md#this.defaultAttrs)
+  * [this.attributes](base_api.md#this.attributes)
   * [this.select](base_api.md#this.select)
   * [this.initialize](base_api.md#this.initialize)
   * [this.on](base_api.md#this.on)
