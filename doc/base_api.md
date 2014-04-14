@@ -54,7 +54,7 @@ Attributes are immutable.  In debug mode Flight will raise errors if you try to 
 has been called.
 
 *NOTE: this.attributes replaces the now deprecated this.defaultAttrs.  However, for backwards compatibility,
-if you are using this.defaultAttrs then all the old attribute behavior remains in place. [More details on this.defaultAttrs](/flightjs/flight/blob/v1.1.3/doc/base_api.md#this.defaultAttrs)*
+if you are using this.defaultAttrs then all the old attribute behavior remains in place. [More details on this.defaultAttrs](../../v1.1.3/doc/base_api.md#this.defaultAttrs)*
 
 <a name="this.select"></a>
 ## this.select(attr)
