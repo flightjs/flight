@@ -91,7 +91,7 @@ The event type to listen for.
 
 #### `handler`: Function | Object | String
 
-Either a function (callback) to be invoked, a map of targets and callbacks, or a string (event name) to be triggered.
+Either a function (callback) to be invoked, a map of targets and callbacks, or a string (event name) to be triggered. In the handler, `this` is bound to the component, not the receiving element (e.g. `this.node`).
 
 Example of `handler` being a function:
 
