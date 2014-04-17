@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/component'], function (defineComponent) {
+define(['lib/component', 'lib/debug'], function (defineComponent, debug) {
 
   describe('(Core) this.attributes', function() {
     function testComponentDefaultAttrs() {
