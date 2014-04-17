@@ -116,7 +116,7 @@ define(['lib/component'], function (defineComponent) {
     describe('Component.mixin', function () {
 
       var testString1, testString2, testString3 = "";
-      var TestComponent;
+      var TestComponent, AugmentedComponent;
 
       function baseMixin() {
         this.fn1 = function() {
@@ -149,11 +149,13 @@ define(['lib/component'], function (defineComponent) {
 
       afterEach(function () {
         TestComponent.teardownAll();
+        AugmentedComponent && AugmentedComponent.teardownAll();
       });
 
       it('is a function', function () {
         expect(typeof TestComponent.mixin).toBe('function');
       });
+
       it('augments a base component', function () {
         var instance1 = (new TestComponent).initialize(document.body);
         expect(instance1.fn1()).toBe('testString1');
@@ -162,12 +164,35 @@ define(['lib/component'], function (defineComponent) {
 
         initData();
 
-        TestComponent.mixin(augmentingMixin);
-        expect(instance1.fn1()).toBe('augmented testString1');
+        AugmentedComponent = TestComponent.mixin(augmentingMixin);
+
+        var instance2 = (new AugmentedComponent).initialize(document.body);
+        expect(instance1.fn1()).toBe('testString1');
         expect(instance1.fn2()).toBe('testString2');
-        expect(instance1.fn3()).toBe('testString3');
+        expect(instance1.fn3).not.toBeDefined();
+
+        initData();
+
+        expect(instance2.fn1()).toBe('augmented testString1');
+        expect(instance2.fn2()).toBe('testString2');
+        expect(instance2.fn3()).toBe('testString3');
       });
 
+      it('cannot re-add an original mixin to an augmented component', function () {
+        AugmentedComponent = TestComponent.mixin(augmentingMixin, baseMixin);
+        expect(AugmentedComponent.prototype.mixedIn.length).toBe(TestComponent.prototype.mixedIn.length + 1);
+        expect(AugmentedComponent.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
+        console.log(AugmentedComponent.prototype.mixedIn)
+      });
+
+      it('(the AugmentedComponent) can be further augmented', function () {
+        AugmentedComponent = TestComponent.mixin(augmentingMixin, baseMixin);
+        var anotherMixin = function() {};
+        var MoreAugmentedComponent = AugmentedComponent.mixin(anotherMixin);
+        expect(AugmentedComponent.prototype.mixedIn.length).toBe(TestComponent.prototype.mixedIn.length + 1);
+        expect(MoreAugmentedComponent.prototype.mixedIn.length).toBe(AugmentedComponent.prototype.mixedIn.length + 1);
+        expect(MoreAugmentedComponent.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
+      });
 
     });
 
