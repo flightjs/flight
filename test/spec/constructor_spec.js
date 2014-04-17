@@ -194,6 +194,11 @@ define(['lib/component'], function (defineComponent) {
         expect(MoreAugmentedComponent.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
       });
 
+      it('(the AugmentedComponent) can describe itself', function () {
+          AugmentedComponent = TestComponent.mixin(augmentingMixin, baseMixin);
+          expect(AugmentedComponent.toString()).toBe('testComponentDefaultAttrs, baseMixin, augmentingMixin');
+      });
+
     });
 
     describe('teardownAll', function () {
