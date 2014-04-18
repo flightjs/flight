@@ -1,3 +1,18 @@
+## v1.1.4 (4/18/2014)
+
+###features
+* Existing Components can now be extended with `mixin`
+https://github.com/flightjs/flight/pull/238
+https://github.com/flightjs/flight/pull/242
+
+* Nested event logging
+https://github.com/flightjs/flight/pull/244
+
+###bug fixes and tweaks
+
+* No fatal CSP error for accessing storage when cookies are off
+https://github.com/flightjs/flight/pull/233
+
 ## v1.1.3 (2/18/2014)
 
 ###features
