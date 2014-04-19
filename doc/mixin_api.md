@@ -103,7 +103,7 @@ be made.
 
 For example, let's say all your components need to iplement some touch screen behavior and also
 override Flight's default `trigger` function. Instead of having to add these mixins to every component,
-you can use them to create a base component (`Base`) which all other components will extend.
+you can use them to create a base component (`components/base`) which all other components will extend.
 
 ```js
 define(function(require) {
@@ -113,7 +113,6 @@ define(function(require) {
 
   return defineComponent(withTouchScreen, withCustomTrigger);
 });
-
 ```
 
 Component constructors have a `mixin` method which can be used to create a new Component constructor
@@ -129,7 +128,6 @@ define(function(require) {
     //..
   }
 });
-
 ```
 
 
