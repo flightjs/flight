@@ -95,3 +95,39 @@ define(function(require) {
 
 });
 ```
+
+## Creating a new Component from an existing one
+
+Existing Components can act as base components from which additional Components can
+be made.
+
+For example, let's say all your components need to iplement some touch screen behavior and also
+override Flight's default `trigger` function. Instead of having to add these mixins to every component,
+you can use them to create a base component (`components/base`) which all other components will extend.
+
+```js
+define(function(require) {
+  var defineComponent = require('flight/lib/component');
+  var withTouchScreen = require('mixins/with_touchscreen');
+  var withCustomTrigger = require('mixins/with_custom_trigger');
+
+  return defineComponent(withTouchScreen, withCustomTrigger);
+});
+```
+
+Component constructors have a `mixin` method which can be used to create a new Component constructor
+based on the original:
+
+```js
+define(function(require) {
+  var Base = require('components/base');
+
+  return Base.mixin(shoppingCart);
+
+  function shoppingCart() {
+    //..
+  }
+});
+```
+
+
