@@ -132,7 +132,7 @@ define(['lib/component'], function (defineComponent) {
 
       it('(the AugmentedComponent) can describe itself', function () {
           AugmentedComponent = TestComponent.mixin(augmentingMixin, baseMixin);
-          expect(AugmentedComponent.toString()).toBe('testComponentDefaultAttrs, baseMixin, augmentingMixin');
+          expect(AugmentedComponent.toString()).toBe('testComponent, baseMixin, augmentingMixin');
       });
 
     });
