@@ -8,14 +8,6 @@ define(['lib/component'], function (defineComponent) {
       this.testVal = 1066;
     }
 
-    function testComponentDefaultAttrs() {
-      this.defaultAttrs({core: 35});
-    }
-
-    function testComponentDefaultAttrsRequired() {
-      this.defaultAttrs({req: null});
-    }
-
     function withGoodDefaults() {
       this.defaultAttrs({extra: 38});
     }
@@ -24,13 +16,16 @@ define(['lib/component'], function (defineComponent) {
       this.defaultAttrs({core: 38});
     }
 
-    function augmentingMixin() {
-      this.after('fn1', function() {return "fn1"});
-      this.fn2 = function() {return "fn2"};
-    }
-
     it('exports a define function', function () {
       expect(typeof defineComponent).toBe('function');
+    });
+
+    it("doesn't attach to empty jQuery objects", function () {
+      var TestComponent = defineComponent(testComponent);
+      var trouble = function () {
+        (new TestComponent).initialize();
+      };
+      expect(trouble).toThrow(new Error("Component needs a node"));
     });
 
     it('defineComponent() should return a component constructor', function () {
@@ -52,65 +47,6 @@ define(['lib/component'], function (defineComponent) {
     it('can describe itself', function () {
       var TestComponent = defineComponent(testComponent, withGoodDefaults);
       expect(TestComponent.toString()).toBe('testComponent, withGoodDefaults');
-    });
-
-    it('adds core defaults', function () {
-      var TestComponent = defineComponent(testComponentDefaultAttrs);
-      var instance = (new TestComponent).initialize(document.body);
-
-      expect(instance.attr.core).toBe(35);
-
-      TestComponent.teardownAll();
-    });
-
-    it('throws error if required attr not specified', function () {
-      var TestComponent = defineComponent(testComponentDefaultAttrsRequired);
-      expect(function () {
-        var instance = (new TestComponent).initialize(document.body);
-      }).toThrow('Required attribute "req" not specified in attachTo for component "testComponentDefaultAttrsRequired".');
-
-      TestComponent.teardownAll();
-    });
-
-    it("doesn't throw error if required attr is specified", function () {
-      var TestComponent = defineComponent(testComponentDefaultAttrsRequired);
-      expect(function () {
-        var instance = (new TestComponent).initialize(document.body, { req: 'hello' });
-      }).not.toThrow();
-
-      TestComponent.teardownAll();
-    });
-
-    it("doesn't attach to empty jQuery objects", function () {
-      var TestComponent = defineComponent(testComponentDefaultAttrs);
-      var trouble = function () {
-        (new TestComponent).initialize();
-      };
-      expect(trouble).toThrow(new Error("Component needs a node"));
-    });
-
-    it('adds mixin defaults', function () {
-      var TestComponent = defineComponent(testComponent, withGoodDefaults);
-      var instance = (new TestComponent).initialize(document.body);
-
-      expect(instance.attr.extra).toBe(38);
-
-      TestComponent.teardownAll();
-    });
-
-    it('adds core and mixin defaults', function () {
-      var TestComponent = defineComponent(testComponentDefaultAttrs, withGoodDefaults);
-      var instance = (new TestComponent).initialize(document.body);
-      expect(instance.attr.core).toBe(35);
-      expect(instance.attr.extra).toBe(38);
-
-      TestComponent.teardownAll();
-    });
-
-    it('throws error when core and mixin defaults overlap', function () {
-      expect(function () {
-        defineComponent(testComponentDefaultAttrs, withBadDefaults);
-      }).toThrow('utils.push attempted to overwrite "core" while running in protected mode');
     });
 
     describe('Component.mixin', function () {
@@ -144,7 +80,7 @@ define(['lib/component'], function (defineComponent) {
 
       beforeEach(function () {
         initData();
-        TestComponent = defineComponent(testComponentDefaultAttrs, baseMixin);
+        TestComponent = defineComponent(testComponent, baseMixin);
       });
 
       afterEach(function () {
@@ -196,7 +132,7 @@ define(['lib/component'], function (defineComponent) {
 
       it('(the AugmentedComponent) can describe itself', function () {
           AugmentedComponent = TestComponent.mixin(augmentingMixin, baseMixin);
-          expect(AugmentedComponent.toString()).toBe('testComponentDefaultAttrs, baseMixin, augmentingMixin');
+          expect(AugmentedComponent.toString()).toBe('testComponent, baseMixin, augmentingMixin');
       });
 
     });
@@ -229,6 +165,5 @@ define(['lib/component'], function (defineComponent) {
       });
 
     });
-
   });
 });

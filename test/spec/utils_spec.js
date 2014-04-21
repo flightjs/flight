@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
+define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, utils, debug) {
 
   describe('(Core) utils', function () {
 
@@ -239,6 +239,9 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
 
     var Component = (function () {
       return defineComponent(function fnTest() {
+        this.defaultAttrs({
+          bodySelector: null
+        });
       });
     })();
 
@@ -356,4 +359,47 @@ define(['lib/component', 'lib/utils'], function (defineComponent, utils) {
     });
   });
 
+    describe('property locking', function() {
+    beforeEach(function () {
+      debug.enable(true);
+    });
+
+    afterEach(function() {
+      debug.enable(false);
+    });
+
+    describe('propertyWritability()', function() {
+
+      it('should allow a property to be write locked', function() {
+
+        var a = { lock: true };
+
+        utils.propertyWritability(a, 'lock', false);
+
+        expect(function() {
+          a.lock = false;
+        }).toThrow();
+
+        expect(a.lock).toBe(true);
+      });
+
+    });
+
+
+    describe('mutateProperty()', function() {
+      it('should allow mutations within the callback only', function() {
+
+        var a = { lock: true };
+
+        utils.propertyWritability(a, 'lock', false);
+
+        utils.mutateProperty(a, 'lock', function() {
+          a.lock = false;
+        });
+
+        expect(a.lock).toBe(false);
+
+      });
+    });
+  });
 });
