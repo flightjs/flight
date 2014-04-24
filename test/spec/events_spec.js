@@ -73,6 +73,15 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy1).not.toHaveBeenCalled();
       expect(spy2).toHaveBeenCalled();
 
+      //payload as string
+      spy1 = jasmine.createSpy();
+      instance2.on('click', spy1);
+      spy2 = jasmine.createSpy();
+      instance3.on('click', spy2);
+      instance1.trigger(document, 'click', 'helloworld');
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalled();
+
       //raw node, no payload
       spy1 = jasmine.createSpy();
       instance2.on('click', spy1);
