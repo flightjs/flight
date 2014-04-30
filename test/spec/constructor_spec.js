@@ -209,8 +209,10 @@ define(['lib/component'], function (defineComponent) {
         expect(AugmentedComponent2.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
         expect(typeof AugmentedComponent1.prototype.fn3).toBe("function");
         expect(typeof AugmentedComponent2.prototype.fn3).toBe("function");
-        expect(typeof AugmentedComponent1.prototype.defaults.attr1).toBe("object");
-        expect(typeof AugmentedComponent2.prototype.defaults.attr1).toBe("object");
+        expect(AugmentedComponent1.prototype.defaults.attr1).toEqual({thing: 4});
+        expect(AugmentedComponent1.prototype.defaults.core).toEqual(35);
+        expect(AugmentedComponent2.prototype.defaults.attr1).toEqual({thing: 5});
+        expect(AugmentedComponent2.prototype.defaults.core).toEqual(35);
         expect(AugmentedComponent1.prototype.fn3 === AugmentedComponent2.prototype.fn3).toBe(false);
         expect(AugmentedComponent1.prototype.defaults.attr1 === AugmentedComponent2.prototype.defaults.attr1).toBe(false);
       });
