@@ -52,9 +52,12 @@ define(['lib/component'], function (defineComponent) {
     describe('Component.mixin', function () {
 
       var testString1, testString2, testString3 = "";
-      var TestComponent, AugmentedComponent;
+      var TestComponent, AugmentedComponent1, AugmentedComponent2;
 
       function baseMixin() {
+        this.defaultAttrs({
+          core: 35
+        });
         this.fn1 = function() {
           testString1 += "testString1"; return testString1
         };
@@ -63,7 +66,22 @@ define(['lib/component'], function (defineComponent) {
         };
       }
 
-      function augmentingMixin() {
+      function augmentingMixin1() {
+        this.defaultAttrs({
+          attr1: {thing: 4}
+        });
+        this.before('fn1', function() {
+          testString1 += "augmented "
+        });
+        this.fn3 = function() {
+          testString3 += "testString3"; return testString3
+        };
+      }
+
+      function augmentingMixin2() {
+        this.defaultAttrs({
+          attr1: {thing: 5}
+        });
         this.before('fn1', function() {
           testString1 += "augmented "
         });
@@ -85,7 +103,8 @@ define(['lib/component'], function (defineComponent) {
 
       afterEach(function () {
         TestComponent.teardownAll();
-        AugmentedComponent && AugmentedComponent.teardownAll();
+        AugmentedComponent1 && AugmentedComponent1.teardownAll();
+        AugmentedComponent2 && AugmentedComponent2.teardownAll();
       });
 
       it('is a function', function () {
@@ -100,9 +119,9 @@ define(['lib/component'], function (defineComponent) {
 
         initData();
 
-        AugmentedComponent = TestComponent.mixin(augmentingMixin);
+        AugmentedComponent1 = TestComponent.mixin(augmentingMixin1);
 
-        var instance2 = (new AugmentedComponent).initialize(document.body);
+        var instance2 = (new AugmentedComponent1).initialize(document.body);
         expect(instance1.fn1()).toBe('testString1');
         expect(instance1.fn2()).toBe('testString2');
         expect(instance1.fn3).not.toBeDefined();
@@ -115,24 +134,40 @@ define(['lib/component'], function (defineComponent) {
       });
 
       it('cannot re-add an original mixin to an augmented component', function () {
-        AugmentedComponent = TestComponent.mixin(augmentingMixin, baseMixin);
-        expect(AugmentedComponent.prototype.mixedIn.length).toBe(TestComponent.prototype.mixedIn.length + 1);
-        expect(AugmentedComponent.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
-        console.log(AugmentedComponent.prototype.mixedIn)
+        AugmentedComponent1 = TestComponent.mixin(augmentingMixin1, baseMixin);
+        expect(AugmentedComponent1.prototype.mixedIn.length).toBe(TestComponent.prototype.mixedIn.length + 1);
+        expect(AugmentedComponent1.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
+      });
+
+      it('can be repeatedly called even when augmenting mixins share properties', function () {
+        AugmentedComponent1 = TestComponent.mixin(augmentingMixin1, baseMixin);
+        AugmentedComponent2 = TestComponent.mixin(augmentingMixin2, baseMixin);
+        expect(AugmentedComponent1.prototype.mixedIn.length).toBe(TestComponent.prototype.mixedIn.length + 1);
+        expect(AugmentedComponent2.prototype.mixedIn.length).toBe(TestComponent.prototype.mixedIn.length + 1);
+        expect(AugmentedComponent1.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
+        expect(AugmentedComponent2.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
+        expect(typeof AugmentedComponent1.prototype.fn3).toBe("function");
+        expect(typeof AugmentedComponent2.prototype.fn3).toBe("function");
+        expect(AugmentedComponent1.prototype.defaults.attr1).toEqual({thing: 4});
+        expect(AugmentedComponent1.prototype.defaults.core).toEqual(35);
+        expect(AugmentedComponent2.prototype.defaults.attr1).toEqual({thing: 5});
+        expect(AugmentedComponent2.prototype.defaults.core).toEqual(35);
+        expect(AugmentedComponent1.prototype.fn3 === AugmentedComponent2.prototype.fn3).toBe(false);
+        expect(AugmentedComponent1.prototype.defaults.attr1 === AugmentedComponent2.prototype.defaults.attr1).toBe(false);
       });
 
       it('(the AugmentedComponent) can be further augmented', function () {
-        AugmentedComponent = TestComponent.mixin(augmentingMixin, baseMixin);
+        AugmentedComponent1 = TestComponent.mixin(augmentingMixin1, baseMixin);
         var anotherMixin = function() {};
-        var MoreAugmentedComponent = AugmentedComponent.mixin(anotherMixin);
-        expect(AugmentedComponent.prototype.mixedIn.length).toBe(TestComponent.prototype.mixedIn.length + 1);
-        expect(MoreAugmentedComponent.prototype.mixedIn.length).toBe(AugmentedComponent.prototype.mixedIn.length + 1);
+        var MoreAugmentedComponent = AugmentedComponent1.mixin(anotherMixin);
+        expect(AugmentedComponent1.prototype.mixedIn.length).toBe(TestComponent.prototype.mixedIn.length + 1);
+        expect(MoreAugmentedComponent.prototype.mixedIn.length).toBe(AugmentedComponent1.prototype.mixedIn.length + 1);
         expect(MoreAugmentedComponent.prototype.mixedIn.filter(function(e) {return e === baseMixin}).length).toBe(1);
       });
 
       it('(the AugmentedComponent) can describe itself', function () {
-          AugmentedComponent = TestComponent.mixin(augmentingMixin, baseMixin);
-          expect(AugmentedComponent.toString()).toBe('testComponent, baseMixin, augmentingMixin');
+          AugmentedComponent1 = TestComponent.mixin(augmentingMixin1, baseMixin);
+          expect(AugmentedComponent1.toString()).toBe('testComponent, baseMixin, augmentingMixin1');
       });
 
     });
