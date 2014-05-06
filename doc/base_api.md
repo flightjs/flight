@@ -212,7 +212,7 @@ Trigger an event.
 
 #### `selector`: String | Element | Element collection
 
-Optional. The DOM node(s) that the event will be disaptched to.
+Optional. The DOM node(s) that the event will be dispatched to.
 Defaults to the component instance's `node` value.
 
 #### `eventType`: String | Object
