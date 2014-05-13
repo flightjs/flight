@@ -3,38 +3,58 @@
 The base API shared by Flight [components](component_api.md) and
 [mixins](mixin_api.md).
 
-<a name="this.defaultAttrs"></a>
-## this.defaultAttrs(object)
+<a name="this.attributes"></a>
+## this.attributes(object)
 
 Most Components and Mixins need to define attributes. In Flight, default values
-are assigned by passing an object to the `defaultAttrs` function.
+are assigned by passing an object to the `attributes` function.
 
 ```js
-this.defaultAttrs({
+this.attributes({
   buttonClass: 'js-button',
-  text: 'Click me'
+  text: 'Click me',
+  hoverClass: null
 });
 ```
 
-The object will be assigned to, or merged with, the `attr` property of the
-Component or Mixin. It can be accessed accordingly:
+This defines a set of attributes that the mixin makes use of.  If you define a value it
+serves as a default value in the case that its not specified in the attachTo call.  If you
+give it a value of null it means that this value must be specified in the attachTo call and
+will raise an error if the value is missing.
+
+For instance, this would raise an error because hoverClass is not defined:
 
 ```js
-this.attr.buttonClass;
-```
-
-These can be overridden in options...
-
-```js
-/* attach button with options */
-
 Button.attachTo("#foo", {
   text: "Don't click me",
   buttonClass: "js-not-a-button"
 });
 ```
 
-...or by [mixins](mixin_api.md).
+Specifying hoverClass would correct this:
+
+```js
+Button.attachTo("#foo", {
+  text: "Don't click me",
+  buttonClass: "js-not-a-button",
+  hoverClass: "hover"
+});
+```
+
+Mixins can be used to override the default values of attributes specified in other mixins or to
+add new attributes.  If you pass an attribute value into attachTo but it is not defined via this.attributes
+it will be ignored.
+
+Attributes can be accessed accordingly:
+
+```js
+this.attr.buttonClass;
+```
+Attributes are immutable.  In debug mode Flight will raise errors if you try to set them after attachTo
+has been called.
+
+*NOTE: this.attributes replaces the now deprecated this.defaultAttrs.  However, for backwards compatibility,
+if you are using this.defaultAttrs then all the old attribute behavior remains in place. [More details on this.defaultAttrs](../../v1.1.3/doc/base_api.md#this.defaultAttrs)*
 
 <a name="this.select"></a>
 ## this.select(attr)
@@ -193,7 +213,7 @@ Trigger an event.
 
 #### `selector`: String | Element | Element collection
 
-Optional. The DOM node(s) that the event will be disaptched to.
+Optional. The DOM node(s) that the event will be dispatched to.
 Defaults to the component instance's `node` value.
 
 #### `eventType`: String | Object

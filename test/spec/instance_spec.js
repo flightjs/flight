@@ -5,6 +5,11 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
   var testString = "";
   var Component = (function () {
     function testComponent() {
+      this.attributes({
+        foo: 1,
+        bar: 1
+      });
+
       this.after('initialize', function () {
         testString = testString || "";
         testString += "-initBase-";
