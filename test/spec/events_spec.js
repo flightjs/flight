@@ -249,6 +249,17 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy).toHaveBeenCalled();
     });
 
+    it('can delegate the target of an event trigger', function () {
+      var instance1 = (new Component).initialize(window.innerDiv);
+      var instance2 = (new Component).initialize(window.outerDiv);
+      var someData = 'test data';
+
+      var spy = jasmine.createSpy();
+      instance2.on(document, 'click', spy);
+      instance1.trigger(document, 'click', someData);
+      expect(spy.mostRecentCall.args[1]).toEqual(someData);
+    });
+
     it('makes data and target element available to callback', function () {
       var instance = (new Component).initialize(document.body);
       var data = {blah: 'blah'};
