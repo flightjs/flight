@@ -127,6 +127,23 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
         expect(c.attr.foo).toBe(46);
         expect(c.attr.bar).toBe(48);
       });
+
+      it('should be defined contextSelector using two arguments', function () {
+        var firstKey, c;
+        Component.attachTo('.test-node', 'div');
+        firstKey = Object.keys(registry.findComponentInfo(Component).instances)[0];
+        c = registry.findComponentInfo(Component).instances[firstKey].instance;
+        expect(c.contextSelector).toBe('div');
+      });
+
+      it('should be defined contextSelector and merge multiple options arguments correctly', function () {
+        Component.attachTo('.test-node', 'div', {foo: 46}, {bar: 48});
+        var firstKey = Object.keys(registry.findComponentInfo(Component).instances)[0];
+        var c = registry.findComponentInfo(Component).instances[firstKey].instance;
+        expect(c.contextSelector).toBe('div');
+        expect(c.attr.foo).toBe(46);
+        expect(c.attr.bar).toBe(48);
+      });
     });
   });
 
