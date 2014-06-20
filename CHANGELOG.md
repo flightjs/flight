@@ -1,3 +1,16 @@
+## v1.2.0 (6/20/2014)
+
+###features
+* New this.attributes() API for setting attributes
+* Allows override by other mixins
+* Ignores attributes passed by attachedTo unless declared in component
+* Requires null attributes to be overriden
+* Old `this.defaultAttrs` API still works but deprecated
+
+###bug fixes and tweaks
+* Fix attribute behavior when using Component.mixin
+* Add Component.mixin docs
+
 ## v1.1.4 (4/18/2014)
 
 ###features
