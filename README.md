@@ -76,15 +76,10 @@ npm install -g bower
 bower install --save flight
 ```
 
-You will have to reference Flight's installed dependencies –
-[ES5-shim](https://github.com/kriskowal/es5-shim) and
-[jQuery](http://jquery.com) – and use an AMD module loader like
-[Require.js](http://requirejs.org/) or
-[Loadrunner](https://github.com/danwrong/loadrunner).
+You will have to reference [jQuery](http://jquery.com) and use an AMD module loader like
+[Require.js](http://requirejs.org/) or [Loadrunner](https://github.com/danwrong/loadrunner).
 
 ```html
-<script src="bower_components/es5-shim/es5-shim.js"></script>
-<script src="bower_components/es5-shim/es5-sham.js"></script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script data-main="main.js" src="bower_components/requirejs/require.js"></script>
 ...
@@ -107,12 +102,11 @@ properties of a global variable, `flight`:
 </script>
 ```
 
-N.B. You will also need to manually install the correct versions of Flight's
-dependencies: ES5 Shim and jQuery.
+N.B. You will also need to manually install the correct version of jQuery.
 
 ## Browser Support
 
-Chrome, Firefox, Safari, Opera, IE 7+.
+Chrome, Firefox, Safari, Opera, IE 7+ (requires [ES5-shim](https://github.com/kriskowal/es5-shim)).
 
 ## Quick Overview
 
