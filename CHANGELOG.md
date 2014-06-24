@@ -22,7 +22,7 @@ https://github.com/flightjs/flight/pull/217
 * logger now shows trigger payload
 https://github.com/flightjs/flight/pull/213
 
-* `getBoundRequests` addes to registry as a convenience
+* `getBoundRequests` added to registry as a convenience
 https://github.com/flightjs/flight/pull/214
 
 ###bug fixes and tweaks
