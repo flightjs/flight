@@ -5,7 +5,7 @@
 [Flight](http://flightjs.github.io/) is a lightweight, component-based,
 event-driven JavaScript framework that maps behavior to DOM nodes. It was
 created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
-[TweetDeck](https://web.tweetdeck.com/) web applications.
+[TweetDeck](https://tweetdeck.twitter.com/) web applications.
 
 * [Website](http://flightjs.github.io/)
 * [API documentation](doc/README.md)
