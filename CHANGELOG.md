@@ -1,7 +1,7 @@
 ## v1.2.0 (6/20/2014)
 
 ###features
-* New this.attributes() API for setting attributes
+* New `this.attributes()` API for setting attributes
 * Allows override by other mixins
 * Ignores attributes passed by attachedTo unless declared in component
 * Requires null attributes to be overriden
