@@ -17,8 +17,6 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       // loaded without require
-      'bower_components/es5-shim/es5-shim.js',
-      'bower_components/es5-shim/es5-sham.js',
       'bower_components/jquery/dist/jquery.js',
       'build/flight.js',
 
