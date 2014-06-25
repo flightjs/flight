@@ -105,7 +105,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       var instance = (new Component).initialize(window.outerDiv);
       var data = {actor: 'Brent Spiner'};
 
-      // Declare an event proxy from 'sourceEvent' â†’ 'targetEvent'
+      // Declare an event proxy from 'sourceEvent' → 'targetEvent'
       instance.on('sourceEvent', 'targetEvent');
 
       var spy = jasmine.createSpy();

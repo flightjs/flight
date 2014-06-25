@@ -10,51 +10,57 @@ Most Components and Mixins need to define attributes. In Flight, default values
 are assigned by passing an object to the `attributes` function.
 
 ```js
-this.attributes({
-  buttonClass: 'js-button',
-  text: 'Click me',
-  hoverClass: null
-});
+function Button() {
+  this.attributes({
+    buttonClass: 'js-button',
+    text: 'Click me',
+    hoverClass: null
+  });
+}
 ```
 
-This defines a set of attributes that the mixin makes use of.  If you define a value it
-serves as a default value in the case that its not specified in the attachTo call.  If you
-give it a value of null it means that this value must be specified in the attachTo call and
-will raise an error if the value is missing.
+This defines a set of attributes that the mixin makes use of. If you define a
+value it serves as a default value in the case that it's not specified in the
+`attachTo` call. If you give it a value of `null` it means that this value must
+be specified in the `attachTo` call and will raise an error if the value is
+missing.
 
-For instance, this would raise an error because hoverClass is not defined:
+For instance, this would raise an error because `hoverClass` is not defined:
 
 ```js
-Button.attachTo("#foo", {
-  text: "Don't click me",
-  buttonClass: "js-not-a-button"
+Button.attachTo('#foo', {
+  text: 'Don\'t click me',
+  buttonClass: 'js-not-a-button'
 });
 ```
 
-Specifying hoverClass would correct this:
+Specifying `hoverClass` would correct this:
 
 ```js
-Button.attachTo("#foo", {
-  text: "Don't click me",
-  buttonClass: "js-not-a-button",
-  hoverClass: "hover"
+Button.attachTo('#foo', {
+  text: 'Don\'t click me',
+  buttonClass: 'js-not-a-button',
+  hoverClass: 'hover'
 });
 ```
 
-Mixins can be used to override the default values of attributes specified in other mixins or to
-add new attributes.  If you pass an attribute value into attachTo but it is not defined via this.attributes
-it will be ignored.
+Mixins can be used to override the default values of attributes specified in
+other mixins or to add new attributes. If you pass an attribute value into
+`attachTo` but it is not defined via `this.attributes` it will be ignored.
 
 Attributes can be accessed accordingly:
 
 ```js
 this.attr.buttonClass;
 ```
-Attributes are immutable.  In debug mode Flight will raise errors if you try to set them after attachTo
-has been called.
 
-*NOTE: this.attributes replaces the now deprecated this.defaultAttrs.  However, for backwards compatibility,
-if you are using this.defaultAttrs then all the old attribute behavior remains in place. [More details on this.defaultAttrs](../../v1.1.3/doc/base_api.md#this.defaultAttrs)*
+Attributes are immutable. In debug mode Flight will raise errors if you try to
+set them after `attachTo` has been called.
+
+*NOTE: `this.attributes` replaces the now deprecated `this.defaultAttrs`.
+However, for backwards compatibility, if you are using `this.defaultAttrs` then
+all the old attribute behavior remains in place. [More details on
+`this.defaultAttrs`](../../v1.1.3/doc/base_api.md#this.defaultAttrs)*
 
 <a name="this.select"></a>
 ## this.select(attr)
@@ -79,12 +85,14 @@ this.selectMenuItem = function(e) {
 <a name="this.initialize"></a>
 ## this.initialize()
 
-This method is attached to the prototype of every Component; it accepts the component's node and an `options`
-object as arguments. The core implementation, which is called every time an instance is created, will assign the
-node to the instance and override the default `attr`s with the `options` object.
+This method is attached to the prototype of every Component; it accepts the
+component's node and an `options` object as arguments. The core implementation,
+which is called every time an instance is created, will assign the node to the
+instance and override the default `attr`s with the `options` object.
 
-Components and Mixins will typically augment the core implementation by supplying a function as an argument to the
-`after` method (see the [advice API](advice_api.md) for more information). This is a good place to set up event
+Components and Mixins will typically augment the core implementation by
+supplying a function as an argument to the `after` method (see the [advice
+API](advice_api.md) for more information). This is a good place to set up event
 listeners that bind to callbacks.
 
 ```js
@@ -96,14 +104,14 @@ this.after('initialize', function() {
 <a name="this.on"></a>
 ## this.on([selector,] eventType, handler)
 
-This allows a component instance to listen to an event and register a callback to be
-invoked. Flight will automatically bind the context (`this`) of the callback to
-the component instance.
+This allows a component instance to listen to an event and register a callback
+to be invoked. Flight will automatically bind the context (`this`) of the
+callback to the component instance.
 
 #### `selector`: String | Element | Element collection
 
-Optional. Specify the DOM node(s) that should listen for the event.
-Defaults to the component instance's `node` value.
+Optional. Specify the DOM node(s) that should listen for the event. Defaults
+to the component instance's `node` value.
 
 #### `eventType`: String
 
@@ -111,7 +119,8 @@ The event type to listen for.
 
 #### `handler`: Function | Object | String
 
-Either a function (callback) to be invoked, a map of targets and callbacks, or a string (event name) to be triggered.
+Either a function (callback) to be invoked, a map of targets and callbacks, or
+a string (event name) to be triggered.
 
 Example of `handler` being a function:
 
@@ -122,8 +131,9 @@ this.after('initialize', function() {
 });
 ```
 
-Example of `handler` as an inline function (this demonstrates how the `ev` and `data` parameters can be used
-to receive data from the component's optional `trigger` parameter `eventPayload`):
+Example of `handler` as an inline function (this demonstrates how the `ev` and
+`data` parameters can be used to receive data from the component's optional
+`trigger` parameter `eventPayload`):
 
 ```js
 this.on(document, 'dataSent', function (ev, data) {
@@ -133,7 +143,8 @@ this.on(document, 'dataSent', function (ev, data) {
 
 Example of `handler` being an object that maps event targets to callbacks.
 This is effectively event delegation; selector values are resolved, at event
-time, by keying into the `attr` property of the component. The target element is exposed in the handler's data payload as `el`
+time, by keying into the `attr` property of the component. The target element
+is exposed in the handler's data payload as `el`.
 
 ```js
 this.attributes({
@@ -149,8 +160,8 @@ this.after('initialize', function() {
 });
 ```
 
-Example of `handler` being a string that maps events to other events.
-This is useful for proxying browser events to more meaningful custom events.
+Example of `handler` being a string that maps events to other events. This is
+useful for proxying browser events to more meaningful custom events.
 
 ```js
 this.on('click', 'uiComponentClick');
@@ -254,9 +265,9 @@ this.updateSuccessful = function() {
 
 Remove a component instance and its event bindings.
 
-It's a good idea to teardown components after each unit test - and
-teardown is also good for unbinding event listeners when, for example, the user
-navigates away from a page.
+It's a good idea to teardown components after each unit test - and teardown is
+also good for unbinding event listeners when, for example, the user navigates
+away from a page.
 
 ```js
 this.closeVideoWidget = function() {
