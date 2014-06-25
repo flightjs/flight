@@ -94,8 +94,8 @@ You will have to reference Flight's installed dependencies –
 
 Alternatively, you can manually install the [standalone
 version](http://flightjs.github.io/release/latest/flight.js) of Flight, also
-available on [cdnjs](http://cdnjs.com/). It exposes all of its modules as
-properties of a global variable, `flight`:
+available on [cdnjs](http://cdnjs.com/libraries/flight). The standalone build
+exposes its modules as properties of a global variable, `flight`:
 
 ```html
 ...
