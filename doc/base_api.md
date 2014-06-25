@@ -67,7 +67,7 @@ This is a handy alternative to jQuery's `this.$node.find()` and prevents
 accidental access to elements outside of the component's `node`.
 
 ```js
-this.defaultAttrs({
+this.attributes({
   menuItemSelector: '.menu-item',
 });
 
@@ -136,7 +136,7 @@ This is effectively event delegation; selector values are resolved, at event
 time, by keying into the `attr` property of the component. The target element is exposed in the handler's data payload as `el`
 
 ```js
-this.defaultAttrs({
+this.attributes({
   menuItemSelector: '.menuItem',
   saveButtonSelector: '#save'
 });
@@ -159,7 +159,7 @@ this.on('click', 'uiComponentClick');
 Example of `handler` being an object that maps events to other events.
 
 ```js
-this.defaultAttrs({
+this.attributes({
   menuItemSelector: '.menuItem',
   saveButtonSelector: '#save'
 });
