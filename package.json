@@ -3,6 +3,7 @@
   "version": "1.2.0",
   "devDependencies": {
     "karma": "<=0.11.14",
+    "karma-cli": "0.0.4",
     "karma-jasmine": "~0.1.0",
     "karma-requirejs": "~0.1.0",
     "karma-chrome-launcher": "~0.1.0",
@@ -14,6 +15,8 @@
     "uglify-js": "~2.3.6"
   },
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --browsers Firefox --single-run"
+    "build": "npm run webpack & npm run webpack-minified",
+    "test": "karma start --browsers Firefox --single-run",
+    "watch": "karma start"
   }
 }
