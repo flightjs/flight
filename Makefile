@@ -8,7 +8,7 @@ clean:
 
 standalone: clean
 	@ mkdir -p $(BUILD_DIR)
-	@ npm test
+	@ npm run build
 
 test: standalone
 	@ npm test
