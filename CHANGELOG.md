@@ -6,7 +6,7 @@
 * Ignores attributes passed by attachedTo unless declared in component
 * Requires null attributes to be overriden
 * Old `this.defaultAttrs` API still works but deprecated  
-https://github.com/flightjs/flight/pull/150
+https://github.com/flightjs/flight/pull/150  
 https://github.com/flightjs/flight/pull/270
  
 
