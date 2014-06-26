@@ -37,7 +37,7 @@ module.exports = function (config) {
     // use dots reporter, as travis terminal does not support escaping sequences
     // possible values: 'dots', 'progress'
     // CLI --reporters progress
-    reporters: ['dots'],
+    reporters: ['progress'],
 
     // enable / disable watching file and executing tests whenever any file changes
     // CLI --auto-watch --no-auto-watch
@@ -53,8 +53,7 @@ module.exports = function (config) {
     // - IE (only Windows)
     // CLI --browsers Chrome, Firefox, Safari
     browsers: [
-      'Chrome',
-      'Firefox'
+      'Chrome'
     ],
 
     // If browser does not capture in given timeout [ms], kill it
@@ -71,7 +70,6 @@ module.exports = function (config) {
       'karma-chrome-launcher',
       'karma-firefox-launcher',
       'karma-ie-launcher',
-      'karma-phantomjs-launcher',
       'karma-safari-launcher'
     ]
   });

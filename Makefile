@@ -8,7 +8,7 @@ clean:
 
 standalone: clean
 	@ mkdir -p $(BUILD_DIR)
-	@ node tools/standalone/build.js
+	@ npm run build
 
 test: standalone
 	@ npm test

@@ -1,1 +1,0 @@
-/*! Flight v{{ version }} | (c) Twitter, Inc. | MIT License */
