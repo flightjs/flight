@@ -35,11 +35,8 @@ Flight has supporting projects that provide everything you need to setup,
 write, and test your application.
 
 * [Flight generator](https://github.com/flightjs/generator-flight/)
-  Recommended. One-step to setup everything you need to work with Flight.
-
-* [Flight package generator](https://github.com/flightjs/generator-flight-package/)
-  Recommended. One-step to setup everything you need to write and test a
-  standalone Flight component.
+  Recommended. One-step to setup everything you need to work with Flight,
+  with app, component and mixin templates.
 
 * [Jasmine Flight](https://github.com/flightjs/jasmine-flight/)
   Extensions for the Jasmine test framework.
