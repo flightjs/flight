@@ -60,8 +60,32 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       var event = instanceInfo.events[0];
       expect(event.element).toBe(instance.node);
       expect(event.type).toBe("myEvent");
+      expect(event.typeRegExp.toString()).toBe('/^(myEvent)(?:\.(.+)|)$/');
       expect(event.callback.target).toBe(myFunction);
 
+      instance.off("myEvent");
+      expect(instanceInfo.events.length).toBeFalsy();
+    });
+
+    it('registers/unregisters InstanceInfo namespaced events', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+      var instanceInfo = registry.allInstances[instance.identity];
+
+      var myFunction = $.noop;
+      instance.on("myEvent.name.space", myFunction);
+      expect(instanceInfo.events.length).toBe(1);
+
+      instance.off("myEvent.test");
+      expect(instanceInfo.events.length).toBe(1);
+
+      instance.off("myEvent.name.space");
+      expect(instanceInfo.events.length).toBeFalsy();
+
+      instance.on("myEvent.name.space", myFunction);
+      instance.off("myEvent.name");
+      expect(instanceInfo.events.length).toBeFalsy();
+
+      instance.on("myEvent.name.space", myFunction);
       instance.off("myEvent");
       expect(instanceInfo.events.length).toBeFalsy();
     });
