@@ -20,8 +20,8 @@ module.exports = function (config) {
       'bower_components/jquery/dist/jquery.js',
       'build/flight.js',
 
-      // hack to load RequireJS after the shim libs
-      'node_modules/karma-requirejs/lib/require.js',
+      // hack to load RequireJS after the built lib
+      'node_modules/requirejs/require.js',
       'node_modules/karma-requirejs/lib/adapter.js',
 
       // loaded with require
