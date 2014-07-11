@@ -217,9 +217,8 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy2).toHaveBeenCalled();
     });
 
-    it('does not unbind event handlers which share a node but were registered by different instances', function () {
+    it('does not unbind event handlers which share a node and were registered by the same instance', function () {
       var instance1 = (new Component).initialize(window.outerDiv);
-      var instance2 = (new Component).initialize(window.anotherDiv);
       var spy1 = jasmine.createSpy();
       instance1.on(document, 'event1', spy1);
       var spy2 = jasmine.createSpy();
@@ -227,6 +226,19 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       instance1.off(document, 'event1', spy1);
       instance1.trigger('event1');
       expect(spy2).toHaveBeenCalled();
+    });
+
+    it('does not unbind event handlers which share a node but were registered by different instances', function () {
+      var instance1 = (new Component).initialize(window.outerDiv);
+      var instance2 = (new Component).initialize(window.anotherDiv);
+      var spy1 = jasmine.createSpy();
+      instance1.on(document, 'event', spy1);
+      var spy2 = jasmine.createSpy();
+      instance2.on(document, 'event', spy2);
+      instance2.off(document, 'event');
+      instance1.trigger('event');
+      expect(spy1).toHaveBeenCalled();
+      expect(spy2).not.toHaveBeenCalled();
     });
 
     it('bubbles custom events between components', function () {
