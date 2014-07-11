@@ -333,5 +333,19 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy).not.toHaveBeenCalled();
     });
 
+    it('merges eventData into triggered default behavior event data', function () {
+      var instance = (new Component).initialize(document.body, { eventData: { penguins: 'cool', sheep: 'dull' } });
+      var data = { sheep: 'thrilling' };
+
+      var spy = jasmine.createSpy();
+      instance.trigger({ type: 'foo', defaultBehavior: spy }, data);
+      var args = spy.mostRecentCall.args;
+      var returnedData = args[1];
+      expect(returnedData.penguins).toBeDefined();
+      expect(returnedData.penguins).toBe('cool');
+      expect(returnedData.sheep).toBeDefined();
+      expect(returnedData.sheep).toBe('thrilling');
+    });
+
   });
 });
