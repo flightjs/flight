@@ -76,7 +76,7 @@ define(function(require) {
 
 ## Overriding defaults in a mixin
 
-The `defaultAttrs` method is available to both component and mixin modules. When
+The `attributes` method is available to both component and mixin modules. When
 used with mixins it will not overwrite attributes already defined in the
 component module.
 
@@ -86,7 +86,7 @@ component module.
 define(function(require) {
 
   function bigButton() {
-    this.defaultAttrs({
+    this.attributes({
       buttonClass: 'js-button-big'
     });
   }
