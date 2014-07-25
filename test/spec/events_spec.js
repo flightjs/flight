@@ -172,7 +172,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       var spy = jasmine.createSpy();
       instance1.on(document, 'event1', spy);
       var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
-        return e.type=="event1"
+        return e.type == "event1"
        })[0].callback;
       instance1.off(document, 'event1', boundCb);
       instance1.trigger('event1');
@@ -185,7 +185,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       instance1.on(document, 'event1', spy);
       instance1.on(document, 'event2', spy);
       var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
-        return e.type=="event1"
+        return e.type == "event1"
        })[0].callback;
       instance1.off(document, 'event1', boundCb);
       instance1.trigger('event2');
@@ -210,7 +210,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       var spy2 = jasmine.createSpy();
       instance1.on(document, 'event1', spy2);
       var boundCb = registry.findInstanceInfo(instance1).events.filter(function(e) {
-        return e.type=="event1"
+        return e.type == "event1"
       })[0].callback;
       instance1.off(document, 'event1', boundCb);
       instance1.trigger('event1');

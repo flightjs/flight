@@ -2,6 +2,7 @@
   "name": "flight",
   "version": "1.2.0",
   "devDependencies": {
+    "jscs" : "^1.5.8",
     "karma": "~0.12.6",
     "karma-cli": "0.0.4",
     "karma-jasmine": "~0.1.0",
@@ -14,7 +15,9 @@
   },
   "scripts": {
     "build": "npm run webpack & npm run webpack-minified",
-    "test": "karma start --browsers Firefox --single-run",
+    "checkStyle": "jscs lib test",
+    "test": "npm run unit && npm run checkStyle",
+    "unit": "karma start --browsers Firefox --single-run",
     "watch": "karma start",
     "webpack": "webpack --progress --colors",
     "webpack-minified": "webpack --progress --colors --optimize-minimize --output-file flight.min.js"
