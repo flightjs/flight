@@ -6,7 +6,10 @@ VERSION = `node -pe "require('./package.json').version"`
 clean:
 	@ rm -rf $(BUILD_DIR)
 
-standalone: clean
+setup:
+	@ npm install
+
+standalone: setup clean
 	@ mkdir -p $(BUILD_DIR)
 	@ npm run build
 
