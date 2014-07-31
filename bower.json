@@ -4,16 +4,15 @@
   "main": "lib/index.js",
   "version": "1.2.0",
   "ignore": [
+    ".*",
     "doc",
-    "tools",
     "test",
-    ".gitignore",
-    ".travis.yml",
     "CHANGELOG.md",
     "CONTRIBUTING.md",
     "Makefile",
     "karma.conf.js",
-    "package.json"
+    "package.json",
+    "webpack.conf.js"
   ],
   "dependencies": {
     "jquery": ">=1.8.0"
