@@ -38,13 +38,14 @@ have good reasons for rejecting.
 
 ## Pull requests
 
-Good pull requests – patches, improvements, new features – are a fantastic
+Good pull requests&mdash;patches, improvements, new features&mdash;are a fantastic
 help. They should remain focused in scope and avoid containing unrelated
 commits.
 
 Make sure to adhere to the coding conventions used throughout the codebase
-(indentation, accurate comments, etc.) and any other requirements (such as test
-coverage).
+(indentation, accurate comments, etc.). Please run `npm test` before you push:
+this will run the jasmine test suite (using karma runner) and check your syntax
+style is consistent with master (using JSCS)
 
 Please follow this process; it's the best way to get your work included in the
 project:
