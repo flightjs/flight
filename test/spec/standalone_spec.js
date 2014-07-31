@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/index'], function(index) {
+define(['index'], function(index) {
   describe('Flight distributed as a single file', function() {
     it('exports flight as a global', function() {
       expect(flight).toBeDefined();

@@ -7,12 +7,12 @@
 define(
 
   [
-    './advice',
-    './component',
-    './compose',
-    './logger',
-    './registry',
-    './utils'
+    './lib/advice',
+    './lib/component',
+    './lib/compose',
+    './lib/logger',
+    './lib/registry',
+    './lib/utils'
   ],
 
   function(advice, component, compose, logger, registry, utils) {
