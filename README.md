@@ -48,7 +48,7 @@ write, and test your application.
   Extensions for the Mocha test framework.
 
 
-## Finding and writing standalone components
+## Finding and writing components
 
 You can browse all the [Flight components](http://flight-components.jit.su)
 available at this time. They can also be found by searching the Bower registry:
@@ -57,7 +57,7 @@ available at this time. They can also be found by searching the Bower registry:
 bower search flight
 ```
 
-The easiest way to write a standalone Flight component is to use the [Flight
+The easiest way to write a new Flight component is to use the [Flight
 package generator](https://github.com/flightjs/generator-flight-package/):
 
 ```
