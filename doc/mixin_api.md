@@ -11,7 +11,7 @@ keyword).
 ## How do I define a mixin?
 
 Mixin definitions are like Component definitions but without the call to
-`defineComponent`.
+`flight.component`.
 
 ```js
 define(function(require) {
@@ -34,15 +34,15 @@ define(function(require) {
 ## How do I apply mixins to a component?
 
 In the Component definition, pass the required mixins as arguments to the
-`defineComponent` function:
+`flight.component` function:
 
 ```js
 define(function(require) {
-  var defineComponent = require('flight/lib/component');
+  var flight = require('flight');
   var withDialog = require('mixins/with_dialog');
   var withDropdown = require('mixins/with_dropdown');
 
-  return defineComponent(fancyComponent, withDialog, withDropdown);
+  return flight.component(fancyComponent, withDialog, withDropdown);
 
   function fancyComponent() {
     //...
@@ -59,12 +59,12 @@ another mixin), you can invoke `compose.mixin` directly:
 
 ```js
 define(function(require) {
-  var compose = require('flight/lib/compose');
+  var flight = require('flight');
   var withPositioning = require('mixins/with_positioning');
 
   function withDialog() {
     //mix withPositioning into withDialog
-    compose.mixin(this, [withPositioning]);
+    flight.compose.mixin(this, [withPositioning]);
 
     //...
   }
@@ -107,11 +107,11 @@ you can use them to create a base component (`components/base`) which all other 
 
 ```js
 define(function(require) {
-  var defineComponent = require('flight/lib/component');
+  var flight = require('flight');
   var withTouchScreen = require('mixins/with_touchscreen');
   var withCustomTrigger = require('mixins/with_custom_trigger');
 
-  return defineComponent(withTouchScreen, withCustomTrigger);
+  return flight.component(withTouchScreen, withCustomTrigger);
 });
 ```
 
@@ -129,5 +129,3 @@ define(function(require) {
   }
 });
 ```
-
-

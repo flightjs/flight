@@ -13,11 +13,58 @@ created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
 * [Flight's Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)
 * [Flight on Twitter](https://twitter.com/flight)
 
+## Example
+
+A simple example of a Flight component.
+
+```js
+/* Component definition */
+
+var Inbox = flight.component(inbox);
+
+function inbox() {
+  this.doSomething = function() { /* ... */ }
+  this.doSomethingElse = function() { /* ... */ }
+
+  // after initializing the component
+  this.after('initialize', function() {
+    this.on('click', this.doSomething);
+    this.on('mouseover', this.doSomethingElse);
+  });
+}
+
+/* Attach the component to a DOM node */
+
+Inbox.attachTo('#inbox');
+```
+
+## Installation
+
+Quick start using the [pre-built
+library](http://flightjs.github.io/release/latest/flight.min.js) (a
+[UMD](https://github.com/umdjs/umd) bundle). It exposes all of its modules as
+properties of a global variable, `flight`.
+
+```html
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Flight release -->
+<script src="http://flightjs.github.io/release/latest/flight.min.js"></script>
+```
+
+Using [Bower](http://bower.io/):
+
+```
+bower install --save flight
+```
+
+You will have to include [jQuery](http://jquery.com) and use a module loader
+with support for AMD, like [Webpack](http://webpack.github.io/) or
+[Require.js](http://requirejs.org/).
 
 ## Why Flight?
 
-Flight is only ~5K minified and gzipped. It's built upon jQuery, and has
-first-class support for Asynchronous Module Definition (AMD) and [Bower](http://bower.io/).
+Flight is only ~5K minified and gzipped. It's built upon jQuery.
 
 Flight components are highly portable and easily testable. This is because a
 Flight component (and its API) is entirely decoupled from other components.
@@ -28,14 +75,13 @@ Flight also includes a simple and safe
 infrastructure, allowing components to be easily extended with minimal
 boilerplate.
 
-
 ## Development tools
 
 Flight has supporting projects that provide everything you need to setup,
 write, and test your application.
 
 * [Flight generator](https://github.com/flightjs/generator-flight/)
-  Recommended. One-step to setup everything you need to work with Flight.
+  Recommended. One-step to setup a Flight-based web app.
 
 * [Flight package generator](https://github.com/flightjs/generator-flight-package/)
   Recommended. One-step to setup everything you need to write and test a
@@ -46,7 +92,6 @@ write, and test your application.
 
 * [Mocha Flight](https://github.com/flightjs/mocha-flight/)
   Extensions for the Mocha test framework.
-
 
 ## Finding and writing components
 
@@ -64,46 +109,6 @@ package generator](https://github.com/flightjs/generator-flight-package/):
 yo flight-package foo
 ```
 
-
-## Installation
-
-If you prefer not to use the Flight generators, it's highly recommended that
-you install Flight as an AMD package (including all the correct dependencies).
-This is best done with [Bower](http://bower.io/), a package manager for the web.
-
-```
-npm install -g bower
-bower install --save flight
-```
-
-You will have to reference [jQuery](http://jquery.com) and use an AMD module loader like
-[Require.js](http://requirejs.org/) or [Loadrunner](https://github.com/danwrong/loadrunner).
-
-```html
-<script src="bower_components/jquery/dist/jquery.js"></script>
-<script data-main="main.js" src="bower_components/requirejs/require.js"></script>
-...
-```
-
-## Standalone version
-
-Alternatively, you can manually install the [standalone
-version](http://flightjs.github.io/release/latest/flight.js) of Flight, also
-available on [cdnjs](http://cdnjs.com/libraries/flight). The standalone build
-exposes its modules as properties of a global variable, `flight`:
-
-```html
-...
-<script src="flight.js"></script>
-<script>
-  var MyComponent = flight.component(function() {
-    //...
-  });
-</script>
-```
-
-N.B. You will also need to manually install the correct version of jQuery.
-
 ## Browser Support
 
 Chrome, Firefox, Safari, Opera, IE 7+ (requires [ES5-shim](https://github.com/kriskowal/es5-shim)).
@@ -112,49 +117,6 @@ Chrome, Firefox, Safari, Opera, IE 7+ (requires [ES5-shim](https://github.com/kr
 
 Here's a brief introduction to Flight's key concepts and syntax. Read the [API
 documentation](doc) for a comprehensive overview.
-
-### Example
-
-A simple example of how to write and use a Flight component.
-
-```js
-define(function (require) {
-  var defineComponent = require('flight/lib/component');
-
-  // define the component
-  return defineComponent(inbox);
-
-  function inbox() {
-    // define custom functions here
-    this.doSomething = function() {
-      //...
-    }
-
-    this.doSomethingElse = function() {
-      //...
-    }
-
-    // now initialize the component
-    this.after('initialize', function() {
-      this.on('click', this.doSomething);
-      this.on('mouseover', this.doSomethingElse);
-    });
-  }
-});
-```
-
-```js
-/* attach an inbox component to a node with id 'inbox' */
-
-define(function (require) {
-  var Inbox = require('inbox');
-
-  Inbox.attachTo('#inbox', {
-    'nextPageSelector': '#nextPage',
-    'previousPageSelector': '#previousPage',
-  });
-});
-```
 
 ### Components ([API](doc/component_api.md))
 
@@ -227,7 +189,6 @@ Thanks for assistance and contributions:
 
 Special thanks to the rest of the Twitter web team for their abundant
 contributions and feedback.
-
 
 ## License
 
