@@ -32,23 +32,21 @@ Component:
 ```js
 /* my_simple_component.js */
 
-define(function(require) {
-  var flight = require('flight');
-  var withMyMixin = require('with_my_mixin');
+var flight = require('flightjs');
+var withMyMixin = require('with_my_mixin');
 
-  return flight.component(mySimpleComponent, withMyMixin);
+module.exports = flight.component(mySimpleComponent, withMyMixin);
 
-  // this Component's custom properties
-  function mySimpleComponent() {
-    this.doSomething = function() {
-      //...
-    };
+// this Component's custom properties
+function mySimpleComponent() {
+  this.doSomething = function() {
+    //...
+  };
 
-    this.doSomethingElse = function() {
-      //...
-    };
-  }
-});
+  this.doSomethingElse = function() {
+    //...
+  };
+}
 ```
 
 Components make no assumptions about the existence of other objects. If you
@@ -63,20 +61,18 @@ method deletes every instance of every Component and all their event
 bindings.
 
 ```js
-define(function(require) {
-  var flight = require('flight');
+var flight = require('flightjs');
 
-  return flight.component(navigationMenu);
+module.exports = flight.component(navigationMenu);
 
-  function navigationMenu() {
-    this.resetEverything = function() {
-      // remove every component instance and all event listeners
-      flight.component.teardownAll();
-    };
+function navigationMenu() {
+  this.resetEverything = function() {
+    // remove every component instance and all event listeners
+    flight.component.teardownAll();
+  };
 
-    // ...
-  }
-});
+  // ...
+}
 ```
 
 <a name="Component.attachTo"></a>
@@ -103,13 +99,11 @@ couple of selectors which will override the values defined in the Component's
 ```js
 /* attach an inbox component to a node with id 'inbox'*/
 
-define(function(require) {
-  var Inbox = require('components/inbox');
+var Inbox = require('components/inbox');
 
-  Inbox.attachTo('#inbox', {
-    'nextPageSelector': '#nextPage',
-    'previousPageSelector': '#previousPage',
-  });
+Inbox.attachTo('#inbox', {
+  'nextPageSelector': '#nextPage',
+  'previousPageSelector': '#previousPage',
 });
 ```
 
@@ -125,11 +119,11 @@ the `$node` property.)
 
 ```js
 this.setId = function(n) {
-    this.node.id = n;
+  this.node.id = n;
 };
 
 this.hideComponent = function() {
-    this.$node.hide();
+  this.$node.hide();
 };
 ```
 
@@ -140,11 +134,9 @@ On a Component constructor this method deletes every instance of that Component
 type and all their event bindings.
 
 ```js
-define(function(require) {
-  var NavigationMenu = require('ui/navigationMenu');
+var NavigationMenu = require('ui/navigationMenu');
 
-  // ...
-  // remove all instances of NavigationMenu and all their event bindings
-  NavigationMenu.teardownAll();
-});
+// ...
+// remove all instances of NavigationMenu and all their event bindings
+NavigationMenu.teardownAll();
 ```
