@@ -1,20 +1,19 @@
 "use strict";
 
-define(['index'], function(index) {
-  describe('Flight distributed as a single file', function() {
-    it('exports flight as a global', function() {
-      expect(flight).toBeDefined();
-    });
+var index = require('../../index');
 
-    it('contains the same members as index module', function() {
-      var indexKeys = Object.keys(index);
+describe('Flight distributed as a single file', function() {
+  it('exports flight as a global', function() {
+    expect(flight).toBeDefined();
+  });
 
-      expect(Object.keys(flight).length).toBe(indexKeys.length);
+  it('contains the same members as index module', function() {
+    var indexKeys = Object.keys(index);
 
-      indexKeys.forEach(function(key) {
-        expect(typeof flight[key]).toBe(typeof index[key]);
-      });
+    expect(Object.keys(flight).length).toBe(indexKeys.length);
+
+    indexKeys.forEach(function(key) {
+      expect(typeof flight[key]).toBe(typeof index[key]);
     });
   });
 });
-

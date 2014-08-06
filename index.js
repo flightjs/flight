@@ -1,29 +1,19 @@
 /* Copyright 2013 Twitter, Inc. Licensed under The MIT License. http://opensource.org/licenses/MIT */
 
-define(
+var advice = require('./lib/advice');
+var component = require('./lib/component');
+var compose = require('./lib/compose');
+var debug = require('./lib/debug');
+var logger = require('./lib/logger');
+var registry = require('./lib/registry');
+var utils = require('./lib/utils');
 
-  [
-    './lib/advice',
-    './lib/component',
-    './lib/compose',
-    './lib/debug',
-    './lib/logger',
-    './lib/registry',
-    './lib/utils'
-  ],
-
-  function(advice, component, compose, debug, logger, registry, utils) {
-    'use strict';
-
-    return {
-      advice: advice,
-      component: component,
-      compose: compose,
-      debug: debug,
-      logger: logger,
-      registry: registry,
-      utils: utils
-    };
-
-  }
-);
+module.exports = {
+  advice: advice,
+  component: component,
+  compose: compose,
+  debug: debug,
+  logger: logger,
+  registry: registry,
+  utils: utils
+};
