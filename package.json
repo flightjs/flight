@@ -1,6 +1,13 @@
 {
-  "name": "flight",
+  "name": "flightjs",
   "version": "1.2.0",
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "dependencies": {
+    "jquery": "^2.1.1"
+  },
   "devDependencies": {
     "jscs" : "^1.5.8",
     "karma": "~0.12.6",
