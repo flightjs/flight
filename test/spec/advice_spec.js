@@ -108,6 +108,46 @@ define(['lib/component', 'lib/advice'], function (defineComponent, advice) {
         subject.c();
         expect(subject.testc).toBe('|C!|');
       });
+
+      it('should add advice to multiple functions of an object at once', function () {
+        var subject = {
+          test: '',
+          a: function () {
+            this.test += 'A!';
+          },
+          b: function () {
+            this.test += 'B!';
+          },
+          c: function () {
+            this.test += 'C!';
+          }
+        }
+
+        advice.withAdvice.call(subject);
+
+        subject.before('a b', function () {
+          this.test += 'BEFORE!';
+        });
+
+        subject.after('b c', function () {
+          this.test += 'AFTER!';
+        });
+
+        subject.around('a b c', function (orig) {
+          this.test = '|';
+          orig.call(subject);
+          this.test += '|';
+        });
+
+        subject.a();
+        expect(subject.test).toBe('|BEFORE!A!|');
+
+        subject.b();
+        expect(subject.test).toBe('|BEFORE!B!AFTER!|');
+
+        subject.c();
+        expect(subject.test).toBe('|C!AFTER!|');
+      });
     });
 
   });
