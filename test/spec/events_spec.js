@@ -135,6 +135,17 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy.mostRecentCall.args[1]).toEqual(data);
     });
 
+    it('unbinds proxied events', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+
+      var spy = jasmine.createSpy();
+      instance.on('proxy', spy);
+      instance.on('click', 'proxy');
+      instance.off('click', 'proxy');
+      instance.trigger('click');
+      expect(spy).not.toHaveBeenCalled();
+    });
+
     it('unbinds listeners using "off"', function () {
       var instance1 = (new Component).initialize(window.outerDiv);
 
