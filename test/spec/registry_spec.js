@@ -55,14 +55,20 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
       var myFunction = $.noop;
       instance.on("myEvent", myFunction);
-      expect(instanceInfo.events.length).toBe(1);
+      instance.on("myEvent", "proxy");
+      expect(instanceInfo.events.length).toBe(2);
 
       var event = instanceInfo.events[0];
       expect(event.element).toBe(instance.node);
       expect(event.type).toBe("myEvent");
+      expect(event.proxiedTo).toBe(undefined);
       expect(event.callback.target).toBe(myFunction);
 
+      var proxiedEvent = instanceInfo.events[1];
+      expect(proxiedEvent.proxiedTo).toBe("proxy");
+
       instance.off("myEvent");
+      instance.off("myEvent", "proxy");
       expect(instanceInfo.events.length).toBeFalsy();
     });
 
