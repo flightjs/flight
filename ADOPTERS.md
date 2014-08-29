@@ -3,7 +3,7 @@ Twitter isn't the only company using Flight. We're sure the following list isn't
 * [RetailMeNot](https://www.retailmenot.com/): http://www.retailmenot.com/corp/eng/posts/2014/08/28/how-flight-plays-well-with-non-flight-js/
 * [airbnb](https://www.airbnb.com): http://nerds.airbnb.com/redesigning-search
 * [Beats Music](http://www.beatsmusic.com/)
-* [gumroad](https://gumroad.com/)
+* [gumroad](https://gumroad.com/): http://blog.gumroad.com/post/47471270406/gumroad-meets-flight
 * [mixam.uk](https://mixam.co.uk)
 * [yinzcam (for Baltimore Ravens)](http://www.yinzcam.com/apps/nfl/bal)
 * [The Martin Agency](http://www.martinagency.com)
