@@ -95,6 +95,20 @@ define(['lib/component', 'lib/debug'], function (defineComponent, debug) {
 
       TestComponent.teardownAll();
     });
+
+    it('throws an error if component attributes are overwritten', function() {
+      debug.enable(true);
+      var TestComponent = defineComponent(testComponentDefaultAttrs);
+      var instance = (new TestComponent).initialize(document.body);
+      expect(instance.attr.core).toBe(35);
+      expect(function() {
+        instance.attr.core = 57;
+      }).toThrow();
+      expect(instance.attr.core).toBe(35);
+      debug.enable(false);
+
+      TestComponent.teardownAll();
+    });
   });
 
   describe('(Core) this.defaultAttrs', function() {
