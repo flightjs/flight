@@ -12,6 +12,7 @@ created at Twitter, and is used by the [twitter.com](https://twitter.com/) and
 * [Flight example app](http://flightjs.github.io/example-app/) ([Source](https://github.com/flightjs/example-app))
 * [Flight's Google Group](https://groups.google.com/forum/?fromgroups#!forum/twitter-flight)
 * [Flight on Twitter](https://twitter.com/flight)
+* [Flight on Freenode IRC](http://webchat.freenode.net/?channels=flightjs) (#flightjs)
 
 ## Example
 
