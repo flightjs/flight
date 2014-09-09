@@ -8,6 +8,6 @@ Twitter isn't the only company using Flight. We're sure the following list isn't
 * [yinzcam (for Baltimore Ravens)](http://www.yinzcam.com/apps/nfl/bal)
 * [The Martin Agency](http://www.martinagency.com)
 * [99 designs](http://99designs.com/)
-* [Crashalytics](http://try.crashlytics.com/)
+* [Crashlytics](http://try.crashlytics.com/)
 * [Tweetdeck](https://tweetdeck.twitter.com/): https://blog.twitter.com/2013/flight-at-tweetdeck
 * [Twitter](https://twitter.com/): https://blog.twitter.com/2013/introducing-flight-a-web-application-framework
