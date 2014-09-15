@@ -317,8 +317,6 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
       expect(spy1).toHaveBeenCalled();
       expect(spy2).not.toHaveBeenCalled();
     });
-
-
   });
 
   describe('countThen()', function () {
@@ -359,7 +357,7 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
     });
   });
 
-    describe('property locking', function() {
+  describe('property locking', function() {
     beforeEach(function () {
       debug.enable(true);
     });
@@ -400,6 +398,27 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
         expect(a.lock).toBe(false);
 
       });
+    });
+  });
+
+  describe('getEnumerableProperty()', function() {
+    var obj;
+
+    beforeEach(function () {
+      obj = {
+        custom: 123
+      };
+    });
+
+    it('should return custom values', function() {
+      expect(utils.getEnumerableProperty(obj, 'custom')).toBe(123);
+    });
+    it('should not return native values', function() {
+      expect(utils.getEnumerableProperty(obj, 'toString')).toBe(undefined);
+    });
+    it('should return shadowed native values', function() {
+      obj.toString = function() {};
+      expect(typeof utils.getEnumerableProperty(obj, 'toString')).toBe('function');
     });
   });
 });
