@@ -40,10 +40,11 @@ The handlers are lazily resolved when the event is fired.
 
 Detect if an object is a DOM node.
 
-<a name="utils.isEnumerable"></a>
-## utils.isEnumerable(obj, property)
+<a name="utils.getEnumerableProperty"></a>
+## utils.getEnumerableProperty(obj, key)
 
-Detect is a property of an object is enumerable.
+If obj.key points to an enumerable property, return its value
+If obj.key points to a non-enumerable property, return undefined
 
 <a name="utils.merge"></a>
 ## utils.merge(obj1, obj2, ... [, deepClone])
