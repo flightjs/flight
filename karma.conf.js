@@ -17,7 +17,7 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       // loaded without require
-      'bower_components/jquery/dist/jquery.js',
+      'node_modules/jquery/dist/jquery.js',
       'build/flight.js',
 
       // hack to load RequireJS after the built lib
