@@ -1,3 +1,22 @@
+## v1.3.0 (9/22/2014)
+
+###features
+
+* Auto-eval function attributes https://github.com/flightjs/flight/pull/306
+* Enforce JSCS style checker compliance https://github.com/flightjs/flight/pull/291
+* Use webpack to build the standalone library https://github.com/flightjs/flight/pull/272
+* Expose registry on DEBUG global https://github.com/flightjs/flight/pull/298
+* Allow for optional undefined attributes https://github.com/flightjs/flight/pull/310
+* getEnumerableProperty util https://github.com/flightjs/flight/pull/311
+
+###bug fixes and tweaks
+
+* Array optimization in hot code https://github.com/flightjs/flight/pull/276
+* New attributes override works in debug mode https://github.com/flightjs/flight/pull/279
+* Per instance callback unbinding https://github.com/flightjs/flight/pull/282
+* Move index.js to project root https://github.com/flightjs/flight/pull/294
+* Avoid unnecessary clearTimeouts in debounce() https://github.com/flightjs/flight/pull/304
+
 ## v1.2.0 (6/20/2014)
 
 ###features
@@ -5,19 +24,19 @@
 * Allows override by other mixins
 * Ignores attributes passed by attachedTo unless declared in component
 * Requires null attributes to be overriden
-* Old `this.defaultAttrs` API still works but deprecated  
-https://github.com/flightjs/flight/pull/150  
+* Old `this.defaultAttrs` API still works but deprecated
+https://github.com/flightjs/flight/pull/150
 https://github.com/flightjs/flight/pull/270
- 
+
 
 
 ###bug fixes and tweaks
-* Optimize Arguments to Array util  
+* Optimize Arguments to Array util
 https://github.com/flightjs/flight/pull/268
-* Add Component.mixin docs  
+* Add Component.mixin docs
 https://github.com/flightjs/flight/pull/246
-* Fix attribute behavior when using Component.mixin  
-https://github.com/flightjs/flight/pull/253   
+* Fix attribute behavior when using Component.mixin
+https://github.com/flightjs/flight/pull/253
 https://github.com/flightjs/flight/pull/270
 
 
