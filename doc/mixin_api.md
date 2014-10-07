@@ -101,7 +101,7 @@ define(function(require) {
 Existing Components can act as base components from which additional Components can
 be made.
 
-For example, let's say all your components need to iplement some touch screen behavior and also
+For example, let's say all your components need to implement some touch screen behavior and also
 override Flight's default `trigger` function. Instead of having to add these mixins to every component,
 you can use them to create a base component (`components/base`) which all other components will extend.
 
