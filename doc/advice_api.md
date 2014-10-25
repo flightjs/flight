@@ -1,6 +1,6 @@
 # Advice API
 
-In Flight, advice is a mixin (`lib/advice.js`) that defines `before`, `after`
+In Flight, `advice` is a mixin (`lib/advice.js`) that defines `before`, `after`
 and `around` methods.
 
 These can be used to modify existing functions by adding custom code. All
@@ -23,15 +23,13 @@ The name of the existing function (`existingFunc`) you want to augment.
 The function to be invoked before `existingFunc`.
 
 ```js
-define(function() {
-  function withDrama() {
-    this.before('announce', function() {
-      clearThroat();
-    });
-  }
+function withDrama() {
+  this.before('announce', function() {
+    clearThroat();
+  });
+}
 
-  return withDrama;
-});
+return withDrama;
 ```
 
 <a name="this.after"></a>
@@ -48,15 +46,13 @@ The name of the existing function (`existingFunc`) you want to augment.
 The function to be invoked after `existingFunc`.
 
 ```js
-define(function() {
-  function withDrama() {
-    this.after('leaving', function() {
-      slamDoor();
-    });
-  }
+function withDrama() {
+  this.after('leaving', function() {
+    slamDoor();
+  });
+}
 
-  return withDrama;
-});
+return withDrama;
 ```
 
 <a name="this.around"></a>
@@ -79,17 +75,15 @@ it can be referenced. If the custom function does not call the existing
 function then it will replace that function instead of surrounding it:
 
 ```js
-define(function() {
-  function withDrama() {
-    this.around('announce', function(basicAnnounce) {
-      clearThroat();
-      basicAnnounce();
-      bow();
-    });
-  }
+function withDrama() {
+  this.around('announce', function(basicAnnounce) {
+    clearThroat();
+    basicAnnounce();
+    bow();
+  });
+}
 
-  return withDrama;
-});
+return withDrama;
 ```
 
 <a name="advice.withAdvice"></a>
@@ -99,29 +93,27 @@ Advice can be mixed in to non-components using the compose module:
 
 ```js
 // a simple module: 'test/myObj'
-define(function() {
-  var myObj = {
-    print: function() {
-      console.log("hello");
-    }
-  };
 
-  return myObj;
-});
+var myObj = {
+  print: function() {
+    console.log("hello");
+  }
+};
+
+return myObj;
 ```
 
 ```js
 // import myObj and augment it
-define(function(require) {
-  var flight = require('flight');
-  var myObj = require('test/myObj');
 
-  // add advice functions to myObj
-  flight.advice.withAdvice.call(myObj);
+var flight = require('flightjs');
+var myObj = require('test/myObj');
 
-  // augment print function
-  myObj.after('print', function() {
-    console.log("world");
-  });
+// add advice functions to myObj
+flight.advice.withAdvice.call(myObj);
+
+// augment print function
+myObj.after('print', function() {
+  console.log('world');
 });
 ```

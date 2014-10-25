@@ -53,15 +53,19 @@ properties of a global variable, `flight`.
 <script src="http://flightjs.github.io/release/latest/flight.min.js"></script>
 ```
 
+Using [npm](https://www.npmjs.org/):
+
+```
+npm install --save flightjs
+```
+
 Using [Bower](http://bower.io/):
 
 ```
 bower install --save flight
 ```
 
-You will have to include [jQuery](http://jquery.com) and use a module loader
-with support for AMD, like [Webpack](http://webpack.github.io/) or
-[Require.js](http://requirejs.org/).
+You will have to load [jQuery](http://jquery.com) in your application.
 
 ## Why Flight?
 

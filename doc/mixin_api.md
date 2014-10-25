@@ -14,21 +14,17 @@ Mixin definitions are like Component definitions but without the call to
 `flight.component`.
 
 ```js
-define(function(require) {
+function withDropdown() {
+  this.openDropdown = function() {
+    //...
+  };
+  this.selectItem = function() {
+    //...
+  };
+}
 
-  function withDropdown() {
-    this.openDropdown = function() {
-      //...
-    };
-    this.selectItem = function() {
-      //...
-    };
-  }
-
-  // return the mixin function
-  return withDropdown;
-
-});
+// export the mixin function
+module.exports = withDropdown;
 ```
 
 ## How do I apply mixins to a component?
@@ -37,17 +33,15 @@ In the Component definition, pass the required mixins as arguments to the
 `flight.component` function:
 
 ```js
-define(function(require) {
-  var flight = require('flight');
-  var withDialog = require('mixins/with_dialog');
-  var withDropdown = require('mixins/with_dropdown');
+var flight = require('flightjs');
+var withDialog = require('mixins/with_dialog');
+var withDropdown = require('mixins/with_dropdown');
 
-  return flight.component(fancyComponent, withDialog, withDropdown);
+module.exports = flight.component(fancyComponent, withDialog, withDropdown);
 
-  function fancyComponent() {
-    //...
-  }
-});
+function fancyComponent() {
+  //...
+}
 ```
 
 ## How do I apply mixins to a regular object?
@@ -58,20 +52,18 @@ you ever need to apply a mixin to something other than a component (e.g. to
 another mixin), you can invoke `compose.mixin` directly:
 
 ```js
-define(function(require) {
-  var flight = require('flight');
-  var withPositioning = require('mixins/with_positioning');
+var flight = require('flightjs');
+var withPositioning = require('mixins/with_positioning');
 
-  function withDialog() {
-    //mix withPositioning into withDialog
-    flight.compose.mixin(this, [withPositioning]);
+function withDialog() {
+  //mix withPositioning into withDialog
+  flight.compose.mixin(this, [withPositioning]);
 
-    //...
-  }
+  //...
+}
 
-  // return the mixin function
-  return withDialog;
-});
+// export the mixin function
+module.exports = withDialog;
 ```
 
 ## Overriding defaults in a mixin
@@ -83,17 +75,13 @@ component module.
 ```js
 /* mixins/big_button */
 
-define(function(require) {
+function bigButton() {
+  this.attributes({
+    buttonClass: 'js-button-big'
+  });
+}
 
-  function bigButton() {
-    this.attributes({
-      buttonClass: 'js-button-big'
-    });
-  }
-
-  return bigButton;
-
-});
+module.exports = bigButton;
 ```
 
 ## Creating a new Component from an existing one
@@ -106,26 +94,22 @@ override Flight's default `trigger` function. Instead of having to add these mix
 you can use them to create a base component (`components/base`) which all other components will extend.
 
 ```js
-define(function(require) {
-  var flight = require('flight');
-  var withTouchScreen = require('mixins/with_touchscreen');
-  var withCustomTrigger = require('mixins/with_custom_trigger');
+var flight = require('flightjs');
+var withTouchScreen = require('mixins/with_touchscreen');
+var withCustomTrigger = require('mixins/with_custom_trigger');
 
-  return flight.component(withTouchScreen, withCustomTrigger);
-});
+module.exports = flight.component(withTouchScreen, withCustomTrigger);
 ```
 
 Component constructors have a `mixin` method which can be used to create a new Component constructor
 based on the original:
 
 ```js
-define(function(require) {
-  var Base = require('components/base');
+var Base = require('components/base');
 
-  return Base.mixin(shoppingCart);
+module.exports = Base.mixin(shoppingCart);
 
-  function shoppingCart() {
-    //..
-  }
-});
+function shoppingCart() {
+  //..
+}
 ```
