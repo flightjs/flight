@@ -43,6 +43,16 @@ define(['lib/component', 'lib/utils', 'lib/compose'], function (defineComponent,
       expect(base.mixedInCount).toBe(2);
     });
 
+    it('should be able to mix into an object created from null', function () {
+      var mixMeIn = function () {
+        this.foo = 'bar';
+      };
+
+      var base = Object.create(null);
+      compose.mixin(base, [mixMeIn]);
+      expect(base.foo).toBe('bar');
+    });
+
   });
 
 });
