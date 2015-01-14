@@ -1,3 +1,17 @@
+## v1.4.0 (1/14/2015)
+
+### Features
+
+* New `event.currentTarget` in delegated event handlers https://github.com/flightjs/flight/pull/329
+* npm support — `npm install flightjs`
+* Multi-function advice https://github.com/flightjs/flight/pull/299
+
+### Bug fixes and tweaks
+
+* IE9 debug fix https://github.com/flightjs/flight/pull/318
+* Allow mixing into a null-based object https://github.com/flightjs/flight/pull/323
+* Various documentation & smaller bug fixes
+
 ## v1.3.0 (9/22/2014)
 
 ###features
