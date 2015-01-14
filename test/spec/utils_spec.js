@@ -255,12 +255,21 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
 
       $(document.body).trigger('click', myData);
 
-      myData.el = document.body;
-
       var callbackArgs = spy.mostRecentCall.args;
-
       expect(spy).toHaveBeenCalledWith(jasmine.any($.Event), myData);
+      expect(callbackArgs[1].el).toBe(document.body);
+    });
 
+    it('should pass the correct currentTarget', function () {
+      var instance = (new Component).initialize(document, {'bodySelector': 'body'});
+
+      instance.on('click', {
+        bodySelector: function (event) {
+          expect(event.currentTarget).toBe(document.body);
+        }
+      });
+
+      $(window.div).trigger('click');
     });
 
     it('makes "this" in delegated function references be the component instance', function () {
