@@ -86,6 +86,41 @@ function withDrama() {
 return withDrama;
 ```
 
+<a name="notes"></a>
+## Additional notes on using Advice
+
+### Retrieving event data
+
+In the above examples, the jQuery event and payload that will be passed to the `existingFunc` are available as extra parameters to the `customFunc` callback, respectively. This can be especially useful for calling `existingFunc` with the original arguments when using `this.around`:
+
+```js
+function withMelodiousHumour() {
+  this.around('yodel', function(func, event, data) {
+    if (data.tune) {
+      func(event, data); // event.type == 'yodel'
+    }
+  });
+}
+
+return withMelodiousHumour;
+```
+
+In the above example, `yodel` will never be called if `data.tune` is missing.
+
+### Shorthand for multiple advices
+
+Advice can be applied to multiple functions at once by listing more than one (space-separated) function names in the `existingFuncName` parameter. This can be used to club together common tasks on related methods:
+
+```js
+function withSoundCheck() {
+  this.before('announce yodel trumpet', function (event, data) {
+    checkOneTwo();
+  });
+}
+
+return withSoundCheck;
+```
+
 <a name="advice.withAdvice"></a>
 ## Making advice available to regular objects
 
