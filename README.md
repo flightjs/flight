@@ -1,6 +1,6 @@
 # Flight
 
-[![Build Status](https://travis-ci.org/flightjs/flight.png?branch=master)](http://travis-ci.org/flightjs/flight)
+[![Build Status](https://travis-ci.org/flightjs/flight.png?branch=master)](http://travis-ci.org/flightjs/flight) [![Gitter](https://badges.gitter.im/Join%20chat.svg)](https://gitter.im/flightjs/flight?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [Flight](http://flightjs.github.io/) is a lightweight, component-based,
 event-driven JavaScript framework that maps behavior to DOM nodes. It was
