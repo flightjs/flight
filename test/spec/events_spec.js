@@ -101,7 +101,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy2).toHaveBeenCalled();
     });
 
-    it('proxy from one to another when declared using "on" with a string', function () {
+    it('proxies from one event to another when declared using "on" with a string', function () {
       var instance = (new Component).initialize(window.outerDiv);
       var data = {actor: 'Brent Spiner'};
 
@@ -117,7 +117,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy.mostRecentCall.args[1]).toEqual(data);
     });
 
-    it('proxy from one to another when declared using "on" with an object', function () {
+    it('proxies from one event to another when declared using "on" with an object', function () {
       var instance = (new Component).initialize(window.outerDiv, {'innerDiv': 'div'});
       var data = {actor: 'Brent Spiner'};
 
@@ -133,6 +133,41 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
 
       expect(spy).toHaveBeenCalled();
       expect(spy.mostRecentCall.args[1]).toEqual(data);
+    });
+
+    iit('unbinds a string event proxy', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+
+      // Declare an event proxy from 'sourceEvent' → 'targetEvent'
+      instance.on('sourceEvent', 'targetEvent');
+      instance.off('sourceEvent', 'targetEvent');
+
+      var spy = jasmine.createSpy();
+      $(window.outerDiv).on('targetEvent', spy);
+
+      instance.trigger('sourceEvent');
+      expect(spy).not.toHaveBeenCalled();
+
+      $(window.outerDiv).off('targetEvent', spy);
+    });
+
+    iit('unbinds a string event proxy for a single event, registered as multiple events', function () {
+      var instance = (new Component).initialize(window.outerDiv);
+
+      // Declare an event proxy from 'sourceEvent' → 'targetEvent'
+      instance.on('sourceEvent sourceEvent2', 'targetEvent');
+      instance.off('sourceEvent', 'targetEvent');
+
+      var spy = jasmine.createSpy();
+      $(window.outerDiv).on('targetEvent', spy);
+
+      instance.trigger('sourceEvent');
+      expect(spy).not.toHaveBeenCalled();
+
+      instance.trigger('sourceEvent2');
+      expect(spy).toHaveBeenCalled();
+
+      $(window.outerDiv).off('targetEvent', spy);
     });
 
     it('unbinds listeners using "off"', function () {
