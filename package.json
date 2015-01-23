@@ -1,6 +1,6 @@
 {
   "name": "flightjs",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "main": "build/flight.js",
   "files": [
     "build/flight.js"

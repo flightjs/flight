@@ -1,3 +1,11 @@
+## v1.5.0 (1/23/2015)
+
+* Shows warning for reference types in attributes https://github.com/flightjs/flight/commit/66164d95e72d26dee1ab39e9edd4f8c26147972c
+* Add Gitter room button https://github.com/flightjs/flight/commit/66164d95e72d26dee1ab39e9edd4f8c26147972c
+* Remove debug-mode serializable event data restrction https://github.com/flightjs/flight/commit/66164d95e72d26dee1ab39e9edd4f8c26147972c
+* Update Advice API doc for event and data params, multiple advice https://github.com/flightjs/flight/pull/330
+* Document function-in-attributes behaviour https://github.com/flightjs/flight/commit/82a45623f3954e5831503317b0e716b9fe5b8bb1
+
 ## v1.4.0 (1/14/2015)
 
 ### Features
