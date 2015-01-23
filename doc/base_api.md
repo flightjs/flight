@@ -62,6 +62,16 @@ However, for backwards compatibility, if you are using `this.defaultAttrs` then
 all the old attribute behavior remains in place. [More details on
 `this.defaultAttrs`](../../v1.1.3/doc/base_api.md#this.defaultAttrs)*
 
+You may pass a function to `this.attributes` to generate an attribute when the component is initialised.
+
+```js
+this.attributes({
+  attachTime: function () {
+    return new Date();
+  }
+});
+```
+
 <a name="this.select"></a>
 ## this.select(attr)
 
