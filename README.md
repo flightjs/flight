@@ -169,6 +169,10 @@ Flight ships with a debug module which can help you trace the sequence of event 
 console logging is turned off, but you can log `trigger`, `on` and `off` events by means of the following console
 commands.
 
+## Maintainers
+
++ [@phuu](http://github.com/phuu)
+
 ## Authors
 
 + [@angus-c](http://github.com/angus-c)
