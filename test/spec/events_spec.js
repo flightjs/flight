@@ -5,6 +5,9 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
   describe("(Core) events", function () {
     var Component = (function () {
       function testComponent() {
+        this.attributes({
+          eventData: undefined
+        });
         this.exampleMethod = jasmine.createSpy();
         this.after('initialize', function () {
           this.testString || (this.testString = "");
