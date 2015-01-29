@@ -170,29 +170,6 @@ this.after('initialize', function() {
 });
 ```
 
-Example of `handler` being a string that maps events to other events. This is
-useful for proxying browser events to more meaningful custom events.
-
-```js
-this.on('click', 'uiComponentClick');
-```
-
-Example of `handler` being an object that maps events to other events.
-
-```js
-this.attributes({
-  menuItemSelector: '.menuItem',
-  saveButtonSelector: '#save'
-});
-
-this.after('initialize', function() {
-  this.on('click', {
-    menuItemSelector: 'uiMenuItemClick',
-    saveButtonSelector: 'uiSaveButtonClick'
-  });
-});
-```
-
 <a name="this.off"></a>
 ## this.off([selector,] eventType [, handler])
 

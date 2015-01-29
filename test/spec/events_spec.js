@@ -101,40 +101,6 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(spy2).toHaveBeenCalled();
     });
 
-    it('proxy from one to another when declared using "on" with a string', function () {
-      var instance = (new Component).initialize(window.outerDiv);
-      var data = {actor: 'Brent Spiner'};
-
-      // Declare an event proxy from 'sourceEvent' → 'targetEvent'
-      instance.on('sourceEvent', 'targetEvent');
-
-      var spy = jasmine.createSpy();
-      instance.on('targetEvent', spy);
-
-      instance.trigger('sourceEvent', data);
-
-      expect(spy).toHaveBeenCalled();
-      expect(spy.mostRecentCall.args[1]).toEqual(data);
-    });
-
-    it('proxy from one to another when declared using "on" with an object', function () {
-      var instance = (new Component).initialize(window.outerDiv, {'innerDiv': 'div'});
-      var data = {actor: 'Brent Spiner'};
-
-      // Declare an event proxy from 'sourceEvent' â†’ 'targetEvent'
-      instance.on('sourceEvent', {
-        'innerDiv': 'targetEvent'
-      });
-
-      var spy = jasmine.createSpy();
-      instance.on(window.innerDiv, 'targetEvent', spy);
-
-      instance.trigger(window.innerDiv, 'sourceEvent', data);
-
-      expect(spy).toHaveBeenCalled();
-      expect(spy.mostRecentCall.args[1]).toEqual(data);
-    });
-
     it('unbinds listeners using "off"', function () {
       var instance1 = (new Component).initialize(window.outerDiv);
 
