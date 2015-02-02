@@ -174,6 +174,7 @@ commands.
 ## Maintainers
 
 + [@phuu](http://github.com/phuu)
++ [@ahume](http://github.com/ahume)
 
 ## Authors
 
