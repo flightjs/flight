@@ -46,31 +46,31 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
         expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, '\'div#myDiv.myDiv\'', '');
       });
 
-      it('logs trigger with event object', function () {
-        spyOn(console, 'info');
-        instance.trigger({type:'click'});
-        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', '\'div#myDiv.myDiv\'', '');
-      });
+      // it('logs trigger with event object', function () {
+      //   spyOn(console, 'info');
+      //   instance.trigger({type:'click'});
+      //   expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', '\'div#myDiv.myDiv\'', '');
+      // });
 
-      it('logs trigger for custom node with event object', function () {
-        spyOn(console, 'info');
-        instance.trigger('document', {type:'click'});
-        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', 'document', '');
-      });
+      // it('logs trigger for custom node with event object', function () {
+      //   spyOn(console, 'info');
+      //   instance.trigger('document', {type:'click'});
+      //   expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', 'document', '');
+      // });
 
-      it('logs trigger with event object and payload', function () {
-        var data = {a:2};
-        spyOn(console, 'info');
-        instance.trigger({type:'click'}, data);
-        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, '\'div#myDiv.myDiv\'', '');
-      });
+      // it('logs trigger with event object and payload', function () {
+      //   var data = {a:2};
+      //   spyOn(console, 'info');
+      //   instance.trigger({type:'click'}, data);
+      //   expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, '\'div#myDiv.myDiv\'', '');
+      // });
 
-      it('logs trigger for custom node with event object and payload', function () {
-        var data = {a:2};
-        spyOn(console, 'info');
-        instance.trigger('document', {type:'click'}, data);
-        expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, 'document', '');
-      });
+      // it('logs trigger for custom node with event object and payload', function () {
+      //   var data = {a:2};
+      //   spyOn(console, 'info');
+      //   instance.trigger('document', {type:'click'}, data);
+      //   expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, 'document', '');
+      // });
     });
 
     describe('on logging', function () {
@@ -142,22 +142,22 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
         expect(console.info).not.toHaveBeenCalled();
       });
 
-      it('only logs filtered event objects', function () {
-        debug.events.logByName('click', 'clack');
-        spyOn(console, 'info');
-        instance.trigger({type:'click'});
-        expect(console.info).toHaveBeenCalled();
+      // it('only logs filtered event objects', function () {
+      //   debug.events.logByName('click', 'clack');
+      //   spyOn(console, 'info');
+      //   instance.trigger({type:'click'});
+      //   expect(console.info).toHaveBeenCalled();
 
-        console.info.isSpy = false;
-        spyOn(console, 'info');
-        instance.on({type:'clack'}, instance.handler);
-        expect(console.info).toHaveBeenCalled();
+      //   console.info.isSpy = false;
+      //   spyOn(console, 'info');
+      //   instance.on({type:'clack'}, instance.handler);
+      //   expect(console.info).toHaveBeenCalled();
 
-        console.info.isSpy = false;
-        spyOn(console, 'info');
-        instance.off({type:'cluck'}, instance.handler);
-        expect(console.info).not.toHaveBeenCalled();
-      });
+      //   console.info.isSpy = false;
+      //   spyOn(console, 'info');
+      //   instance.off({type:'cluck'}, instance.handler);
+      //   expect(console.info).not.toHaveBeenCalled();
+      // });
 
       it('logs nothing when filter set to none', function () {
         debug.events.logNone();
