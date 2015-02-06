@@ -238,7 +238,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       instance.on(document, 'foo', spy);
       instance.trigger('foo', data);
       var args = spy.mostRecentCall.args;
-      expect(args[0]).toEqual(jasmine.any($.Event));
+      expect(args[0]).toEqual(jasmine.any(Event));
       expect(args[1]).toEqual(data);
     });
 
@@ -249,7 +249,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       instance.on(document, 'foo', spy);
       instance.trigger('foo', undefined);
       var args = spy.mostRecentCall.args;
-      expect(args[0]).toEqual(jasmine.any($.Event));
+      expect(args[0]).toEqual(jasmine.any(Event));
       expect(args[1]).not.toBeDefined();
     });
 
@@ -276,57 +276,57 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       expect(returnedData.sheep).toBe('thrilling');
     });
 
-    it('executes the specified method when specified', function () {
-      var instance = (new Component).initialize(document.body);
-      instance.someMethod = jasmine.createSpy();
-      instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
-      expect(instance.someMethod).toHaveBeenCalled();
-    });
+    // it('executes the specified method when specified', function () {
+    //   var instance = (new Component).initialize(document.body);
+    //   instance.someMethod = jasmine.createSpy();
+    //   instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
+    //   expect(instance.someMethod).toHaveBeenCalled();
+    // });
 
-    it('executes the specified function when specified', function () {
-      var instance = (new Component).initialize(document.body);
-      var spy = jasmine.createSpy();
-      instance.trigger({ type: 'foo', defaultBehavior: spy });
-      expect(spy).toHaveBeenCalled();
-    });
+    // it('executes the specified function when specified', function () {
+    //   var instance = (new Component).initialize(document.body);
+    //   var spy = jasmine.createSpy();
+    //   instance.trigger({ type: 'foo', defaultBehavior: spy });
+    //   expect(spy).toHaveBeenCalled();
+    // });
 
-    it('does not execute the specified method when a listener calls preventDefault', function () {
-      var instance = (new Component).initialize(document.body);
-      instance.someMethod = jasmine.createSpy();
+    // it('does not execute the specified method when a listener calls preventDefault', function () {
+    //   var instance = (new Component).initialize(document.body);
+    //   instance.someMethod = jasmine.createSpy();
 
-      instance.on('foo', function (e) {
-        e.preventDefault();
-      });
+    //   instance.on('foo', function (e) {
+    //     e.preventDefault();
+    //   });
 
-      instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
-      expect(instance.someMethod).not.toHaveBeenCalled();
-    });
+    //   instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
+    //   expect(instance.someMethod).not.toHaveBeenCalled();
+    // });
 
-    it('does not execute the specified function when a listener calls preventDefault', function () {
-      var instance = (new Component).initialize(document.body);
-      var spy = jasmine.createSpy();
+    // it('does not execute the specified function when a listener calls preventDefault', function () {
+    //   var instance = (new Component).initialize(document.body);
+    //   var spy = jasmine.createSpy();
 
-      instance.on('foo', function (e) {
-        e.preventDefault();
-      });
+    //   instance.on('foo', function (e) {
+    //     e.preventDefault();
+    //   });
 
-      instance.trigger({ type: 'foo', defaultBehavior: spy });
-      expect(spy).not.toHaveBeenCalled();
-    });
+    //   instance.trigger({ type: 'foo', defaultBehavior: spy });
+    //   expect(spy).not.toHaveBeenCalled();
+    // });
 
-    it('merges eventData into triggered default behavior event data', function () {
-      var instance = (new Component).initialize(document.body, { eventData: { penguins: 'cool', sheep: 'dull' } });
-      var data = { sheep: 'thrilling' };
+    // it('merges eventData into triggered default behavior event data', function () {
+    //   var instance = (new Component).initialize(document.body, { eventData: { penguins: 'cool', sheep: 'dull' } });
+    //   var data = { sheep: 'thrilling' };
 
-      var spy = jasmine.createSpy();
-      instance.trigger({ type: 'foo', defaultBehavior: spy }, data);
-      var args = spy.mostRecentCall.args;
-      var returnedData = args[1];
-      expect(returnedData.penguins).toBeDefined();
-      expect(returnedData.penguins).toBe('cool');
-      expect(returnedData.sheep).toBeDefined();
-      expect(returnedData.sheep).toBe('thrilling');
-    });
+    //   var spy = jasmine.createSpy();
+    //   instance.trigger({ type: 'foo', defaultBehavior: spy }, data);
+    //   var args = spy.mostRecentCall.args;
+    //   var returnedData = args[1];
+    //   expect(returnedData.penguins).toBeDefined();
+    //   expect(returnedData.penguins).toBe('cool');
+    //   expect(returnedData.sheep).toBeDefined();
+    //   expect(returnedData.sheep).toBe('thrilling');
+    // });
 
   });
 });
