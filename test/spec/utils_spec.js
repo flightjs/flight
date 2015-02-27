@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, utils, debug) {
+define(['lib/component', 'lib/utils', 'lib/debug', 'lib/dom'], function (defineComponent, utils, debug, dom) {
 
   describe('(Core) utils', function () {
 
@@ -252,38 +252,37 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
 
       jasmine.Clock.useMock();
       var spy = jasmine.createSpy();
-      instance.on('click', {bodySelector: spy});
+      instance.on('customEvent', {bodySelector: spy});
 
-      $(document.body).trigger('click', myData);
+      dom.trigger(document.body, 'customEvent', myData);
 
       var callbackArgs = spy.mostRecentCall.args;
-      expect(spy).toHaveBeenCalledWith(jasmine.any($.Event), myData);
+      expect(spy).toHaveBeenCalledWith(jasmine.any(dom.FlightEvent), myData);
       expect(callbackArgs[1].el).toBe(document.body);
     });
 
     it('should pass the correct currentTarget', function () {
       var instance = (new Component).initialize(document, {'bodySelector': 'body'});
 
-      instance.on('click', {
+      instance.on('customEvent', {
         bodySelector: function (event) {
           expect(event.currentTarget).toBe(document.body);
         }
       });
 
-      $(window.div).trigger('click');
+      dom.trigger(window.div, 'customEvent');
     });
 
     it('makes "this" in delegated function references be the component instance', function () {
       var instance = (new Component).initialize(document, {'bodySelector': 'body'});
 
-      instance.on('click', {
+      instance.on('customEvent', {
         bodySelector: function (event) {
           expect(this).toBe(instance);
         }
       });
 
-      $(document.body).trigger('click');
-
+      dom.trigger(document.body, 'customEvent');
     });
 
     it('should invoke all matching handlers if stopPropagation not called on event', function () {
@@ -292,7 +291,7 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
       var spy1 = jasmine.createSpy();
       var spy2 = jasmine.createSpy();
 
-      instance.on('click', {
+      instance.on('customEvent', {
         'divSelector': function (event) {
           spy1();
         },
@@ -301,7 +300,7 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
         }
       });
 
-      $('div').trigger('click');
+      dom.trigger('div', 'customEvent');
       expect(spy1).toHaveBeenCalled();
       expect(spy2).toHaveBeenCalled();
     });
@@ -313,7 +312,7 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
       var spy1 = jasmine.createSpy();
       var spy2 = jasmine.createSpy();
 
-      instance.on('click', {
+      instance.on('customEvent', {
         'divSelector': function (event) {
           event.stopPropagation();
           spy1();
@@ -323,7 +322,7 @@ define(['lib/component', 'lib/utils', 'lib/debug'], function (defineComponent, u
         }
       });
 
-      $('div').trigger('click');
+      dom.trigger('div', 'customEvent');
       expect(spy1).toHaveBeenCalled();
       expect(spy2).not.toHaveBeenCalled();
     });

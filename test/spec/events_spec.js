@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
+define(['lib/component', 'lib/registry', 'lib/dom'], function (defineComponent, registry, dom) {
 
   describe("(Core) events", function () {
     var Component = (function () {
@@ -238,7 +238,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       instance.on(document, 'foo', spy);
       instance.trigger('foo', data);
       var args = spy.mostRecentCall.args;
-      expect(args[0]).toEqual(jasmine.any(Event));
+      expect(args[0]).toEqual(jasmine.any(dom.FlightEvent));
       expect(args[1]).toEqual(data);
     });
 
@@ -249,7 +249,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       instance.on(document, 'foo', spy);
       instance.trigger('foo', undefined);
       var args = spy.mostRecentCall.args;
-      expect(args[0]).toEqual(jasmine.any(Event));
+      expect(args[0]).toEqual(jasmine.any(dom.FlightEvent));
       expect(args[1]).not.toBeDefined();
     });
 
