@@ -48,6 +48,71 @@ define(['lib/dom'], function (dom) {
 
     });
 
+    describe('select', function () {
+
+      var root;
+      var child;
+      var innerChild;
+      var sibling;
+
+      beforeEach(function () {
+        root = document.createElement('div');
+        child = document.createElement('div');
+        innerChild = document.createElement('div');
+        sibling = document.createElement('div');
+
+        child.classList.add('child');
+        innerChild.classList.add('duplicate');
+        sibling.classList.add('duplicate');
+
+        child.appendChild(innerChild);
+        root.appendChild(child);
+        root.appendChild(sibling);
+        document.body.appendChild(root);
+      });
+
+      afterEach(function () {
+        document.body.removeChild(root);
+      });
+
+      it('can select an element via string', function () {
+        expect(dom.select('.child')).toBe(child);
+      });
+
+      it('can select document via string', function () {
+        expect(dom.select('document')).toBe(document.documentElement);
+      });
+
+      it('can select an element via reference', function () {
+        expect(dom.select(root)).toBe(root);
+      });
+
+      it('throws when passed nothing', function () {
+        expect(function () {
+          dom.select();
+        }).toThrow();
+      });
+
+      it('throws when passed other invalid value', function () {
+        [true, NaN, {}].forEach(function (v) {
+          expect(function () {
+            dom.select(v);
+          }).toThrow();
+        });
+      });
+
+      it('throws when passed null', function () {
+        expect(function () {
+          dom.select(null);
+        }).toThrow();
+      });
+
+      it('can select within a context element', function () {
+        expect(dom.select('.duplicate', child)).toBe(innerChild);
+      });
+
+    });
+
   });
 
 });
