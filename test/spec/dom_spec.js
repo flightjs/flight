@@ -93,6 +93,12 @@ define(['lib/dom'], function (dom) {
         }).toThrow();
       });
 
+      it('throws when passed null', function () {
+        expect(function () {
+          dom.select(null);
+        }).toThrow();
+      });
+
       it('throws when passed other invalid value', function () {
         [true, NaN, {}].forEach(function (v) {
           expect(function () {
@@ -101,14 +107,75 @@ define(['lib/dom'], function (dom) {
         });
       });
 
-      it('throws when passed null', function () {
+      it('can select within a context element', function () {
+        expect(dom.select('.duplicate', child)).toBe(innerChild);
+      });
+
+    });
+
+    describe('selectALl', function () {
+
+      var root;
+      var child;
+      var innerChild;
+      var sibling;
+
+      beforeEach(function () {
+        root = document.createElement('div');
+        child = document.createElement('div');
+        innerChild = document.createElement('div');
+        sibling = document.createElement('div');
+
+        child.classList.add('child');
+        innerChild.classList.add('duplicate');
+        sibling.classList.add('duplicate');
+
+        child.appendChild(innerChild);
+        root.appendChild(child);
+        root.appendChild(sibling);
+        document.body.appendChild(root);
+      });
+
+      afterEach(function () {
+        document.body.removeChild(root);
+      });
+
+      it('can select elements via string', function () {
+        var matches = dom.selectAll('.duplicate');
+        expect(matches).toContain(sibling);
+        expect(matches).toContain(innerChild);
+      });
+
+      it('can select document via string', function () {
+        expect(dom.selectAll('document')).toEqual([document.documentElement]);
+      });
+
+      it('can select an element via reference', function () {
+        expect(dom.selectAll(root)).toEqual([root]);
+      });
+
+      it('throws when passed nothing', function () {
         expect(function () {
-          dom.select(null);
+          dom.selectAll();
         }).toThrow();
       });
 
+      it('throws when passed null', function () {
+        expect(function () {
+          dom.selectAll(null);
+        }).toThrow();
+      });
+
+      it('throws when passed other invalid value', function () {
+        [true, NaN, {}].forEach(function (v) {
+          expect(function () {
+            dom.selectAll(v);
+          }).toThrow();
+        });
+      });
+
       it('can select within a context element', function () {
-        expect(dom.select('.duplicate', child)).toBe(innerChild);
+        expect(dom.selectAll('.duplicate', child)).toEqual([innerChild]);
       });
 
     });
