@@ -160,7 +160,7 @@ In Flight, advice is a mixin (`'lib/advice.js'`) that defines `before`, `after` 
 
 These can be used to modify existing functions by adding custom code. All Components have advice mixed in to
 their prototype so that mixins can augment existing functions without requiring knowledge
-of the original implementation. Moreover, since Component's are seeded with an empty `initialize` method,
+of the original implementation. Moreover, since Components are seeded with an empty `initialize` method,
 Component definitions will typically use `after` to define custom `initialize` behavior.
 
 ### Debugging ([API](doc/debug_api.md))
