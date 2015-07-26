@@ -79,8 +79,7 @@ The `select` method takes an `attr` key as its argument. The value of the
 `attr` must be a CSS Selector. The method will return all matching elements
 within the component's `node`.
 
-This is a handy alternative to jQuery's `this.$node.find()` and prevents
-accidental access to elements outside of the component's `node`.
+This is a like jQuery's `find`, preventing accidental access to elements outside of the component's `node`.
 
 ```js
 this.attributes({
@@ -216,22 +215,6 @@ Defaults to the component instance's `node` value.
 #### `eventType`: String | Object
 
 String. The event type to be triggered.
-
-You can also specify a default function that will be called by the component,
-providing that nothing in the event's bubble chain invokes `preventDefault`.
-Default functions in custom events are analagous to the default actions of
-native events.
-
-To define a default function, make the `eventType` argument an object that
-specifies the event's `type` and a `defaultBehavior` property. A common use
-case is defining default behavior for keyboard events:
-
-```js
-this.trigger('#textInput', {
-  type: 'escapePressed',
-  defaultBehavior: this.blur
-});
-```
 
 #### `eventPayload`: Object
 

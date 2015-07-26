@@ -126,10 +126,9 @@ increment(); // sum will equal 1
 increment(); // sum will still equal 1
 ```
 
-Will only send one DELETE request to the server even if the click event is fired multiple times.
+Will only call the inner function even if the click event is fired multiple times.
 ```js
-var myHandler = function () {
-  $.ajax({type: 'DELETE', url: 'someurl.com', data: {id: 1}});
-};
-this.on('click', utils.once(myHandler));
+this.on('click', utils.once(function () {
+  // ...
+}));
 ```
