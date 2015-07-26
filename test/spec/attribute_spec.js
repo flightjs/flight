@@ -110,7 +110,7 @@ define(['lib/component', 'lib/debug'], function (defineComponent, debug) {
       var instance = (new TestComponent).initialize(document.body);
       expect(instance.attr.f).toBe(true);
 
-      var instance2 = (new TestComponent).initialize($('div').get(0));
+      var instance2 = (new TestComponent).initialize(document.createElement('div'));
       expect(instance2.attr.f).toBe(false);
 
       TestComponent.teardownAll();

@@ -53,7 +53,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       var instance = (new Component).initialize(window.outerDiv);
       var instanceInfo = registry.allInstances[instance.identity];
 
-      var myFunction = $.noop;
+      var myFunction = function () {};
       instance.on("myEvent", myFunction);
       expect(instanceInfo.events.length).toBe(1);
 
