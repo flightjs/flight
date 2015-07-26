@@ -8,8 +8,6 @@ define(['lib/dom'], function (dom) {
       expect(dom).toBeTruthy();
     });
 
-    // TODO: FlightEvent
-
     describe('trigger/on', function () {
 
       it('can listen to and trigger custom event', function () {
@@ -240,28 +238,75 @@ define(['lib/dom'], function (dom) {
 
       it('maintains context', function () {
         var ctx = {};
-        var nativeEvent = {};
+        var originalEvent = {};
         var cb = dom.wrapCallback(function (event) {
           expect(this).toEqual(ctx);
         }, ctx);
-        cb(nativeEvent);
+        cb(originalEvent);
       });
 
       it('wraps argument in a FlightEvent', function () {
-        var nativeEvent = {};
+        var originalEvent = {};
         var cb = dom.wrapCallback(function (event) {
-          expect(event).not.toEqual(nativeEvent);
+          expect(event).not.toEqual(originalEvent);
           expect(event instanceof dom.FlightEvent).toBe(true);
         });
-        cb(nativeEvent);
+        cb(originalEvent);
       });
 
       it('passes event detail', function () {
-        var nativeEvent = { detail: {} };
+        var originalEvent = { detail: {} };
         var cb = dom.wrapCallback(function (event, data) {
-          expect(data).toEqual(nativeEvent.detail);
+          expect(data).toEqual(originalEvent.detail);
         });
-        cb(nativeEvent);
+        cb(originalEvent);
+      });
+
+    });
+
+    describe('FlightEvent', function () {
+
+      function makeEvent(type, detail) {
+        return {
+          type: type,
+          detail: detail,
+          defaultPrevented: false,
+          stopPropagation: function () {},
+          preventDefault: function () {
+            this.defaultPrevented = true;
+          }
+        }
+      }
+
+      it('saves wrapped as originalEvent', function () {
+        var originalEvent = {};
+        var event = new dom.FlightEvent(originalEvent);
+        expect(event.originalEvent).toBe(originalEvent);
+      });
+
+      it('should track of stopPropagation', function () {
+        var event = new dom.FlightEvent(makeEvent('click'));
+        event.stopPropagation();
+        expect(event.isPropagationStopped()).toBe(true);
+      });
+
+      it('should call through to event methods', function () {
+        var event = new dom.FlightEvent(makeEvent('click'));
+        event.preventDefault();
+        expect(event.defaultPrevented).toBe(true);
+      });
+
+      it('does not modify the underlying event', function () {
+        var originalEvent = makeEvent('click');
+        var event = new dom.FlightEvent(originalEvent);
+        event.type = 'mouseover';
+        expect(event.type).toBe('mouseover');
+        expect(originalEvent.type).toBe('click');
+      });
+
+      it('converts null detail to undefined', function () {
+        var event = new dom.FlightEvent(makeEvent('click', null));
+        expect(event.detail).toBe(undefined);
       });
 
     });
