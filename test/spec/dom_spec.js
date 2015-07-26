@@ -8,7 +8,7 @@ define(['lib/dom'], function (dom) {
       expect(dom).toBeTruthy();
     });
 
-    // TODO: select, selectAll, closest, wrapCallback, FlightEvent
+    // TODO: wrapCallback, FlightEvent
 
     describe('trigger/on', function () {
 
@@ -113,7 +113,7 @@ define(['lib/dom'], function (dom) {
 
     });
 
-    describe('selectALl', function () {
+    describe('selectAll', function () {
 
       var root;
       var child;
@@ -176,6 +176,62 @@ define(['lib/dom'], function (dom) {
 
       it('can select within a context element', function () {
         expect(dom.selectAll('.duplicate', child)).toEqual([innerChild]);
+      });
+
+    });
+
+    describe('closest', function () {
+
+      var root;
+      var child;
+      var innerChild;
+      var sibling;
+
+      beforeEach(function () {
+        root = document.createElement('div');
+        child = document.createElement('div');
+        sibling = document.createElement('div');
+        innerChild = document.createElement('div');
+
+        root.classList.add('context-target');
+        root.classList.add('multiple-target');
+        child.classList.add('parent-target');
+        child.classList.add('multiple-target');
+        sibling.classList.add('sibling-target');
+        innerChild.classList.add('possible-target');
+
+        child.appendChild(innerChild);
+        root.appendChild(child);
+        root.appendChild(sibling);
+        document.body.appendChild(root);
+      });
+
+      afterEach(function () {
+        document.body.removeChild(root);
+      });
+
+      it('will return nothing if nothing matches', function () {
+        expect(dom.closest(root, innerChild, '.no-matches')).toEqual(undefined);
+      });
+
+      it('will return the target if the target matches', function () {
+        expect(dom.closest(root, innerChild, '.possible-target')).toEqual(innerChild);
+      });
+
+      it('will return a parent if it matches', function () {
+        expect(dom.closest(root, innerChild, '.parent-target')).toEqual(child);
+      });
+
+      it('will return nothing if the match is not a parent', function () {
+        expect(dom.closest(root, innerChild, '.sibling-target')).toEqual(undefined);
+      });
+
+      it('will return nothing if the context element matches', function () {
+        expect(dom.closest(root, innerChild, '.context-target')).toEqual(undefined);
+      });
+
+      it('will return the closest match if there are multiple', function () {
+        expect(dom.closest(root, innerChild, '.multiple-target')).toEqual(child);
       });
 
     });
