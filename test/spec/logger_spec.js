@@ -4,8 +4,14 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
 
   var instance;
   var Component;
-  var div = $('<div id="myDiv" class="myDiv"></div>').appendTo('body')[0];
-  var span = $('<span class="mySpan"></span>').appendTo('body')[0];
+
+  var div = document.createElement('div');
+  var span = document.createElement('span');
+  div.id = 'myDiv';
+  div.classList.add('myDiv');
+  span.classList.add('mySpan');
+  document.body.appendChild(div);
+  document.body.appendChild(span);
 
   describe('(Core) logger', function () {
 
