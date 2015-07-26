@@ -114,16 +114,11 @@ they should only respond to events.
 ### Interacting with the DOM
 
 Once attached, Component instances have direct access to their node object via
-the `node` property. (There's also a jQuery version of the node available via
-the `$node` property.)
+the `node` property.
 
 ```js
 this.setId = function(n) {
   this.node.id = n;
-};
-
-this.hideComponent = function() {
-  this.$node.hide();
 };
 ```
 

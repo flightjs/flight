@@ -1,6 +1,6 @@
 "use strict";
 
-define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
+define(['lib/component', 'lib/registry', 'lib/dom'], function (defineComponent, registry, dom) {
 
   describe("(Core) events", function () {
     var Component = (function () {
@@ -91,15 +91,6 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       spy2 = jasmine.createSpy();
       instance3.on('click', spy2);
       instance1.trigger('body', 'click', {a:2});
-      expect(spy1).not.toHaveBeenCalled();
-      expect(spy2).toHaveBeenCalled();
-
-      //JQuery object
-      spy1 = jasmine.createSpy();
-      instance2.on('click', spy1);
-      spy2 = jasmine.createSpy();
-      instance3.on('click', spy2);
-      instance1.trigger($(document.body), 'click', {a:2});
       expect(spy1).not.toHaveBeenCalled();
       expect(spy2).toHaveBeenCalled();
     });
@@ -238,7 +229,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       instance.on(document, 'foo', spy);
       instance.trigger('foo', data);
       var args = spy.mostRecentCall.args;
-      expect(args[0]).toEqual(jasmine.any($.Event));
+      expect(args[0]).toEqual(jasmine.any(dom.FlightEvent));
       expect(args[1]).toEqual(data);
     });
 
@@ -249,7 +240,7 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       instance.on(document, 'foo', spy);
       instance.trigger('foo', undefined);
       var args = spy.mostRecentCall.args;
-      expect(args[0]).toEqual(jasmine.any($.Event));
+      expect(args[0]).toEqual(jasmine.any(dom.FlightEvent));
       expect(args[1]).not.toBeDefined();
     });
 
@@ -268,58 +259,6 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
       var spy = jasmine.createSpy();
       instance.on(document, 'foo', spy);
       instance.trigger('foo', data);
-      var args = spy.mostRecentCall.args;
-      var returnedData = args[1];
-      expect(returnedData.penguins).toBeDefined();
-      expect(returnedData.penguins).toBe('cool');
-      expect(returnedData.sheep).toBeDefined();
-      expect(returnedData.sheep).toBe('thrilling');
-    });
-
-    it('executes the specified method when specified', function () {
-      var instance = (new Component).initialize(document.body);
-      instance.someMethod = jasmine.createSpy();
-      instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
-      expect(instance.someMethod).toHaveBeenCalled();
-    });
-
-    it('executes the specified function when specified', function () {
-      var instance = (new Component).initialize(document.body);
-      var spy = jasmine.createSpy();
-      instance.trigger({ type: 'foo', defaultBehavior: spy });
-      expect(spy).toHaveBeenCalled();
-    });
-
-    it('does not execute the specified method when a listener calls preventDefault', function () {
-      var instance = (new Component).initialize(document.body);
-      instance.someMethod = jasmine.createSpy();
-
-      instance.on('foo', function (e) {
-        e.preventDefault();
-      });
-
-      instance.trigger({ type: 'foo', defaultBehavior: 'someMethod' });
-      expect(instance.someMethod).not.toHaveBeenCalled();
-    });
-
-    it('does not execute the specified function when a listener calls preventDefault', function () {
-      var instance = (new Component).initialize(document.body);
-      var spy = jasmine.createSpy();
-
-      instance.on('foo', function (e) {
-        e.preventDefault();
-      });
-
-      instance.trigger({ type: 'foo', defaultBehavior: spy });
-      expect(spy).not.toHaveBeenCalled();
-    });
-
-    it('merges eventData into triggered default behavior event data', function () {
-      var instance = (new Component).initialize(document.body, { eventData: { penguins: 'cool', sheep: 'dull' } });
-      var data = { sheep: 'thrilling' };
-
-      var spy = jasmine.createSpy();
-      instance.trigger({ type: 'foo', defaultBehavior: spy }, data);
       var args = spy.mostRecentCall.args;
       var returnedData = args[1];
       expect(returnedData.penguins).toBeDefined();
