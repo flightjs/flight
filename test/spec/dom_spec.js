@@ -8,7 +8,7 @@ define(['lib/dom'], function (dom) {
       expect(dom).toBeTruthy();
     });
 
-    // TODO: wrapCallback, FlightEvent
+    // TODO: FlightEvent
 
     describe('trigger/on', function () {
 
@@ -232,6 +232,36 @@ define(['lib/dom'], function (dom) {
 
       it('will return the closest match if there are multiple', function () {
         expect(dom.closest(root, innerChild, '.multiple-target')).toEqual(child);
+      });
+
+    });
+
+    describe('wrapCallback', function () {
+
+      it('maintains context', function () {
+        var ctx = {};
+        var nativeEvent = {};
+        var cb = dom.wrapCallback(function (event) {
+          expect(this).toEqual(ctx);
+        }, ctx);
+        cb(nativeEvent);
+      });
+
+      it('wraps argument in a FlightEvent', function () {
+        var nativeEvent = {};
+        var cb = dom.wrapCallback(function (event) {
+          expect(event).not.toEqual(nativeEvent);
+          expect(event instanceof dom.FlightEvent).toBe(true);
+        });
+        cb(nativeEvent);
+      });
+
+      it('passes event detail', function () {
+        var nativeEvent = { detail: {} };
+        var cb = dom.wrapCallback(function (event, data) {
+          expect(data).toEqual(nativeEvent.detail);
+        });
+        cb(nativeEvent);
       });
 
     });
