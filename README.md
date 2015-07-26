@@ -2,13 +2,13 @@
 
 [![Gitter](https://badges.gitter.im/Join%20chat.svg)](https://gitter.im/flightjs/flight?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[Flight](http://flightjs.github.io/) is a lightweight framework for building JavaScript components. It was created at Twitter, and is used by the [twitter.com](https://twitter.com/) and [TweetDeck](https://tweetdeck.twitter.com/) web applications.
+[Flight](http://flightjs.github.io/) is a lightweight framework for building JavaScript components. It was created at Twitter, and is used by [twitter.com](https://twitter.com/) and [TweetDeck](https://tweetdeck.twitter.com/).
 
 Work is currently ongoing for Flight v2 and beyond, which will make some backward incompatible changes.
 
 ## [v1.x][v1.x]
 
-To see the most recent v1.x code and documentation, check out [the branch][v1.x].
+To see the most recent v1.x code and documentation, check out [the branch][v1.x]. If you've got an issue or pull-request for **current code**, please submit it against this branch.
 
 ## v2.x
 
