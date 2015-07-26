@@ -148,22 +148,22 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
         expect(console.info).not.toHaveBeenCalled();
       });
 
-      // it('only logs filtered event objects', function () {
-      //   debug.events.logByName('click', 'clack');
-      //   spyOn(console, 'info');
-      //   instance.trigger({type:'click'});
-      //   expect(console.info).toHaveBeenCalled();
+      it('only logs filtered event objects', function () {
+        debug.events.logByName('click', 'clack');
+        spyOn(console, 'info');
+        instance.trigger({type:'click'});
+        expect(console.info).toHaveBeenCalled();
 
-      //   console.info.isSpy = false;
-      //   spyOn(console, 'info');
-      //   instance.on({type:'clack'}, instance.handler);
-      //   expect(console.info).toHaveBeenCalled();
+        console.info.isSpy = false;
+        spyOn(console, 'info');
+        instance.on({type:'clack'}, instance.handler);
+        expect(console.info).toHaveBeenCalled();
 
-      //   console.info.isSpy = false;
-      //   spyOn(console, 'info');
-      //   instance.off({type:'cluck'}, instance.handler);
-      //   expect(console.info).not.toHaveBeenCalled();
-      // });
+        console.info.isSpy = false;
+        spyOn(console, 'info');
+        instance.off({type:'cluck'}, instance.handler);
+        expect(console.info).not.toHaveBeenCalled();
+      });
 
       it('logs nothing when filter set to none', function () {
         debug.events.logNone();
