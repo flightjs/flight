@@ -53,6 +53,9 @@ define(['lib/dom'], function (dom) {
       var innerChild;
       var sibling;
 
+      var documentQuerySelectorSpy;
+      var childQuerySelectorSpy;
+
       beforeEach(function () {
         root = document.createElement('div');
         child = document.createElement('div');
@@ -67,6 +70,9 @@ define(['lib/dom'], function (dom) {
         root.appendChild(child);
         root.appendChild(sibling);
         document.body.appendChild(root);
+
+        documentQuerySelectorSpy = spyOn(document, 'querySelector').andCallThrough();
+        childQuerySelectorSpy = spyOn(child, 'querySelector').andCallThrough();
       });
 
       afterEach(function () {
@@ -75,14 +81,27 @@ define(['lib/dom'], function (dom) {
 
       it('can select an element via string', function () {
         expect(dom.select('.child')).toBe(child);
+        expect(documentQuerySelectorSpy).toHaveBeenCalled();
       });
 
       it('can select document via string', function () {
         expect(dom.select('document')).toBe(document.documentElement);
+        expect(documentQuerySelectorSpy).not.toHaveBeenCalled();
+      });
+
+      it('can select body via string', function () {
+        expect(dom.select('body')).toBe(document.body);
+        expect(documentQuerySelectorSpy).not.toHaveBeenCalled();
+      });
+
+      it('can select head via string', function () {
+        expect(dom.select('head')).toBe(document.head);
+        expect(documentQuerySelectorSpy).not.toHaveBeenCalled();
       });
 
       it('can select an element via reference', function () {
         expect(dom.select(root)).toBe(root);
+        expect(documentQuerySelectorSpy).not.toHaveBeenCalled();
       });
 
       it('throws when passed nothing', function () {
@@ -107,6 +126,8 @@ define(['lib/dom'], function (dom) {
 
       it('can select within a context element', function () {
         expect(dom.select('.duplicate', child)).toBe(innerChild);
+        expect(documentQuerySelectorSpy).not.toHaveBeenCalled();
+        expect(childQuerySelectorSpy).toHaveBeenCalled();
       });
 
     });
@@ -117,6 +138,9 @@ define(['lib/dom'], function (dom) {
       var child;
       var innerChild;
       var sibling;
+
+      var documentQuerySelectorAllSpy;
+      var childQuerySelectorAllSpy;
 
       beforeEach(function () {
         root = document.createElement('div');
@@ -132,6 +156,9 @@ define(['lib/dom'], function (dom) {
         root.appendChild(child);
         root.appendChild(sibling);
         document.body.appendChild(root);
+
+        documentQuerySelectorAllSpy = spyOn(document, 'querySelectorAll').andCallThrough();
+        childQuerySelectorAllSpy = spyOn(child, 'querySelectorAll').andCallThrough();
       });
 
       afterEach(function () {
@@ -142,14 +169,27 @@ define(['lib/dom'], function (dom) {
         var matches = dom.selectAll('.duplicate');
         expect(matches).toContain(sibling);
         expect(matches).toContain(innerChild);
+        expect(documentQuerySelectorAllSpy).toHaveBeenCalled();
       });
 
       it('can select document via string', function () {
         expect(dom.selectAll('document')).toEqual([document.documentElement]);
+        expect(documentQuerySelectorAllSpy).not.toHaveBeenCalled();
+      });
+
+      it('can select body via string', function () {
+        expect(dom.selectAll('body')).toEqual([document.body]);
+        expect(documentQuerySelectorAllSpy).not.toHaveBeenCalled();
+      });
+
+      it('can select head via string', function () {
+        expect(dom.selectAll('head')).toEqual([document.head]);
+        expect(documentQuerySelectorAllSpy).not.toHaveBeenCalled();
       });
 
       it('can select an element via reference', function () {
         expect(dom.selectAll(root)).toEqual([root]);
+        expect(documentQuerySelectorAllSpy).not.toHaveBeenCalled();
       });
 
       it('throws when passed nothing', function () {
@@ -174,6 +214,8 @@ define(['lib/dom'], function (dom) {
 
       it('can select within a context element', function () {
         expect(dom.selectAll('.duplicate', child)).toEqual([innerChild]);
+        expect(documentQuerySelectorAllSpy).not.toHaveBeenCalled();
+        expect(childQuerySelectorAllSpy).toHaveBeenCalled();
       });
 
     });
