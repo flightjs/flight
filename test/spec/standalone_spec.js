@@ -15,6 +15,23 @@ define(['index'], function(index) {
         expect(typeof flight[key]).toBe(typeof index[key]);
       });
     });
+
+    it('supports debugging via window.DEBUG', function() {
+      flight.debug.enable(true);
+      flight.debug.events.logAll();
+
+      var Component = flight.component(function() {
+        this.after('initialize', function() {
+          this.trigger('an-event');
+        });
+      });
+      var node = document.createElement('div');
+      document.body.appendChild(node);
+
+      spyOn(console, 'info');
+      Component.attachTo(node);
+      expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[an-event]', '\'div\'', '');
+    });
   });
 });
 
