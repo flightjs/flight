@@ -16,4 +16,4 @@ Twitter isn't the only company using Flight. We're sure the following list isn't
 * [Drip](https://www.getdrip.com)
 * [Codetree](https://codetree.com)
 * [Movebubble](https://www.movebubble.com)
-* [Codevelop](http://codevelop.github.io)
+* [Jungminu](http://jungminu.github.io)
