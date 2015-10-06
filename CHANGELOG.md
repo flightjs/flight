@@ -1,3 +1,11 @@
+## v1.5.1 (10/6/2015)
+
+* debug.warn like console.log https://github.com/flightjs/flight/commit/70dd4a3
+* Fix component logging in debug mode. https://github.com/flightjs/flight/commit/c741a6a
+* Punctuation fix https://github.com/flightjs/flight/commit/7bb5310
+* Rename define to defineComponent https://github.com/flightjs/flight/commit/65d5b0e
+* Warn on use of defaultAttrs in debug mode https://github.com/flightjs/flight/commit/04fb2eb
+
 ## v1.5.0 (1/23/2015)
 
 * Shows warning for reference types in attributes https://github.com/flightjs/flight/commit/66164d95e72d26dee1ab39e9edd4f8c26147972c
