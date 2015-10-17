@@ -219,6 +219,11 @@ define(['lib/component', 'lib/registry', 'lib/dom'], function (defineComponent, 
       instance2.on(document, 'click', spy);
       instance1.trigger('click');
       expect(spy).toHaveBeenCalled();
+
+      spy = jasmine.createSpy();
+      instance1.on(window, 'click', spy);
+      instance1.trigger(window, 'click');
+      expect(spy).toHaveBeenCalled();
     });
 
     it('makes data and target element available to callback', function () {
