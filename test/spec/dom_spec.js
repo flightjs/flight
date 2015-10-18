@@ -85,7 +85,12 @@ define(['lib/dom'], function (dom) {
       });
 
       it('can select document via string', function () {
-        expect(dom.select('document')).toBe(document.documentElement);
+        expect(dom.select('document')).toBe(document);
+        expect(documentQuerySelectorSpy).not.toHaveBeenCalled();
+      });
+
+      it('can select window via string', function () {
+        expect(dom.select('window')).toBe(window);
         expect(documentQuerySelectorSpy).not.toHaveBeenCalled();
       });
 
@@ -173,7 +178,12 @@ define(['lib/dom'], function (dom) {
       });
 
       it('can select document via string', function () {
-        expect(dom.selectAll('document')).toEqual([document.documentElement]);
+        expect(dom.selectAll('document')).toEqual([document]);
+        expect(documentQuerySelectorAllSpy).not.toHaveBeenCalled();
+      });
+
+      it('can select window via string', function () {
+        expect(dom.selectAll('window')).toEqual([window]);
         expect(documentQuerySelectorAllSpy).not.toHaveBeenCalled();
       });
 
