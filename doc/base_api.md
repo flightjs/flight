@@ -90,6 +90,7 @@ this.selectMenuItem = function(e) {
   this.select('menuItemSelector')
 };
 ```
+__Note__: You may access the component's node directly by using the component's `node` attribute.  Example `this.node`
 
 <a name="this.initialize"></a>
 ## this.initialize()
