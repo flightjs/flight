@@ -41,7 +41,7 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
 
       it('logs trigger for custom node', function () {
         spyOn(console, 'info');
-        instance.trigger('document', 'click');
+        instance.trigger(document, 'click');
         expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', 'document', '');
       });
 
@@ -74,7 +74,7 @@ define(['lib/component', 'lib/debug'], function(defineComponent, debug) {
       it('logs trigger for custom node with event object and payload', function () {
         var data = {a:2};
         spyOn(console, 'info');
-        instance.trigger('document', {type:'click'}, data);
+        instance.trigger(document, {type:'click'}, data);
         expect(console.info).toHaveBeenCalledWith('->', 'trigger', '[click]', data, 'document', '');
       });
     });
