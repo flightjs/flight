@@ -18,3 +18,4 @@ Twitter isn't the only company using Flight. We're sure the following list isn't
 * [Movebubble](https://www.movebubble.com)
 * [Codevelop](http://codevelop.github.io)
 * [Telemach](https://moj.telemach.si)
+* [Dailymotion Player](https://www.dailymotion.com/player)
