@@ -127,6 +127,18 @@ define(['lib/component', 'lib/registry'], function (defineComponent, registry) {
         expect(c.attr.foo).toBe(46);
         expect(c.attr.bar).toBe(48);
       });
+
+      it('should not throw an exception if .teardown is called more than once', function () {
+        var instance = (new Component).initialize(window.outerDiv);
+
+        expect(function () {
+          instance.teardown();
+        }).not.toThrow();
+
+        expect(function () {
+          instance.teardown();
+        }).not.toThrow();
+      });
     });
   });
 
