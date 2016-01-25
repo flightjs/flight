@@ -36,11 +36,11 @@ module.exports = function (config) {
     // CLI --auto-watch --no-auto-watch
     autoWatch: true,
 
-    // Start these browsers
+    // start these browsers
     // CLI --browsers Chrome, Firefox, Safari
     browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome'],
 
-    // If browser does not capture in given timeout [ms], kill it
+    // if browser does not capture in given timeout [ms], kill it
     // CLI --capture-timeout 5000
     captureTimeout: 20000,
 
@@ -52,7 +52,7 @@ module.exports = function (config) {
     // CLI --reporters progress
     reporters: [process.env.TRAVIS ? 'dots' : 'progress'],
 
-    // Auto run tests on start (when browsers are captured) and exit
+    // auto run tests on start (when browsers are captured) and exit
     // CLI --single-run --no-single-run
     singleRun: false
   });
