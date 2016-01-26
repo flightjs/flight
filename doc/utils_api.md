@@ -68,7 +68,7 @@ base; // {a:2, b:6}
 var base = {a:2, b:{bb:4, cc:5}};
 var extra = {a:4, b:{cc:7, dd:1}};
 merge(base, extra, true); // {a:4, b:{bb:4, cc:7, dd:1}}
-base; // {a:2, b:6}
+base; // {a:2, b:{bb:4, cc:5}}
 ```
 
 <a name="utils.push"></a>
@@ -84,7 +84,7 @@ push(base, extra); // {a:2, b:6, c:4}
 base; // {a:2, b:6, c:4}
 
 var base = {a:2, b:6};
-var extra = {b: 4 c:4};
+var extra = {b:4, c:4};
 push(base, extra, true); // Error ("utils.push attempted to overwrite 'b' while running in protected mode")
 base; // {a:2, b:6}
 ```
