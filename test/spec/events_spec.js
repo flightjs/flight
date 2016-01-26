@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 define(['lib/component', 'lib/registry', 'lib/dom'], function (defineComponent, registry, dom) {
 
@@ -220,6 +220,29 @@ define(['lib/component', 'lib/registry', 'lib/dom'], function (defineComponent, 
       instance1.trigger('click');
       expect(spy).toHaveBeenCalled();
     });
+
+    it('can be attached to any special element', function () {
+      var instance1 = (new Component).initialize(window.innerDiv);
+      var instance2 = (new Component).initialize(window.outerDiv);
+
+      var specialElements = [
+        window,
+        document,
+        document.body,
+        document.documentElement,
+        'html',
+        'body'
+      ];
+
+      specialElements.forEach(function (element) {
+        var spy = jasmine.createSpy(element.toString());
+        instance2.on(element, 'click', spy);
+        instance1.trigger('click');
+        instance2.off(element, 'click');
+        instance1.trigger('click');
+        expect(spy.callCount).toBe(1);
+      });
+    })
 
     it('makes data and target element available to callback', function () {
       var instance = (new Component).initialize(document.body);

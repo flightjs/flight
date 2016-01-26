@@ -84,8 +84,8 @@ define(['lib/dom'], function (dom) {
         expect(documentQuerySelectorSpy).toHaveBeenCalled();
       });
 
-      it('can select document via string', function () {
-        expect(dom.select('document')).toBe(document.documentElement);
+      it('can select html via string', function () {
+        expect(dom.select('html')).toBe(document.documentElement);
         expect(documentQuerySelectorSpy).not.toHaveBeenCalled();
       });
 
@@ -172,8 +172,8 @@ define(['lib/dom'], function (dom) {
         expect(documentQuerySelectorAllSpy).toHaveBeenCalled();
       });
 
-      it('can select document via string', function () {
-        expect(dom.selectAll('document')).toEqual([document.documentElement]);
+      it('can select html via string', function () {
+        expect(dom.selectAll('html')).toEqual([document.documentElement]);
         expect(documentQuerySelectorAllSpy).not.toHaveBeenCalled();
       });
 
