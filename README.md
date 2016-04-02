@@ -1,3 +1,9 @@
+# Please note
+
+Flight is **not under active development**. New pull requests will not be accepted unless they fix core bugs or security issues.
+
+---
+
 # Flight
 
 [![Build Status](https://travis-ci.org/flightjs/flight.png?branch=master)](http://travis-ci.org/flightjs/flight) [![Gitter](https://badges.gitter.im/Join%20chat.svg)](https://gitter.im/flightjs/flight?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
