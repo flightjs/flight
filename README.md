@@ -203,6 +203,6 @@ contributions and feedback.
 
 ## License
 
-Copyright 2013 Twitter, Inc and other contributors.
+Copyright 2013-2014 Twitter, Inc and other contributors.
 
 Licensed under the MIT License
