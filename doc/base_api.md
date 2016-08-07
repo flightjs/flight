@@ -174,6 +174,7 @@ Example of `handler` being a string that maps events to other events. This is
 useful for proxying browser events to more meaningful custom events.
 
 ```js
+this.on(document, 'dataSent', 'uiRefreshList');
 this.on('click', 'uiComponentClick');
 ```
 
