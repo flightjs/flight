@@ -3,7 +3,9 @@
   "version": "1.5.1",
   "main": "build/flight.js",
   "files": [
-    "build/flight.js"
+    "build/flight.js",
+    "index.js",
+    "lib"
   ],
   "devDependencies": {
     "jscs" : "^1.5.8",
